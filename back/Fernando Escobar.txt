@@ -1,1 +1,1 @@
-Issue #5: creación de API.
+Issue #5: API: se agrega endpoint de categorías.
