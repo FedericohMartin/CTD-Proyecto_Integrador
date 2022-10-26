@@ -16,6 +16,9 @@ const getInitials = (stringChain) => {
 }
     
 function Header(props){
+    const onLocalMenuClicked = () => {
+        props.onMenuParentClicked();
+    }
 
     const navigate = useNavigate()
 
@@ -38,7 +41,7 @@ function Header(props){
                 : <div className={styles.headerItem}>
                     <button type="button" className={`${styles.btn} ${styles.hide}`} data-page="/signup" onClick={goToPage}>Crear cuenta</button>
                     <button type="button" className={`${styles.btn} ${styles.hide}`} data-page="/login" onClick={goToPage}>Iniciar sesión</button>
-                    <img src={menuIcon} className={`${styles.btn} ${styles.menuIcon}`} alt="Menu-icon" />
+                    <img onClick={onLocalMenuClicked} src={menuIcon} className={`${styles.btn} ${styles.menuIcon}`} alt="Menu-icon" />
                 </div>}
         </header>
     )    
