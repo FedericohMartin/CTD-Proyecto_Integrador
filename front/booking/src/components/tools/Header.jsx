@@ -3,6 +3,7 @@ import logo from '../../img/logo-1.png'
 import menuIcon from '../../img/menu-i.png'
 import styles from '../../styles/header.module.css'
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const getInitials = (stringChain) => {
     let arrayOfWords = stringChain.split(" ");
@@ -16,6 +17,13 @@ const getInitials = (stringChain) => {
     
 function Header(props){
 
+    const navigate = useNavigate()
+
+    const goToPage = (e) => {
+        const targetPage = e.currentTarget.dataset.page;
+        navigate(targetPage);
+     }
+
     return(
         <header className={styles.headerContainer}>
             <div className={styles.headerItem}>
@@ -28,8 +36,8 @@ function Header(props){
                     <div id={styles.avatar}>{getInitials(props.user)}</div>
                     </div> 
                 : <div className={styles.headerItem}>
-                    <button type="button" className={`${styles.btn} ${styles.hide}`}>Crear cuenta</button>
-                    <button type="button" className={`${styles.btn} ${styles.hide}`}>Iniciar sesión</button>
+                    <button type="button" className={`${styles.btn} ${styles.hide}`} data-page="/signup" onClick={goToPage}>Crear cuenta</button>
+                    <button type="button" className={`${styles.btn} ${styles.hide}`} data-page="/login" onClick={goToPage}>Iniciar sesión</button>
                     <img src={menuIcon} className={`${styles.btn} ${styles.menuIcon}`} alt="Menu-icon" />
                 </div>}
         </header>
