@@ -1,4 +1,5 @@
 .bodyContainer{
-    background-color: #FFFBE2;
+    background-color: rgb(255, 251, 226, 0.1);
     height: 100vh;
+    position: relative;
 }

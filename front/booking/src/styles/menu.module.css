@@ -1,6 +1,6 @@
 
 .container {
-    background-color: #FFFBE2;
+    background-color: rgb(255,255,252);
     position: fixed;
     right: 0;
     z-index: 1100;
@@ -48,6 +48,7 @@
 
 .menuFooter{
     align-items: center;
+    background-color: rgb(255,255,252);
     bottom: 0;
     display: flex;
     justify-content: flex-end;

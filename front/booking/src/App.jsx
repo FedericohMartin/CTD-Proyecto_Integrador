@@ -4,6 +4,7 @@ import Header from './components/tools/Header';
 import Footer from './components/tools/Footer';
 import homeStyles from './styles/home.module.css'
 import Login from './components/Login';
+import Register from './components/Register';
 import Menu from './components/tools/Menu';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -30,6 +31,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home onGParentCloseClicked= {onCloseClicked} show={hideMenu}/>}> </Route>
             <Route path='/login' element={<Login/>}></Route>
+            <Route path='/signup' element={<Register/>}></Route>
           </Routes>
           <Footer></Footer>
         </BrowserRouter>
