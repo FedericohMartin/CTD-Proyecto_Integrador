@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+
+.searchbox{
+    background-color: #607D8B; 
+    color: #ffff;
+    text-align: center;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchbox h1 {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.buttonSearch {
+    width: 206px;
+    height: 40px;
+    font-size: 16px;
+    background: #FBC02D;
+    box-shadow: 0px 0px 1px #000;
+    border-radius: 5px;
+    border: none;
+    color: #FFFFFF;
+    margin-left: 10px;
+}
+
+.buttonSearch:hover {
+    cursor: pointer;
+    color: #FFFFFF;
+    background: #fcb400;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container .icon {
+    color: grey;
+}
+
+
+.formCities {
+    font-family: 'Poppins', 'Font Awesome 5 Free';
+    font-weight: 600;
+}
+
+.container input {
+    width: 900px;
+    background-color: white; 
+    color: gray;
+}
+
+.inputSearch {
+    font-size: 14px;
+    color: #7F7F7F;
+    width: 450px;
+    padding: 10px;
+    border-radius: 5px;
+    border-style: none;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding-left: 40px;
+}
+
+.inputSearch option {
+    padding-top: 50px;
+}
+
+.selected {
+    display: none;
+    color: #FBC02D;
+}
+
+.formCities select {
+    background-image: url("../img/iconLocation.svg");
+    background-repeat: no-repeat;
+    background-position: 10px 9px;
+}
+
+.formCities select::-ms-expand{
+    display: none;
+}
+
+
+
+/*---MOBILE---*/
+@media screen and (max-width: 550px)  {
+.searchbox {
+    height: 240px;
+    padding: 10px;
+    width: 100%;
+}
+
+.searchbox h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    line-height: 30px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+} 
+
+.inputSearch {
+    width: 254px;
+    margin-bottom: 5%;
+}
+
+.buttonSearch{
+    width: 254px;
+    margin-top: 3%;
+    margin-left: 0px;
+}
+
+
+} 
+
+/*---TABLET---*/
+@media screen and (min-width:551px) and (max-width: 1024px){
+.searchbox {
+    min-width: 120px;
+    max-height: 150px;
+}
+
+.searchbox h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    line-height: 15px;
+}
+
+.inputSearch {
+    width: 90%;
+}
+.buttonSearch{
+    width: 20%;
+}
+
+} 
+  
