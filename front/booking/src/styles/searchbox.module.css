@@ -38,6 +38,11 @@
     background: #fcb400;
 }
 
+.calendar {
+    height: 100%;
+    width: 100%;
+}
+
 .container {
     display: flex;
     flex-direction: row;
@@ -96,7 +101,7 @@
 
 
 
-/*--- Responive: MOBILE ---*/
+/*--- Responsive: Mobile ---*/
 @media screen and (min-device-width: 320px) and (max-device-width: 568px){
     .searchbox {
         height: 26vh;
@@ -138,56 +143,47 @@
     }
 } 
 
-/*--- Responive: Mobile Landscape---*/
-@media screen and (min-device-width: 320px) and (max-device-width: 568px){
+/*--- Responsive: Tablet Portrait---*/
+@media screen and (min-width:551px) and (max-width: 768px){
     .searchbox {
-        height: 26vh;
+        height: 9vh;
         width: 100vw;
-        padding-top: 13vh;
+        padding-top: 10vh;
         padding-bottom: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
     }
-
+    
     .searchbox h1 {
-        font-size: 1.4rem;
-        margin-bottom: 0.7rem;
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
         line-height: 1.4rem;
     }
-
+    
     .container {
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
+        margin-bottom: .9rem;
     } 
-
+    
     .inputSearch {
-        width: 93vw;
-        height: 6vh;
-        margin-bottom: 4%;
+        width: 30vw;
+        height: 3rem;
     }
-
+    
     .buttonSearch{
-        width: 93vw;
-        height: 5.6vh;
-        margin-top: 3%;
-        margin-left: 0px;
-        margin-bottom: .5rem;
+        width: 20vw;
+        height: 3rem;
     }
-} 
+}
 
-/*--- Responsive: Tablet ---*/
-@media screen and (min-width:551px) and (max-width: 1024px){
+/*--- Responsive: Tablet Landscape---*/
+@media screen and (min-width:769px) and (max-width: 1024px){
     .searchbox {
-        height: 15vh;
+        height: 10vh;
         width: 100vw;
         padding-top: 13vh;
         padding-bottom: 1.5rem;
-   
     }
     
     .searchbox h1 {
@@ -201,20 +197,17 @@
         justify-content: center;
         align-items: center;
         text-align: center;
+        margin-bottom: .9rem;
     } 
     
     .inputSearch {
-        width: 93vw;
-        height: 6vh;
-        margin-bottom: 4%;
+        width: 30vw;
+        height: 3rem;
     }
     
     .buttonSearch{
-        width: 93vw;
-        height: 5.6vh;
-        margin-top: 3%;
-        margin-left: 0px;
-        margin-bottom: .5rem;
+        width: 20vw;
+        height: 3rem;
     }
-    }
+}
 
