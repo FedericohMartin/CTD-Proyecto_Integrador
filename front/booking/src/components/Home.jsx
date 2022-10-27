@@ -1,12 +1,13 @@
 import React from "react";
-import Body from "./tools/Body";
-import Searchbox from "./tools/Searchbox"
+import styles from "../styles/home.module.css"
+import Searchbox from "./tools/Searchbox";
 
 function Home(){
 
     return(
-            <Body>
-            </Body>
+        <div className={styles.container}>
+            <Searchbox></Searchbox>
+        </div>
     )
 }
 
