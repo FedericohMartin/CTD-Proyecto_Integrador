@@ -2,8 +2,11 @@
 
 .searchbox{
     background-color: #607D8B; 
+    width: 100vw;
+    height: 19.5849vh;
     color: #ffff;
     text-align: center;
+    padding-top: 6vh;
     padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
@@ -12,20 +15,21 @@
 }
 
 .searchbox h1 {
-    font-size: 35px;
+    font-size: 2.5rem;
     font-weight: bold;
 }
 
 .buttonSearch {
-    width: 206px;
-    height: 40px;
-    font-size: 16px;
+    width: 10vw;
+    height: 4.4vh;
+    font-size: 1rem;
+    font-weight: bold;
     background: #FBC02D;
-    box-shadow: 0px 0px 1px #000;
+    box-shadow: 0 0 .1rem #000;
     border-radius: 5px;
     border: none;
     color: #FFFFFF;
-    margin-left: 10px;
+    margin-left: .5rem;
 }
 
 .buttonSearch:hover {
@@ -48,24 +52,27 @@
 .formCities {
     font-family: 'Poppins', 'Font Awesome 5 Free';
     font-weight: 600;
+    max-height: 100vh;
 }
 
 .container input {
     width: 900px;
     background-color: white; 
-    color: gray;
+    color: gray;   
 }
 
 .inputSearch {
     font-size: 14px;
     color: #7F7F7F;
-    width: 450px;
+    width: 30vw;
+    height: 4.4vh;
     padding: 10px;
     border-radius: 5px;
     border-style: none;
-    margin-left: 8px;
-    margin-right: 8px;
-    padding-left: 40px;
+    box-shadow: 0 0 .1rem #000;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-left: 2rem;
 }
 
 .inputSearch option {
@@ -80,7 +87,7 @@
 .formCities select {
     background-image: url("../img/iconLocation.svg");
     background-repeat: no-repeat;
-    background-position: 10px 9px;
+    background-position: .7rem .5rem;
 }
 
 .formCities select::-ms-expand{
@@ -89,62 +96,125 @@
 
 
 
-/*---MOBILE---*/
-@media screen and (max-width: 550px)  {
-.searchbox {
-    height: 240px;
-    padding: 10px;
-    width: 100%;
-}
+/*--- Responive: MOBILE ---*/
+@media screen and (min-device-width: 320px) and (max-device-width: 568px){
+    .searchbox {
+        height: 26vh;
+        width: 100vw;
+        padding-top: 13vh;
+        padding-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-.searchbox h1 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    line-height: 30px;
-}
+    .searchbox h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.7rem;
+        line-height: 1.4rem;
+    }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    } 
+
+    .inputSearch {
+        width: 93vw;
+        height: 6vh;
+        margin-bottom: 4%;
+    }
+
+    .buttonSearch{
+        width: 93vw;
+        height: 5.6vh;
+        margin-top: 3%;
+        margin-left: 0px;
+        margin-bottom: .5rem;
+    }
 } 
 
-.inputSearch {
-    width: 254px;
-    margin-bottom: 5%;
-}
+/*--- Responive: Mobile Landscape---*/
+@media screen and (min-device-width: 320px) and (max-device-width: 568px){
+    .searchbox {
+        height: 26vh;
+        width: 100vw;
+        padding-top: 13vh;
+        padding-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-.buttonSearch{
-    width: 254px;
-    margin-top: 3%;
-    margin-left: 0px;
-}
+    .searchbox h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.7rem;
+        line-height: 1.4rem;
+    }
 
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    } 
 
+    .inputSearch {
+        width: 93vw;
+        height: 6vh;
+        margin-bottom: 4%;
+    }
+
+    .buttonSearch{
+        width: 93vw;
+        height: 5.6vh;
+        margin-top: 3%;
+        margin-left: 0px;
+        margin-bottom: .5rem;
+    }
 } 
 
-/*---TABLET---*/
+/*--- Responsive: Tablet ---*/
 @media screen and (min-width:551px) and (max-width: 1024px){
-.searchbox {
-    min-width: 120px;
-    max-height: 150px;
-}
+    .searchbox {
+        height: 15vh;
+        width: 100vw;
+        padding-top: 13vh;
+        padding-bottom: 1.5rem;
+   
+    }
+    
+    .searchbox h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.7rem;
+        line-height: 1.4rem;
+    }
+    
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    } 
+    
+    .inputSearch {
+        width: 93vw;
+        height: 6vh;
+        margin-bottom: 4%;
+    }
+    
+    .buttonSearch{
+        width: 93vw;
+        height: 5.6vh;
+        margin-top: 3%;
+        margin-left: 0px;
+        margin-bottom: .5rem;
+    }
+    }
 
-.searchbox h1 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    line-height: 15px;
-}
-
-.inputSearch {
-    width: 90%;
-}
-.buttonSearch{
-    width: 20%;
-}
-
-} 
-  
