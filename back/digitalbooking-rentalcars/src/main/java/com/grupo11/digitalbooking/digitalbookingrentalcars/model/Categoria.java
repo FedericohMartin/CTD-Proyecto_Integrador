@@ -4,21 +4,21 @@ import lombok.*;
 
 import javax.persistence.*;
 
-//Create the table "categories" in the db
+//Crear la tabla "categorias" en la db
 @ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
-//Name of the table in the db
+//Nombre de la tabla en la db
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "categorias")
+public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCategories;
-    private String title;
-    private String description;
-    private String imgUrl;
+    private Integer id;
+    private String titulo;
+    private String descripcion;
+    private String urlImg;
 }

@@ -11,7 +11,7 @@ function Footer(){
     return(
         <footer className={styles.footerContainer}>
             <div className={styles.footerItem}>©2021 Digital Booking</div>
-            <div className={`${styles.footerItem} ${styles.hide} ${styles.tablet}`} style={{marginRight: "1.1875rem"}}>
+            <div className={`${styles.footerItem} ${styles.hide}`} style={{marginRight: "1.1875rem"}}>
                 <Link to={"/"}><img src={iconFB} alt="Facebook icon" /></Link>
                 <Link to={"/"}><img src={iconIG} alt="Instagram icon" /></Link>
                 <Link to={"/"}><img src={iconLI} alt="Linkedin icon" /></Link>

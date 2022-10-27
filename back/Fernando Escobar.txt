@@ -1,1 +1,0 @@
-Issue #5: API: se agrega endpoint de categorías.
