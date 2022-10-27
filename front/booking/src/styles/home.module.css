@@ -9,7 +9,12 @@
     transform: translate3d(100%, 0px, 0px)
 }
 
-
 .darken{
     transform: none
-}    
+}   
+
+.container{
+    background-color: rgb(255, 251, 226, 0.1);
+    height: 100vh;
+    position: relative;
+}
