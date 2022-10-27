@@ -16,7 +16,8 @@
 }
 
 .react-datepicker__input-container input {
-    width: 450px;
+    width: 30vw;
+    height: 2.2vh;
     border-radius: 5px;
     padding: 10px;
     padding-left: 40px;
@@ -248,17 +249,34 @@
 
 @media screen and (max-width: 550px)  {
     .react-datepicker-wrapper{
-        width: 254px;
+        width: 93vw;
     }
 
     .react-datepicker__input-container  {
-        width: 254px;
+        width: 93vw;
     }
     
     .react-datepicker__input-container input {
-        width: 254px;
+        width: 93vw;
     }
     
+}
+
+/*---Responsive: Mobile ---*/
+@media screen and (max-width: 550px){
+    .react-datepicker-wrapper{
+        width: 100vw;
+    }
+
+    .react-datepicker__input-container  {
+        width: 100vw;
+    }
+
+    .react-datepicker__input-container input {
+        width: 80vw;
+        height: 3vh;
+        margin-bottom: 0.15em;
+    }
 }
 
 /*---Responsive: Tablet ---*/

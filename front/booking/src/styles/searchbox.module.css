@@ -2,8 +2,11 @@
 
 .searchbox{
     background-color: #607D8B; 
+    width: 100vw;
+    height: 19.5849vh;
     color: #ffff;
     text-align: center;
+    padding-top: 6vh;
     padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
@@ -17,8 +20,8 @@
 }
 
 .buttonSearch {
-    width: 206px;
-    height: 40px;
+    width: 10vw;
+    height: 4.4vh;
     font-size: 16px;
     background: #FBC02D;
     box-shadow: 0px 0px 1px #000;
@@ -59,7 +62,8 @@
 .inputSearch {
     font-size: 14px;
     color: #7F7F7F;
-    width: 450px;
+    width: 30vw;
+    height: 4.4vh;
     padding: 10px;
     border-radius: 5px;
     border-style: none;
@@ -92,15 +96,21 @@
 /*---MOBILE---*/
 @media screen and (max-width: 550px)  {
 .searchbox {
-    height: 240px;
-    padding: 10px;
-    width: 100%;
+    height: 26vh;
+    width: 100vw;
+    padding-top: 12vh;
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .searchbox h1 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    line-height: 30px;
+    font-size: 1.4em;
+    margin-top: 1em;
+    margin-bottom: 0.25em;
+    line-height: 1.4em;
 }
 
 .container {
@@ -112,23 +122,24 @@
 } 
 
 .inputSearch {
-    width: 254px;
-    margin-bottom: 5%;
+    width: 93vw;
+    height: 6vh;
+    margin-bottom: 4%;
 }
 
 .buttonSearch{
-    width: 254px;
+    width: 93vw;
+    height: 5.6vh;
     margin-top: 3%;
     margin-left: 0px;
+    margin-bottom: .5em;
 }
-
-
 } 
 
 /*---TABLET---*/
 @media screen and (min-width:551px) and (max-width: 1024px){
 .searchbox {
-    min-width: 120px;
+    width: 100vw;
     max-height: 150px;
 }
 
@@ -145,6 +156,56 @@
 .buttonSearch{
     width: 20%;
 }
-
 } 
   
+
+/*sabri medias*/
+
+
+@media screen and (max-width:550px) {
+    .registerContainer .registerMobile{
+        width: 72.4638vw;
+    }
+
+    .registerContainer .registerMobile div{
+        width: 33.2319vw;
+    }
+
+    .registerContainer .registerMobile input{
+        width: 100%;
+    }
+
+    .registerContainer .registerMobile label{
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 453px) {
+    .registerContainer .registerMobile{
+        width: 72.4638vw;
+    }
+
+    .registerContainer .nameContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 72.4638vw;
+    }
+
+    .registerContainer .nameContainer input{
+        width: 72.4638vw;
+    }
+}
+@media screen and (max-height: 668px) {
+    .registerContainer{
+        padding: 10vh 0 10vh 0;
+    }
+}
+
+@media screen and (max-height: 520px){
+    .registerContainer{
+        padding: 42vh 0 42vh 0;
+    }
+}
+
