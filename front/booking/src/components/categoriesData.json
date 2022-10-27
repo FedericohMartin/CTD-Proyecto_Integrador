@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Pequeño",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjnmn8xhGyoj3PpcWRfUFtvvXVf3QcxGcYmw&usqp=CAU",
+        "description": "Vehiculos compactos"
+    },
+    {
+        "title": "Mediano",
+        "image": "https://cdn.wallpapersafari.com/38/79/Ym1EBj.jpg",
+        "description": "Vehiculos deportivos"
+    },
+    {
+        "title": "Grande",
+        "image": "https://wc.wallpaperuse.com/wallp/67-672273_s.jpg",
+        "description": "Vehiculos familiares"
+    },
+    {
+        "title": "De campo",
+        "image": "https://www.wallpaperuse.com/wallp/31-315137_m.jpg",
+        "description": "Vehiculos para vias destapadas"
+    }
+]
