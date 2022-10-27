@@ -7,15 +7,13 @@ import {argCities} from "../../data/cities"
 
 function Searchbox(){
 
-    const [startDate, setStartDate] = useState(new Date());
-
     return(
         <div className={styles.searchbox}>
             <h1>Busca ofertas en Automoviles</h1>
             
             <form id="form" className={styles.container}>
                 <div className={styles.formCities}>
-                    <select className={styles.inputSearch} id="citys" data-testid="custom-element">
+                    <select className={styles.inputSearch} id="cities">
                         <option id="title" className={styles.selected} value='null'>
                             ¿En cuál ciudad querés pistear?
                         </option>
@@ -26,7 +24,7 @@ function Searchbox(){
 
                     </select>
                 </div>
-                <Calendar/>
+                <Calendar className={styles.calendar}/>
 
                 <button className={styles.buttonSearch} type="submit">
                     Buscar
