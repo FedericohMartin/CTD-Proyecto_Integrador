@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "../../styles/categories.module.css";
-import category from "../categoriesData.json";
-import products from "../cardElements.json";
+import category from "../../data/categoriesData.json";
+import products from "../../data/cardElements.json";
 import Card from "./Card";
 
 
