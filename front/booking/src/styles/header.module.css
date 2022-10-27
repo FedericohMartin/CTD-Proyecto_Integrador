@@ -7,6 +7,7 @@
     height: 5rem;
     width: 100%;
     position: fixed;
+    z-index: 1000;
 }
 
 .headerItem{
@@ -79,7 +80,7 @@
     }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 453px) {
     .hide{
         display: none;
     }

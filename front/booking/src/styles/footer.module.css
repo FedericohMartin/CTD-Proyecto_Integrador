@@ -25,7 +25,16 @@
     width: 1.75rem;
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 550px) {
+    .footerContainer .tablet{
+        max-width: 40%;
+    }
+    .footerContainer .tablet img{
+        margin: 0 1.5rem 0 0;
+    }
+}
+
+@media screen and (max-width: 453px) {
     .footerItem{
         align-items: center;
         display: flex;
