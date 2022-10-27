@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 //Request to the db 
 @RestController
 @RequestMapping("/categories")
-// @CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -20,7 +20,7 @@ public class CategoryController {
     public ResponseEntity<Object> addCategory(@RequestBody Category category){
         return ResponseHandler.generateResponse("The category has been added successfully", HttpStatus.OK,categoryService.addCategory(category));
     }
-    //    @CrossOrigin(origins = "http://localhost:3000")
+
     @GetMapping("/{id}")
     public ResponseEntity<Object> searchCategory (@PathVariable Integer id){
         ResponseEntity<Object> response=null;
@@ -56,7 +56,7 @@ public class CategoryController {
         }
         return response;
     }
-    //    @CrossOrigin(origins = "http://localhost:3000")
+
     @GetMapping()
     public ResponseEntity<Object> listCategories(){
         return ResponseHandler.generateResponse("List of all categories", HttpStatus.OK, categoryService.listCategories());
