@@ -24,7 +24,7 @@ function Card(props) {
           <div className={style.iconBox}>
             <p className={style.category}>{props.category}</p>
           </div>
-          <p className={style.location}></p>
+          <p className={style.location}>{props.location}</p>
           <p className={style.title}>{props.title}</p>
           <p className={style.description}>{props.description}</p>
           <button
