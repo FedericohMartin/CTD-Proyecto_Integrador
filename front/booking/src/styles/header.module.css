@@ -39,6 +39,12 @@
     border-radius: 100%;
     color: #FFFFFF;
     padding: 1rem;
+    margin: 0 1rem 0.5rem -4rem;
+}
+
+.headerContainer .logoutIcon{
+    color: #545776;
+    cursor: pointer;
 }
 
 .headerItem div{

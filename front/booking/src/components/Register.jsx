@@ -35,8 +35,8 @@ function Register(){
                 <div>
                 <input type={showPass ? 'text' : 'password'} id="passwordConfirm" className={styles.registerMobile} name="passwordConfirm"/>
                 </div>
-                <button type="button" className={styles.registerMobile}>Ingresar</button>
-                <span className={styles.registerMobile}>¿Ya tienes una cuenta? <Link to={"/signup"}>Iniciar sesión</Link></span>
+                <button type="button" className={styles.registerMobile}>Crear cuenta</button>
+                <span className={styles.registerMobile}>¿Ya tienes una cuenta? <Link to={"/login"}>Iniciar sesión</Link></span>
             </form>
         </div>
     )
