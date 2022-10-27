@@ -141,7 +141,7 @@
     }
 }
 
-@media screen and (max-height: 520px){
+@media screen and (max-height: 567px){
     .registerContainer{
         padding: 42vh 0 42vh 0;
     }

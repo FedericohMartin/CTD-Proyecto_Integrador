@@ -83,8 +83,28 @@
     width: 1.5rem;
 }
 
+.loginContainer .warning{
+    color: crimson;
+    margin: 0 0  1.0625rem 0;
+    text-align: left;
+    width: 32.7965vw;
+}
+
+.loginContainer span.loginFail{
+    margin-top: 1.0625rem;
+    text-align: center;
+}
+
+.loginContainer .borderWarning{
+    box-shadow: 0rem 0.0625rem 0.6rem rgba(209, 18, 18, 0.925);
+}
+
 @media screen and (max-width: 550px) {
     .loginContainer .loginMobile{
+        width: 72.4638vw;
+    }
+
+    .loginContainer .warning{
         width: 72.4638vw;
     }
 
@@ -94,4 +114,5 @@
     .loginContainer{
         padding: 42vh 0 42vh 0;
     }
+
 }

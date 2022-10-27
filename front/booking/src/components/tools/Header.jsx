@@ -2,6 +2,7 @@ import React from "react";
 import logo from '../../img/logo-1.png'
 import menuIcon from '../../img/menu-i.png'
 import styles from '../../styles/header.module.css'
+import {FaRegWindowClose} from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +21,10 @@ function Header(props){
         props.onMenuParentClicked();
     }
 
+    const onLocalLogoutClicked = () => {
+        props.onParentLogoutClicked();
+    }
+
     const navigate = useNavigate()
 
     const goToPage = (e) => {
@@ -33,10 +38,11 @@ function Header(props){
                 <Link to={"/"}><img src={logo} alt="Logo" /></Link>
                 <Link to={"/"} style={{ textDecoration: 'none' }}><div className={`${styles.hide} ${styles.hideT}`}>Some awesome slogan</div></Link>
             </div>
-            {props.user 
+            {props.user.name 
                 ? <div className={styles.headerItem}>
-                    <div className={styles.hide}>{props.user}</div>
-                    <div id={styles.avatar}>{getInitials(props.user)}</div>
+                    <div className={styles.hide}>{`Hola, ${props.user?.name} ${props.user?.lastName}`}</div>
+                    <div id={styles.avatar}>{getInitials(`${props.user?.name} ${props.user?.lastName}`)}</div>
+                    <FaRegWindowClose className={styles.logoutIcon} onClick={onLocalLogoutClicked} />
                     </div> 
                 : <div className={styles.headerItem}>
                     <button type="button" className={`${styles.btn} ${styles.hide}`} data-page="/signup" onClick={goToPage}>Crear cuenta</button>
