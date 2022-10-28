@@ -39,11 +39,12 @@ function Header(props){
                 <Link to={"/"} style={{ textDecoration: 'none' }}><div className={`${styles.hide} ${styles.hideT}`}>Some awesome slogan</div></Link>
             </div>
             {props.user.name 
-                ? <div className={styles.headerItem}>
-                    <div className={styles.hide}>{`Hola, ${props.user?.name} ${props.user?.lastName}`}</div>
-                    <div id={styles.avatar}>{getInitials(`${props.user?.name} ${props.user?.lastName}`)}</div>
-                    <FaRegWindowClose className={styles.logoutIcon} onClick={onLocalLogoutClicked} />
-                    </div> 
+                ? <div className={styles.nameItem}>
+                    <div className={styles.hide} id={styles.avatar}>{getInitials(`${props.user?.name} ${props.user?.lastName}`)}</div>
+                    <div className={styles.hide}>Hola, <br/> <span>{` ${props.user?.name} ${props.user?.lastName}`}</span></div>
+                    <FaRegWindowClose className={`${styles.logoutIcon} ${styles.hide}`} onClick={onLocalLogoutClicked} />
+                    <img onClick={onLocalMenuClicked} src={menuIcon} className={`${styles.btn} ${styles.menuIcon}`} alt="Menu-icon" />
+                  </div> 
                 : <div className={styles.headerItem}>
                     <button type="button" className={`${styles.btn} ${styles.hide}`} data-page="/signup" onClick={goToPage}>Crear cuenta</button>
                     <button type="button" className={`${styles.btn} ${styles.hide}`} data-page="/login" onClick={goToPage}>Iniciar sesión</button>
