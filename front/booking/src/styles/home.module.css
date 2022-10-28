@@ -22,3 +22,9 @@
     width: 100vw;
     position: fixed;
 }
+
+@media screen and (min-width: 453px) {
+    .disableMenu{
+        display: none;
+    }
+}

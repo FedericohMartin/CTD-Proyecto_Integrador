@@ -50,8 +50,8 @@ function App() {
       
         <BrowserRouter>
           <Header user={authUser} onMenuParentClicked={onMenuClicked} onParentLogoutClicked={onLogoutClicked}></Header>
-          <div onClick={onCloseClicked} className={`${homeStyles.opacity} ${!hideMenu && homeStyles.darken}`}></div>  
-          <Menu onParentCloseClicked={onCloseClicked} show={hideMenu}></Menu>
+          <div onClick={onCloseClicked} className={`${homeStyles.opacity} ${!hideMenu && homeStyles.darken} ${homeStyles.disableMenu}`}></div>  
+          <Menu onParentCloseClicked={onCloseClicked} show={hideMenu} user={authUser}></Menu>
           <Routes>
             <Route path="/" element={<Home onGParentCloseClicked= {onCloseClicked} show={hideMenu}/>}> </Route>
             <Route path='/login' element={<Login onParentSubmitClicked={onLoginClicked} user={authUser}/>}></Route>
