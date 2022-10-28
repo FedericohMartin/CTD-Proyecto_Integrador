@@ -18,7 +18,7 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<Object> addCategory(@RequestBody Category category){
-        return ResponseHandler.generateResponse("The category has been added successfully", HttpStatus.OK,categoryService.addCategory(category));
+        return ResponseHandler.generateResponse("The category has been added successfully", HttpStatus.CREATED,categoryService.addCategory(category));
     }
 
     @GetMapping("/{id}")
@@ -50,7 +50,7 @@ public class CategoryController {
 
         if (categoryService.searchCategory(id).isPresent()) {
             categoryService.deleteCategory(id);
-            response = ResponseHandler.generateResponse("Deleted category", HttpStatus.OK, null);
+            response = ResponseHandler.generateResponseNoContent();
         }else {
             response = ResponseHandler.generateResponse("Category NOT found", HttpStatus.NOT_FOUND, null);
         }
