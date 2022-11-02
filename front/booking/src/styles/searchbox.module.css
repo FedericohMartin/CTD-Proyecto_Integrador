@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+
+.searchbox{
+    background-color: #607D8B; 
+    width: 100vw;
+    height: 19.5849vh;
+    color: #ffff;
+    text-align: center;
+    padding-top: 6vh;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchbox h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.buttonSearch {
+    width: 10vw;
+    height: 4.4vh;
+    font-size: 1rem;
+    font-weight: bold;
+    background: #FBC02D;
+    box-shadow: 0 0 .1rem #000;
+    border-radius: 5px;
+    border: none;
+    color: #FFFFFF;
+    margin-left: .5rem;
+}
+
+.buttonSearch:hover {
+    cursor: pointer;
+    color: #FFFFFF;
+    background: #fcb400;
+}
+
+.calendar {
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container .icon {
+    color: grey;
+}
+
+
+.formCities {
+    font-family: 'Poppins', 'Font Awesome 5 Free';
+    font-weight: 600;
+    max-height: 100vh;
+}
+
+.container input {
+    width: 900px;
+    background-color: white; 
+    color: gray;   
+}
+
+.inputSearch {
+    font-size: 14px;
+    color: #7F7F7F;
+    width: 30vw;
+    height: 4.4vh;
+    padding: 10px;
+    border-radius: 5px;
+    border-style: none;
+    box-shadow: 0 0 .1rem #000;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-left: 2rem;
+}
+
+.inputSearch option {
+    padding-top: 50px;
+}
+
+.selected {
+    display: none;
+    color: #FBC02D;
+}
+
+.formCities select {
+    background-image: url("../img/iconLocation.svg");
+    background-repeat: no-repeat;
+    background-position: .7rem .5rem;
+}
+
+.formCities select::-ms-expand{
+    display: none;
+}
+
+
+
+/*--- Responsive: Mobile ---*/
+@media screen and (min-device-width: 320px) and (max-device-width: 568px){
+    .searchbox {
+        height: 26vh;
+        width: 100vw;
+        padding-top: 13vh;
+        padding-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .searchbox h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.7rem;
+        line-height: 1.4rem;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    } 
+
+    .inputSearch {
+        width: 93vw;
+        height: 6vh;
+        margin-bottom: 4%;
+    }
+
+    .buttonSearch{
+        width: 93vw;
+        height: 5.6vh;
+        margin-top: 3%;
+        margin-left: 0px;
+        margin-bottom: .5rem;
+    }
+} 
+
+/*--- Responsive: Tablet Portrait---*/
+@media screen and (min-width:551px) and (max-width: 768px){
+    .searchbox {
+        height: 9vh;
+        width: 100vw;
+        padding-top: 10vh;
+        padding-bottom: 1.5rem;
+    }
+    
+    .searchbox h1 {
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
+        line-height: 1.4rem;
+    }
+    
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-bottom: .9rem;
+    } 
+    
+    .inputSearch {
+        width: 30vw;
+        height: 3rem;
+    }
+    
+    .buttonSearch{
+        width: 20vw;
+        height: 3rem;
+    }
+}
+
+/*--- Responsive: Tablet Landscape---*/
+@media screen and (min-width:769px) and (max-width: 1024px){
+    .searchbox {
+        height: 10vh;
+        width: 100vw;
+        padding-top: 13vh;
+        padding-bottom: 1.5rem;
+    }
+    
+    .searchbox h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.7rem;
+        line-height: 1.4rem;
+    }
+    
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-bottom: .9rem;
+    } 
+    
+    .inputSearch {
+        width: 30vw;
+        height: 3rem;
+    }
+    
+    .buttonSearch{
+        width: 20vw;
+        height: 3rem;
+    }
+}
+
