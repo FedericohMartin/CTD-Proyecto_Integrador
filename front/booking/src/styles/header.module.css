@@ -1,0 +1,108 @@
+.headerContainer{
+    align-items: center;
+    background: #FFFFFF;
+    box-shadow: 1.25rem 0 3.125rem -2rem grey;
+    display: flex;
+    justify-content: space-between;
+    height: 5rem;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+}
+
+.headerItem{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0.50rem 0 0 0.75rem;
+    min-width: 25%;  
+}
+
+.nameItem{
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 1.5rem 0 0;
+    min-width: 25%; 
+}
+
+.nameItem div{
+    color: #545776;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 300;
+    margin: 0 1.5rem 0rem 0;
+    text-align: left;
+}
+
+.nameItem span{
+    color: #FBC02D;
+    font-size: 1rem;
+}
+
+#avatar{
+    background-color: #263238;
+    border-radius: 100%;
+    color: #FFFFFF;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+}
+
+.headerContainer .logoutIcon{
+    color: #545776;
+    cursor: pointer;
+}
+
+.headerItem div{
+    color: #545776;
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 300;
+    margin: 1rem 5rem 0rem 0.75rem;
+}
+
+.headerItem button{
+    background: #FFFFFF;
+    border: 1px solid #FBC02D;
+    border-radius: 0.3125rem;
+    color: #FBC02D;
+    font-family: 'Poppins';
+    font-size: 1rem;
+    font-weight: 700;
+    height: 2.5rem;
+    margin: 0.75rem 0.75rem 0 0;
+    width: 12.875rem;
+}
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.menuIcon{
+    display: none;
+}
+
+
+@media screen and (max-width: 720px) {
+    .hideT{
+        display: none;
+    }
+    .headerContainer{
+        max-height: 5.8125rem;
+    }
+}
+
+@media screen and (max-width: 453px) {
+    .hide{
+        display: none;
+    }
+    .menuIcon{
+        display: flex;
+        height: 0.75rem;
+        width: 1.55rem;
+    }
+    .headerContainer{
+        box-shadow: 0rem 0.125rem 0.25rem rgba(0, 0, 0, 0.14), 0rem 0.25rem 0.3125rem rgba(0, 0, 0, 0.12), 0rem 0.0625rem 0.625rem rgba(0, 0, 0, 0.2);
+        max-height: 5.8125rem;
+    }
+}
