@@ -5,6 +5,7 @@ import Footer from './components/tools/Footer';
 import homeStyles from './styles/home.module.css'
 import Login from './components/Login';
 import Register from './components/Register';
+import Product from './components/Product'
 import Menu from './components/tools/Menu';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -56,6 +57,9 @@ function App() {
             <Route path="/" element={<Home onGParentCloseClicked= {onCloseClicked} show={hideMenu}/>}> </Route>
             <Route path='/login' element={<Login onParentSubmitClicked={onLoginClicked} user={authUser}/>}></Route>
             <Route path='/signup' element={<Register/>}></Route>
+            <Route path='producto'>
+              <Route path=':idProducto' element={<Product/>}></Route>
+            </Route>
           </Routes>
           <Footer></Footer>
         </BrowserRouter>
