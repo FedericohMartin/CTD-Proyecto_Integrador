@@ -2,7 +2,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Category;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.service.CategoryService;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +36,7 @@ public class CategoryController {
     public ResponseEntity<Object> updateCategory(@RequestBody Category category){
         ResponseEntity<Object> response=null;
 
-        if (category.getIdCategories() != null && categoryService.searchCategory(category.getIdCategories()).isPresent())
+        if (category.getId() != null && categoryService.searchCategory(category.getId()).isPresent())
             response = ResponseHandler.generateResponse("The category has been updated successfully", HttpStatus.OK, categoryService.updateCategory(category));
         else
             response = ResponseHandler.generateResponse("Category NOT found",HttpStatus.NOT_FOUND,null);
