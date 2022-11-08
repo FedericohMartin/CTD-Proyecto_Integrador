@@ -1,7 +1,6 @@
-package com.grupo11.digitalbooking.digitalbookingrentalcars.service;
+package com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Category;
-
 import java.util.List;
 import java.util.Optional;
 
