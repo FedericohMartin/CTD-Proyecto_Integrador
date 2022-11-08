@@ -2,6 +2,7 @@ import React from "react";
 import homeStyles from '../styles/home.module.css'
 import styles from '../styles/product.module.css'
 import showIcon from '../img/showPassIcon.png'
+import BookingChart from "./tools/BookingChart";
 import {IoChevronBack} from 'react-icons/io5'
 import {MdLocationOn ,MdAddTask } from 'react-icons/md'
 import {Link} from 'react-router-dom'
@@ -72,6 +73,7 @@ function Product(){
                     </li>
                 </ul>
             </div>
+            <BookingChart ></BookingChart>
             <div className={styles.policy}>
                 <h2 className={styles.title}>Qué tenés que saber</h2>
                 <hr className={styles.separator}/>
