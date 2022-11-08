@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductController {
 
     @Autowired
@@ -25,13 +25,13 @@ public class ProductController {
 
 
     //Ticket Nº 21
-    @GetMapping("/")
+    @GetMapping("/bringAll")
     public ResponseEntity<Object> searchAllProducts(){
         return ResponseHandler.generateResponse("List of all products", HttpStatus.OK, productService.listProduct());
     }
 
 
-    @PostMapping("/")
+    @PostMapping("/addProduct")
     public ResponseEntity<Object> addProduct(@RequestBody ProductDTO productDTO){
         Product product = new Product();
         product.setId(productDTO.getId());
@@ -47,7 +47,7 @@ public class ProductController {
 
 
     //Tickets Nº 15, 16 y 17
-    @GetMapping("/{id}")
+    @GetMapping("/searchProductById/{id}")
     public ResponseEntity<Object> searchProduct(@PathVariable Integer id){
         ResponseEntity<Object> response=null;
 
@@ -60,7 +60,7 @@ public class ProductController {
     }
 
 
-    @PutMapping("/")
+    @PutMapping("/updateProduct")
     public ResponseEntity<Object> updateProduct(@RequestBody ProductDTO productDTO){
         ResponseEntity<Object> response=null;
 
@@ -84,7 +84,7 @@ public class ProductController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteProduct/{id}")
     public ResponseEntity<Object> deleteProduct(@PathVariable Integer id) throws Exception {
         ResponseEntity<Object> response = null;
 

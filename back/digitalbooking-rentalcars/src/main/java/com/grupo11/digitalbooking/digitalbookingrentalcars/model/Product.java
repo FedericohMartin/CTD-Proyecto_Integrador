@@ -34,7 +34,7 @@ public class Product {
     //Ticket Nº 22
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "id_categories")
+    @JoinColumn(name = "categories_id")
     private Category category;
 
     //Ticket Nº 24

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 //Request to the db
 @RestController
 @RequestMapping("/categories")
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
