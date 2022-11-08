@@ -25,6 +25,7 @@ public class Product {
     private Boolean carry_on;
     private Boolean suitcase;
 
+    //Ticket Nº 27
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "cities_id")
