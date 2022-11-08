@@ -77,6 +77,10 @@ ul{
     padding-inline: 0;
 }
 
+.features{
+    box-shadow: 0rem 0.05rem 0.25rem -0.25rem rgba(0, 0, 0, 0.1);
+}
+
 .features ul{
     display: flex;
     flex-wrap: wrap;
@@ -100,6 +104,7 @@ ul{
 }
 
 .policy{
+    box-shadow: 0rem 0.05rem 0.25rem -0.05rem rgba(0, 0, 0, 0.1);
     padding-bottom: 5rem;
     width: 100%;
 }
