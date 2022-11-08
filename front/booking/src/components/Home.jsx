@@ -1,19 +1,16 @@
 import React from "react";
-import styles from '../styles/home.module.css'
-import Header from "./tools/Header";
-import Body from "./tools/Body";
-import Footer from "./tools/Footer";
+import styles from "../styles/home.module.css"
+import Categories from "./tools/Categories";
+import Searchbox from "./tools/Searchbox";
 
 
-function Home(props){
+function Home() {
 
-    return(
-        <>
-            <div className={styles.opacity}></div>
-            <Header user={props.user}></Header>
-            <Body></Body>
-            <Footer></Footer>
-        </>
+    return (
+            <div className={styles.container}>
+                <Searchbox></Searchbox>
+                <Categories></Categories>
+            </div>
     )
 }
 
