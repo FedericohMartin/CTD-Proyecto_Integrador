@@ -1,67 +1,98 @@
-cache:
-  paths:
-    - node_modules
-
 stages:
   - build
-  - run
+  - deploy
 
-variables:
-  DEV_S3_BUCKET: ${BUCKET_DEV}
-  PROD_S3_BUCKET: ${BUCKET_PROD}
-
-.yarn_build-front:
+build project:
+  stage: build
   image: node:18.12.1
-  script: |
-    yarn # Install all dependencies
-    yarn build:${APP_ENV} # Build command
+  script:
+    - cd front/booking
+    - npm install
+    - npm run build
   artifacts:
     paths:
-      - ./front/booking/build
+      - front/booking/build
+
+deploy project:
+  stage: deploy
+  image: 
+    name: amazon/aws-cli
+    entrypoint: [""]
+  script:
+    - pwd
+    - ls
+    - cd /infra/
+    - echo "Deploying front-end app started..."
+    #- ssh -o StrictHostKeyChecking=no ubuntu@15.228.13.234 "sudo systemctl stop consoleapp.service"
+    #- scp -o StrictHostKeyChecking=no /front/booking/build/* ubuntu@15.228.13.234:~/var/www/html/
+    - aws s3 sync /front/booking/build/* s3://$DEV_S3_BUCKET
+    #- ssh -o StrictHostKeyChecking=no ubuntu@15.228.13.234 "sudo systemctl start consoleapp.service"
+    - echo "Finished deploying the frontend app."
+
+# cache:
+#   paths:
+#     - node_modules
+
+# stages:
+#   - build
+#   - run
+
+# variables:
+#   DEV_S3_BUCKET: ${BUCKET_DEV}
+#   PROD_S3_BUCKET: ${BUCKET_PROD}
+
+# .build-front:
+#   image: node:18.12.1
+#   script: |
+#     yarn # Install all dependencies
+#     yarn build:${APP_ENV} # Build command
+#   artifacts:
+#     paths:
+#       - ./front/booking/build
       
-yarn_dev-front:
-  extends: .yarn_build-front
-  stage: build
-  before_script:
-    - export APP_ENV="dev"
-  only:
-    refs:
-      - pipeline_para_CI-CD  # dev
+# build_dev-front:
+#   extends: .build-front
+#   stage: build
+#   before_script:
+#     - export APP_ENV="dev"
+#   only:
+#     refs:
+#       - pipeline_para_CI-CD  # dev
 
-yarn_prod-front:
-  extends: .yarn_build-front
-  stage: build
-  before_script:
-    - export APP_ENV="prod"
-  only:
-    refs:
-      - pipeline_para_CI-CD # main
+# build_prod-front:
+#   extends: .build-front
+#   stage: build
+#   before_script:
+#     - export APP_ENV="prod"
+#   only:
+#     refs:
+#       - pipeline_para_CI-CD # main
 
-.deploy_aws:
-  image: python:latest
-  when: manual
-  script: |
-    pip install awscli #Install awscli tools
-    aws s3 sync ./front/booking/build/ s3://${S3_BUCKET}
+# .deploy_aws:
+#   image: python:latest
+#   when: manual
+#   script: |
+#     pip install awscli #Install awscli tools
+#     aws s3 sync ./front/booking/build/ s3://${S3_BUCKET}
     
-deploy_dev:
-  extends: .deploy_aws
-  stage: run
-  dependencies:
-    - yarn_dev-front
-  before_script:
-    - export S3_BUCKET=${DEV_S3_BUCKET}
-  only:
-    refs:
-      - pipeline_para_CI-CD   # dev
+# deploy_dev:
+#   extends: .deploy_aws
+#   stage: run
+#   dependencies:
+#     - build_dev-front
+#   before_script:
+#     - export S3_BUCKET=${DEV_S3_BUCKET}
+#   only:
+#     refs:
+#       - pipeline_para_CI-CD   # dev
 
-deploy_prod:
-  extends: .deploy_aws
-  stage: run
-  dependencies:
-    - yarn_prod-front
-  before_script:
-    - export S3_BUCKET=${PROD_S3_BUCKET}
-  only:
-    refs:
-      - pipeline_para_CI-CD  # main
+# deploy_prod:
+#   extends: .deploy_aws
+#   stage: run
+#   dependencies:
+#     - build_prod-front
+#   before_script:
+#     - export S3_BUCKET=${PROD_S3_BUCKET}
+#   only:
+#     refs:
+#       - pipeline_para_CI-CD  # main
