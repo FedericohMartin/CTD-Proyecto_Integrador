@@ -24,7 +24,7 @@ public class ProductController {
     private ProductService productService;
 
 
-    //Ticket Nº 21
+    //Ticket Nº 21Search all products
     @GetMapping("/")
     public ResponseEntity<Object> searchAllProducts(){
         return ResponseHandler.generateResponse("List of all products", HttpStatus.OK, productService.listProduct());
