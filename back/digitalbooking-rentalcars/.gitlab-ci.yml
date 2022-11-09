@@ -4,7 +4,7 @@ stages:
 
 build-back:
     stage: build
-    image:  maven:latest
+    image:  maven:3.8.6
     script:
         - echo "Building app..."
         - mvn clean install
