@@ -57,6 +57,9 @@
     margin: 0 2.6875rem;
 }
 
+.description{
+    width: 100%;
+}
 
 .description p{
     font-size: 0.875rem;
@@ -165,7 +168,11 @@ ul{
     }
 }
 
-@media screen and (max-width: 453px) {
+@media screen and (max-width: 453px){
+    .header{
+        min-height: 13vh;
+    }
+
     .header div{
         margin-left: 0.5625rem;
     }
@@ -215,5 +222,11 @@ ul{
 
     .policy div>div, ul, li{
         width: 100%;
+    }
+}
+
+@media screen and (max-height: 453px){
+    .header{
+        min-height: 20vh;
     }
 }
