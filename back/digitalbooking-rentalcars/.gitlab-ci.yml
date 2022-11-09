@@ -4,21 +4,21 @@ stages:
 
 build-back:
     stage: build
-    image:  maven:3.8.6
+    image: maven:3.6.1-jdk-11
     script:
-        - echo "Building app..."
+        - echo "Building backend app..."
         - mvn clean install
-        - echo "Finished building the app."
+        - echo "Finished building the backend app."
     artifacts:
         expire_in: 1 week
         paths:
-            - target/back/digitalbooking-rentalcars/consoleapp.jar
+            - back/digitalbooking-rentalcars/target/consoleapp.jar
     only:
         - pipeline_para_CI-CD  # main
 
 deploy-back:
     stage: deploy
-    image: alpine:3.16
+    image: alpine:3.11
     before_script:
         - apk update && apk add openssh-client bash
         - mkdir -p ~/.ssh
@@ -30,7 +30,7 @@ deploy-back:
     script:
         - echo "Deploying started..."
         - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
-        - scp ./target/back/digitalbooking-rentalcars/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
+        - scp ./back/digitalbooking-rentalcars/target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
         - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
         - echo "Finished deploying the app."
     only:

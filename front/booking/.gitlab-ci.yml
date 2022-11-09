@@ -12,7 +12,7 @@ variables:
 
 .yarn_build-front:
   image: node:18.12.1
-  script: |
+  script: 
     yarn # Install all dependencies
     yarn build:${APP_ENV} # Build command
   artifacts:
