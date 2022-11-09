@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import style from "../../styles/categories.module.css";
 import categoryService from "../../services/categoryService";
-import products from "../../data/cardElements.json";
+import productService from "../../services/productService";
 import Card from "./Card";
 
 
 function Categories() {
     const [categories, setCategories] = useState([])
+    const [products, setProducts] = useState([]);
 
     const categoryMapper = (category) => (
         <div
@@ -19,12 +20,29 @@ function Categories() {
         </div>
     )
 
+    const productMapper = (product) => (
+        <Card
+            key={`product-${product.id}`}
+            img={product.category?.imgUrl}
+            category={product.category?.title === "PequeÃ±o" ? "Pequeño" : product.category?.title}
+            location={`${product.city?.state}, ${product.city?.name}, ${product.city?.country}`}
+            title={product.name}
+            description={product.description}
+        />)
+
     useEffect(() => {
         categoryService
         .getAll()
         .then((response) => {
             setCategories(response.data);
         })
+
+        productService
+        .getAll()
+        .then((response) => {
+            setProducts(response.data);
+        })
+        .catch(error => console.log(error))
     }, []);
 
     return (
@@ -42,15 +60,7 @@ function Categories() {
                     <h2>Recomendaciones</h2>
                 </div>
                 <div className={style.list}>
-                    {products.map((card, index) => (
-                        <Card
-                            key={index}
-                            img={card.image}
-                            category={card.category}
-                            location={card.location}
-                            title={card.title}
-                            description={card.description}
-                        />))}
+                    {products.map(productMapper)}
                 </div>
             </div>
         </>
