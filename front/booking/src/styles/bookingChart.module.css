@@ -92,3 +92,9 @@
         min-height: 75vh;
     }
 }
+
+@media screen and (max-height: 450px) {
+    .chartContainer{
+        min-height: 120vh;
+    }
+}

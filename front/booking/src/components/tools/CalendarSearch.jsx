@@ -40,4 +40,4 @@ const CalendarSearch = ({values, inlineProp, productCalendar}) => {
 
     };
 
-export default CalendarSearch;
+export default React.memo(CalendarSearch);
