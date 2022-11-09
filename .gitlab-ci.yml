@@ -3,6 +3,7 @@ stages:
 
 trigger_front:
   stage: triggers
+  when: manual
   trigger:
     include: front/booking/.gitlab-ci.yml
   rules:
@@ -12,6 +13,7 @@ trigger_front:
 
 trigger_back:
   stage: triggers
+  when: manual
   trigger:
     include: back/digitalbooking-rentalcars/.gitlab-ci.yml
   rules:
