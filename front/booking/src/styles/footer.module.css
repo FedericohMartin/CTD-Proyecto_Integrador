@@ -10,6 +10,7 @@
     height: 3.625rem;
     width: 100%;
     position: fixed;
+    z-index: 1000;
 }
 
 .footerItem{

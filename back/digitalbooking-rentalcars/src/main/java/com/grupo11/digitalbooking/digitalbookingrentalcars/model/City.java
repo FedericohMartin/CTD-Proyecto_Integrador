@@ -1,25 +1,22 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.model;
 
 import lombok.*;
-
 import javax.persistence.*;
 
-//Create the table "categories" in the db
 @ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-//Name of the table in the db
+//Ticket Nº 26
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name="cities")
+public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_categories")
+    @Column(name="id_cities")
     private Integer id;
-    private String title;
-    private String description;
-    private String imgUrl;
+    private String name;
+    private String country;
+    private String state;
 }
