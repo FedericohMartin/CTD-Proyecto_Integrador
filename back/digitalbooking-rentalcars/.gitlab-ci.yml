@@ -2,9 +2,9 @@ stages:
     - build
     - deploy
 
-build:
+build-back:
     stage: build
-    image:  maven:3.6.3-jdk-18
+    image:  maven:3.6.3-jdk-8-slim
     script:
         - echo "Building app..."
         - mvn clean install
@@ -16,7 +16,7 @@ build:
     only:
         - pipeline_para_CI-CD  # main
 
-deploy:
+deploy-back:
     stage: deploy
     image: alpine:3.16
     before_script:
