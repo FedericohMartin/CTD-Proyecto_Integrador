@@ -105,7 +105,7 @@
 
 @media screen and (max-width: 1268px){
     .card {
-        width: 615px;
+        width: 90vw;
     }
     .card_left{
         min-width: 311px;
@@ -130,17 +130,14 @@
         display: flex;
         flex-direction: column;
         border-radius: 10px;
-        width: 310px;
-        height: 370px;
+        width: 90vw;
+        height: 70vh;
         justify-content: space-between;
-        overflow: hidd;
+        overflow: hidden;
     }
     
-    .imagen{
-        max-width: 310px;
-        min-width: 310px;
-        max-height: 185px;
-        min-height: 185px;
+    .card_left .imagen{
+        width: inherit;
         border-bottom-left-radius: 0%;
         border-bottom-right-radius: 0%;
     }
@@ -149,14 +146,18 @@
         margin-top: 5px;
     }
     .card_left{
+        height: 50%;
+        width: inherit;
         padding: 0px;
     }
+
     .card_right{
         padding-top: 0px;
         margin-bottom: 5px;
     }
     .description{
         height: 42px;
+    
     }
     .iconBox{
         display:flex;
