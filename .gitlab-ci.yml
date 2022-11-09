@@ -4,7 +4,7 @@ stages:
 trigger_front:
   stage: triggers
   trigger:
-    include: Front/booking/.gitlab-ci.yml
+    include: front/booking/.gitlab-ci.yml
   rules:
     - changes:
       - front/**/*
