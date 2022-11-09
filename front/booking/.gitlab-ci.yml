@@ -17,7 +17,7 @@ variables:
     yarn build:${APP_ENV} # Build command
   artifacts:
     paths:
-      - ./build
+      - ./front/booking/build
       
 yarn_dev-front:
   extends: .yarn_build-front
@@ -42,7 +42,7 @@ yarn_prod-front:
   when: manual
   script: |
     pip install awscli #Install awscli tools
-    aws s3 sync ./build/ s3://${S3_BUCKET}
+    aws s3 sync ./front/booking/build/ s3://${S3_BUCKET}
     
 deploy_dev:
   extends: .deploy_aws

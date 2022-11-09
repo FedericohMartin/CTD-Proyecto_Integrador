@@ -12,7 +12,7 @@ build-back:
     artifacts:
         expire_in: 1 week
         paths:
-            - target/consoleapp.jar
+            - target/back/digitalbooking-rentalcars/consoleapp.jar
     only:
         - pipeline_para_CI-CD  # main
 
@@ -30,7 +30,7 @@ deploy-back:
     script:
         - echo "Deploying started..."
         - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
-        - scp ./target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
+        - scp ./target/back/digitalbooking-rentalcars/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
         - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
         - echo "Finished deploying the app."
     only:
