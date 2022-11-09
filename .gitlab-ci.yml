@@ -1,0 +1,19 @@
+stages:
+  - triggers
+
+trigger_front:
+  stage: triggers
+  trigger:
+    include: Front/booking/.gitlab-ci.yml
+  rules:
+    - changes:
+      - front/**/*
+
+
+trigger_back:
+  stage: triggers
+  trigger:
+    include: back/digitalbooking-rentalcars/.gitlab-ci.yml
+  rules:
+    - changes:
+      - back/**/*

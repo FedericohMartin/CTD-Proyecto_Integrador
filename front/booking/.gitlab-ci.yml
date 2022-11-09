@@ -1,0 +1,62 @@
+cache:
+  paths:
+    - node_modules
+stages:
+  - build
+  - run
+variables:
+  DEV_S3_BUCKET: ${BUCKET_DEV}
+  PROD_S3_BUCKET: ${BUCKET_PROD}
+.yarn_build:
+  image: node:18.12.1
+  script: |
+    yarn # Install all dependencies
+    yarn build:${APP_ENV} # Build command
+  artifacts:
+    paths:
+      - ./build
+      
+yarn_dev:
+  extends: .yarn_build
+  stage: build
+  before_script:
+    - export APP_ENV="dev"
+  only:
+    refs:
+      - pipeline_para_CI-CD  # dev
+
+yarn_prod:
+  extends: .yarn_build
+  stage: build
+  before_script:
+    - export APP_ENV="prod"
+  only:
+    refs:
+      - pipeline_para_CI-CD # main
+.deploy_aws:
+  image: python:latest
+  when: manual
+  script: |
+    pip install awscli #Install awscli tools
+    aws s3 sync ./build/ s3://${S3_BUCKET}
+deploy_dev:
+  extends: .deploy_aws
+  stage: run
+  dependencies:
+    - yarn_dev
+  before_script:
+    - export S3_BUCKET=${DEV_S3_BUCKET}
+  only:
+    refs:
+      - pipeline_para_CI-CD   # dev
+
+deploy_prod:
+  extends: .deploy_aws
+  stage: run
+  dependencies:
+    - yarn_prod
+  before_script:
+    - export S3_BUCKET=${PROD_S3_BUCKET}
+  only:
+    refs:
+      - pipeline_para_CI-CD  # main

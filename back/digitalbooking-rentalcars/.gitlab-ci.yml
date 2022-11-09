@@ -1,0 +1,37 @@
+stages:
+    - build
+    - deploy
+
+build:
+    stage: build
+    image:  maven:3.6.3-jdk-18
+    script:
+        - echo "Building app..."
+        - mvn clean install
+        - echo "Finished building the app."
+    artifacts:
+        expire_in: 1 week
+        paths:
+            - target/consoleapp.jar
+    only:
+        - pipeline_para_CI-CD  # main
+
+deploy:
+    stage: deploy
+    image: alpine:3.16
+    before_script:
+        - apk update && apk add openssh-client bash
+        - mkdir -p ~/.ssh
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - touch ~/.ssh/config
+        - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        - ssh-keyscan -H $DEPLOY_SERVER_IP >> ~/.ssh/known_hosts
+    script:
+        - echo "Deploying started..."
+        - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
+        - scp ./target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
+        - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
+        - echo "Finished deploying the app."
+    only:
+        - pipeline_para_CI-CD  # main
