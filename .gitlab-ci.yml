@@ -6,9 +6,9 @@ trigger_front:
   when: manual
   trigger:
     include: front/booking/.gitlab-ci.yml
-  rules:
-    - changes:
-      - front/**/*
+  # rules:
+  #   - changes:
+  #     - front/**/*
 
 
 trigger_back:
@@ -16,6 +16,6 @@ trigger_back:
   when: manual
   trigger:
     include: back/digitalbooking-rentalcars/.gitlab-ci.yml
-  rules:
-    - changes:
-      - back/**/*
+  # rules:
+  #   - changes:
+  #     - back/**/*
