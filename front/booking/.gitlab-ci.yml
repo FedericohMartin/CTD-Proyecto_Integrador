@@ -32,6 +32,7 @@
 cache:
   paths:
     - front/booking/node_modules
+    - front/booking/package.json
 
 stages:
   - build
