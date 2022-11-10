@@ -14,7 +14,8 @@
 	<name>digitalbooking-rentalcars</name>
 	<description>API para gestionar alquiler temporario de vehículos</description>
 	<properties>
-		<java.version>11.0.17</java.version>
+		<java.version>18.0.2-ea</java.version>
+		<!-- version de Maven 3.8.6 -->
 	</properties>
 	<dependencies>
 		<dependency>
