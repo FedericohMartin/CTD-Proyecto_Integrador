@@ -56,15 +56,6 @@
 
     </dependencies>
 
-	<plugin>
-    	<groupId>org.apache.maven.plugins</groupId>
-    	<artifactId>maven-compiler-plugin</artifactId>
-    	<version>3.8.6</version>
-    		<configuration>
-        		<release>18</release>
-    		</configuration>
-	</plugin>
-
 	<build>
 		<finalName>consoleapp</finalName>
 		<plugins>
