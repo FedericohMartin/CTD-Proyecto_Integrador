@@ -14,7 +14,7 @@
 	<name>digitalbooking-rentalcars</name>
 	<description>API para gestionar alquiler temporario de vehículos</description>
 	<properties>
-		<java.version>18</java.version>
+		<java.version>18.0.2-ea</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
