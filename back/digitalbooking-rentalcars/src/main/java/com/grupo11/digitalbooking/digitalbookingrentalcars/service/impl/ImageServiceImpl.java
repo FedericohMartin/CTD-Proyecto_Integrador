@@ -21,26 +21,22 @@ public class ImageServiceImpl implements ImageService {
         this.productRepository = productRepository;
     }
 
-    //Agregar imagen
     public Image addImage(Image image){
         Optional<Product> product = productRepository.findById(image.getProduct().getId());
         image.setProduct(product.get());
         return imageRepository.save(image);
     }
 
-    //Buscar imagen
     public Optional<Image> searchImage(Integer id){
         return imageRepository.findById(id);
     }
 
-    //Actualizar imagen
     public Image updateImage(Image image){
         Optional<Product> product = productRepository.findById(image.getProduct().getId());
         image.setProduct(product.get());
         return imageRepository.save(image);
     }
 
-    //Eliminar imagen
     public void deleteImage(Integer id) throws Exception {
         Optional<Image> searchedImage = searchImage(id);
         if (searchedImage.isPresent())
@@ -49,7 +45,6 @@ public class ImageServiceImpl implements ImageService {
             throw new Exception("Image not found");
     }
 
-    //Traer todas las imágenes
     public List<Image> listImages(){
         List<Image>images= imageRepository.findAll();
         return images;

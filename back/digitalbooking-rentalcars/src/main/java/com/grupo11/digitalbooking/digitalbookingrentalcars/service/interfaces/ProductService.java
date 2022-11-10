@@ -24,7 +24,5 @@ public interface ProductService {
 
     List<Product> searchByCity(Integer id);
 
-    List<Product> searchByImage(Integer id);
-
     List<Product> randomProducts();
 }
