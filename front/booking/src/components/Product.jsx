@@ -51,7 +51,8 @@ function Product(){
                 newState.features = response.data.features;
 
                 return newState;
-            })});
+            })})
+        .catch(error => console.log(error));
     }, [idProducto])
 
     return(

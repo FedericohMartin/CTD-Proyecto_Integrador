@@ -1,17 +1,18 @@
 import DatePicker, {registerLocale} from "react-datepicker";
-import React, { useState } from "react";
+import React from "react";
 import useWindowDimensions from '../../customHooks/useWindowDimensions'
 import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/calendarSearch.css";
 import es from 'date-fns/locale/es';
 registerLocale("es", es);
 
-const CalendarSearch = ({values, inlineProp, productCalendar}) => {
-
-    const [dateRange, setDateRange] = useState([null, null]);
-    const [startDate, endDate] = dateRange;
+const CalendarSearch = ({values, inlineProp, productCalendar, onParentDateChange, startDate, endDate}) => {
     const { width } = useWindowDimensions();
-    console.log(dateRange);
+
+    const onLocalDateChange = (dates) => {
+        onParentDateChange(dates);
+        values(dates);
+    }
 
     return (
         <div className={productCalendar} id="calendarSearch">
@@ -22,10 +23,7 @@ const CalendarSearch = ({values, inlineProp, productCalendar}) => {
                 endDate={endDate}
                 minDate={new Date()}
                 dateFormat="dd 'de' MMM"
-                onChange={(update) => {
-                    setDateRange(update);
-                    values(update);
-                }}
+                onChange={onLocalDateChange}
 
                 isClearable={true}
                 locale="es"

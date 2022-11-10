@@ -25,9 +25,22 @@ const getById = (id) => {
            .then(response => response.json())
 }
 
+const getByCityId = (id) => {
+    const config = {
+        method: "GET",
+        withCredentials: true,
+        crossdomain: true,
+        headers: { "Content-Type": "application/json" },
+     };
+
+    return fetch(`${endpoint}/city/${id}`, config)
+           .then(response => response.json())
+}
+
 const productService = {
     getAll,
     getById,
+    getByCityId,
 }
 
 export default productService;

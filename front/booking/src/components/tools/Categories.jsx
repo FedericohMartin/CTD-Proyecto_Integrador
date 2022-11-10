@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from "react";
 import style from "../../styles/categories.module.css";
-import categoryService from "../../services/categoryService";
-import productService from "../../services/productService";
 import Card from "./Card";
 
 
-function Categories() {
-    const [categories, setCategories] = useState([])
-    const [products, setProducts] = useState([]);
+function Categories(props) {
 
     const categoryMapper = (category) => (
         <div
@@ -30,20 +25,7 @@ function Categories() {
             description={product.description}
         />)
 
-    useEffect(() => {
-        categoryService
-        .getAll()
-        .then((response) => {
-            setCategories(response.data);
-        })
 
-        productService
-        .getAll()
-        .then((response) => {
-            setProducts(response.data);
-        })
-        .catch(error => console.log(error))
-    }, []);
 
     return (
         <>
@@ -52,7 +34,7 @@ function Categories() {
                     <h2>Buscar por tipo de vehiculo</h2>
                 </div>
                 <div className={style.categoriesContainer}>
-                    {categories.map(categoryMapper)}
+                    {props.categories.map(categoryMapper)}
                 </div>
             </div>
             <div className={style.recomendations}>
@@ -60,7 +42,7 @@ function Categories() {
                     <h2>Recomendaciones</h2>
                 </div>
                 <div className={style.list}>
-                    {products.map(productMapper)}
+                    {props.products.map(productMapper)}
                 </div>
             </div>
         </>
