@@ -29,11 +29,6 @@
 #     #- ssh -o StrictHostKeyChecking=no ubuntu@15.228.13.234 "sudo systemctl start consoleapp.service"
 #     - echo "Finished deploying the frontend app."
 
-cache:
-  paths:
-    - front/booking/node_modules
-    - front/booking/package.json
-    - /front/booking/*
 
 stages:
   - build
@@ -45,9 +40,9 @@ variables:
 
 .build-front:
   image: node:18.12.1
-  script: 
-    npm install
-    npm run build:${APP_ENV} # Build command
+  script: |
+    yarn # Install all dependencies
+    yarn build:${APP_ENV} # Build command
   artifacts:
     paths:
       - ./front/booking/build
