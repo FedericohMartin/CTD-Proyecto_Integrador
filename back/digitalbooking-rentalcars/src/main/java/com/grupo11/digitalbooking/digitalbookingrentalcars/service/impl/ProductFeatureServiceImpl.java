@@ -6,13 +6,14 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.model.ProductFeature;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.FeatureRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductFeatureRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductRepository;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ProductFeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductFeatureServiceImpl {
+public class ProductFeatureServiceImpl implements ProductFeatureService {
 
     private final ProductFeatureRepository productFeatureRepository;
     private final ProductRepository productRepository;
@@ -63,6 +64,7 @@ public class ProductFeatureServiceImpl {
 
         return prodFeat;
     }
+
 
     public List<ProductFeature> searchByProduct(Integer id){
 

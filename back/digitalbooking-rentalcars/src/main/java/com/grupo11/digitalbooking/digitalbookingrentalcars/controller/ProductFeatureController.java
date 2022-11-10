@@ -3,7 +3,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.ProductFeature;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ProductFeatureService;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductFeatureController {
 
-    //@Autowired
+    @Autowired
     private ProductFeatureService productFeatureService;
 
     @GetMapping("/bringAll")
@@ -68,10 +68,10 @@ public class ProductFeatureController {
     @GetMapping("/listFeatByProduct/{id}")
     public ResponseEntity<Object> listFeatByProduct(@PathVariable Integer id) throws Exception{
         ResponseEntity<Object> response = null;
-        if (productFeatureService.searchByProduct().isEmpty()){
+        if (productFeatureService.searchByProduct(id).isEmpty()){
             response = ResponseHandler.generateResponse("The product has no associated features", HttpStatus.NOT_FOUND, null);
         }else {
-            response=ResponseHandler.generateResponse("Features list", HttpStatus.OK, productFeatureService.searchByProduct());
+            response=ResponseHandler.generateResponse("Features list", HttpStatus.OK, productFeatureService.searchByProduct(id));
         }
         return response;
     }
