@@ -29,7 +29,7 @@
 #     #- ssh -o StrictHostKeyChecking=no ubuntu@15.228.13.234 "sudo systemctl start consoleapp.service"
 #     - echo "Finished deploying the frontend app."
 
-
+# prueba subir repo C
 stages:
   - build
   - run
