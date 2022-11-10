@@ -21,7 +21,7 @@
 #   script:
 #     - pwd
 #     - ls
-#     - cd /infra/
+#     - cd front/booking/
 #     - echo "Deploying front-end app started..."
 #     #- ssh -o StrictHostKeyChecking=no ubuntu@15.228.13.234 "sudo systemctl stop consoleapp.service"
 #     #- scp -o StrictHostKeyChecking=no /front/booking/build/* ubuntu@15.228.13.234:~/var/www/html/
