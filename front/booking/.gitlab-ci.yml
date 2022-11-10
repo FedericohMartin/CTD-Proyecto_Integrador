@@ -35,8 +35,8 @@ stages:
   - run
 
 variables:
-  DEV_S3_BUCKET: ${BUCKET_DEV}
-  PROD_S3_BUCKET: ${BUCKET_PROD}
+  DEV_S3_BUCKET: $DEV_S3_BUCKET
+  PROD_S3_BUCKET: $PROD_S3_BUCKET
 
 build_dev-front:
   stage: build
@@ -44,6 +44,8 @@ build_dev-front:
   script:
     - cd front/booking
     - npm install
+    - npm audit fix
+    - npm install react-icons --save
     - npm run build
   artifacts:
     paths:
@@ -58,6 +60,8 @@ build_prod-front:
   script: 
     - cd front/booking
     - npm install
+    - npm audit fix
+    - npm install react-icons --save
     - npm run build
   artifacts:
     paths:
