@@ -38,7 +38,6 @@ public class ProductServiceImpl implements ProductService {
         this.mapper = mapper;
     }
 
-    //Agregar producto
     public Product addProduct(Product product){
         Optional<City> city =  cityRepository.findById(product.getCity().getId());
         product.setCity(city.get());
@@ -47,7 +46,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
-    //Actualizar producto
     public Product updateProduct(Product product){
         Optional<City> ciudad =  cityRepository.findById(product.getCity().getId());
         product.setCity(ciudad.get());
@@ -56,17 +54,14 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
-    //Buscar producto
     public Optional<Product> searchProduct(Integer id){
         return productRepository.findById(id);
     }
 
-    //Buscar todos los productos
     public List<Product> listProduct(){
         return productRepository.findAll();
     }
 
-    //Eliminar productos
     public void deleteProduct(Integer id) throws Exception {
         Optional<Product> searchedProduct = searchProduct(id);
         if (searchedProduct.isPresent())
@@ -75,25 +70,14 @@ public class ProductServiceImpl implements ProductService {
             throw new Exception("Product with id: "+id+" not found");
 
     }
-    //Buscar productos por categoría
+
     public List<Product> searchByCategory(Integer id){
         return productRepository.findByCategoryId(id);
     }
 
-
-    //Buscar productos por imágenes
-    @Override
-    public List<Product> searchByImage(Integer id) {
-        return productRepository.findByImageId(id);
-    }
-
-    //Buscar productos por ciudad
     public List<Product> searchByCity(Integer id){
         return productRepository.findByCityId(id);
     }
-
-
-
 
     public List<Product> getProductsByCityAndDate(FilteredProduct filter) throws BadRequestException {
         //errores
@@ -109,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
 
         if(oldCheckIn){throw new BadRequestException("Check In cannot be in the past");}
         //searchByCity(filter.getCityId());
-        //TODO: para cuando cree el Service de City: cityService.searchByCity(filter.getCityId());     //si no existe el id, arroja un badRequest
+        //TODO: para cuando cree el Service de City: cityService.searchByCity(filter.getCityId());     //si no existe el id, arrojará un badRequest
 
         List<Product> results = productRepository.getProductsByCityAndDates(filter.getCityId(), filter.getInitialDate(), filter.getFinalDate());
 
@@ -126,7 +110,6 @@ public class ProductServiceImpl implements ProductService {
     //Ticket Nº 32 (Mostrar productos aleatorios)
     @Override
     public List<Product> randomProducts() {
-
         List<Category> categories = categoryRepository.findAll();
         Collections.shuffle(categories);
         Integer indexEnd = categories.size() < LIMIT_RANDOM ? categories.size()-1 : LIMIT_RANDOM -1;
@@ -142,7 +125,7 @@ public class ProductServiceImpl implements ProductService {
                                 .toList()
                 );
         Collections.shuffle(products);
-        return products.subList(0, getRandomNumber(0, products.size() -1));
+        return products.subList(0, getRandomNumber(0, products.size() -1));//Map: toma un objeto, lo convierte y devuelve siempre la misma cantidad. Transforma la lista de categorías en una lista de enteros (misma cantidad).
     }
 
     public int getRandomNumber(int min, int max) {

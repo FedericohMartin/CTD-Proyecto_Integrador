@@ -65,10 +65,8 @@ public class ProductFeatureServiceImpl implements ProductFeatureService {
         return prodFeat;
     }
 
-
     public List<ProductFeature> searchByProduct(Integer id){
 
         return productFeatureRepository.findByProductId(id);
-
     }
 }
