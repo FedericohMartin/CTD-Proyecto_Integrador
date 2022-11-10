@@ -15,6 +15,7 @@
 	<description>API para gestionar alquiler temporario de vehículos</description>
 	<properties>
 		<java.version>18.0.2-ea</java.version>
+		<maven.compiler.release>18</maven.compiler.release>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -54,6 +55,15 @@
 		</dependency>
 
     </dependencies>
+
+	<plugin>
+    	<groupId>org.apache.maven.plugins</groupId>
+    	<artifactId>maven-compiler-plugin</artifactId>
+    	<version>3.8.6</version>
+    		<configuration>
+        		<release>18</release>
+    		</configuration>
+	</plugin>
 
 	<build>
 		<finalName>consoleapp</finalName>
