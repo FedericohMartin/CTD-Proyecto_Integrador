@@ -4,16 +4,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "./CalendarSearch";
 import citiesService from "../../services/citiesService"; 
+ 
+ /* Y otra cosita! No te olvides de agregar la key */
 
 function Searchbox(){
     const [cities, setCities] = useState([]);
 
     const cityMapper = (cities) => (
 
-        <option value= {cities.name}>{cities.name} - {cities.state} - {cities.country} {cities.id}</option>
-        
-    )
+        <option key={`city-${cities.id}`} value= {cities.id}>{cities.name} - {cities.state} - {cities.country}   </option>
 
+         )
+         
         useEffect(() => {
             citiesService
             .getAll()
