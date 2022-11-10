@@ -41,6 +41,7 @@ variables:
 .build-front:
   image: node:18.12.1
   script: |
+    cd front/booking/
     yarn # Install all dependencies
     yarn build:${APP_ENV} # Build command
   artifacts:
