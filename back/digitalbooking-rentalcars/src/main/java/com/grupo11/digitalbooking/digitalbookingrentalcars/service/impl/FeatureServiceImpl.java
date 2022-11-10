@@ -2,13 +2,14 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Feature;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.FeatureRepository;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.FeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FeatureServiceImpl {
+public class FeatureServiceImpl implements FeatureService {
     private final FeatureRepository featureRepository;
 
 
@@ -43,7 +44,7 @@ public class FeatureServiceImpl {
     }
 
     //LISTAR TODAS
-    public List<Feature> listFeature(){
+    public List<Feature> listFeatures(){
         List<Feature> features = featureRepository.findAll();
         return features;
     }

@@ -106,6 +106,12 @@ public class ProductController {
     }
 
 
+    @GetMapping("/image/{id}")
+    public ResponseEntity<Object> searchByImage(@PathVariable Integer id){
+        return ResponseHandler.generateResponse("List of Products with the searched image",HttpStatus.OK,productService.searchByImage(id));
+    }
+
+    //Ticket Nº 34
     @GetMapping("/city/{id}")
     public ResponseEntity<Object> searchByCity(@PathVariable Integer id){
         return ResponseHandler.generateResponse("List of Products with the city searched",HttpStatus.OK,productService.searchByCity(id));
@@ -121,5 +127,10 @@ public class ProductController {
         filter.setCityId(cityId);
         List<Product> filteredProducts = productService.getProductsByCityAndDate(filter);
         return ResponseHandler.generateResponse("List of Products with the city and dates sought",HttpStatus.OK,filteredProducts);
+    }
+
+    @GetMapping("/random")
+    public ResponseEntity<Object> randomProducts(){
+        return ResponseHandler.generateResponse("Random list of products", HttpStatus.OK, productService.randomProducts());
     }
 }
