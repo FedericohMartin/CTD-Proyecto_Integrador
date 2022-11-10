@@ -15,7 +15,7 @@ function Categories() {
             className={style.card}
         >
             <img src={category.imgUrl} alt="imagen categoria" />
-            <h3>{category.title === "PequeÃ±o" ? "Pequeño" : category.title}</h3>
+            <h3>{category.title}</h3>
             <p>{category.description}</p>
         </div>
     )
@@ -24,7 +24,7 @@ function Categories() {
         <Card
             key={`product-${product.id}`}
             img={product.category?.imgUrl}
-            category={product.category?.title === "PequeÃ±o" ? "Pequeño" : product.category?.title}
+            category={product.category?.title}
             location={`${product.city?.state}, ${product.city?.name}, ${product.city?.country}`}
             title={product.name}
             description={product.description}
@@ -51,11 +51,11 @@ function Categories() {
                 <div className={style.subtitle}>
                     <h2>Buscar por tipo de vehiculo</h2>
                 </div>
-                <div className={style.container}>
+                <div className={style.categoriesContainer}>
                     {categories.map(categoryMapper)}
                 </div>
             </div>
-            <div>
+            <div className={style.recomendations}>
                 <div className={style.subtitle}>
                     <h2>Recomendaciones</h2>
                 </div>
