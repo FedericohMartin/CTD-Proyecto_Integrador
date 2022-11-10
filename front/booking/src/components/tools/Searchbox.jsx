@@ -5,8 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "./CalendarSearch";
 import citiesService from "../../services/citiesService"; 
  
- /* Y otra cosita! No te olvides de agregar la key */
-
 function Searchbox(){
     const [cities, setCities] = useState([]);
 
