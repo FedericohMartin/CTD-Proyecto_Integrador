@@ -4,7 +4,7 @@ stages:
 
 build-back:
     stage: build
-    image: maven:3.8.6-jdk-18.0.2-ea
+    image: maven:3.8.6-jdk-18
     script:
         - cd back/digitalbooking-rentalcars/
         - echo "Building backend app..."
