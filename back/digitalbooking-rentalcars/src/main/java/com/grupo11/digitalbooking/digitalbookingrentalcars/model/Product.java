@@ -22,8 +22,8 @@ public class Product {
     private String name;
     private String description;
     private Integer stock;
-    private Boolean carry_on;
-    private Boolean suitcase;
+    private String carry_on;
+    private String suitcase;
 
     //Ticket Nº 27
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)

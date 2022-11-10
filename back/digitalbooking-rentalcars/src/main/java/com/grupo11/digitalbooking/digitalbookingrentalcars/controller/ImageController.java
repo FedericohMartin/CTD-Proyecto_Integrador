@@ -3,7 +3,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Image;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ImageService;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/images")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ImageController {
-    //@Autowired
+    @Autowired
     private ImageService imageService;
 
     @PostMapping("/addImage")

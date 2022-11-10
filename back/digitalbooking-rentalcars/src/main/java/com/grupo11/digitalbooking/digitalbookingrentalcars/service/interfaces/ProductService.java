@@ -23,4 +23,6 @@ public interface ProductService {
     List<Product> searchByCategory(Integer id);
 
     List<Product> searchByCity(Integer id);
+
+    List<Product> randomProducts();
 }

@@ -2,14 +2,14 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.City;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CityRepository;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-//CRUD CIUDADES
 @Service
-public class CityServiceImpl {
+public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
     @Autowired
     public CityServiceImpl(CityRepository ciudadRepository) {
@@ -17,17 +17,19 @@ public class CityServiceImpl {
     }
 
 
-    //AGREGAR
     public City addCity(City city){
         return cityRepository.save(city);
     }
 
-    //BUSCAR POR ID
+    @Override
+    public Optional<City> searchCity(Integer id) {
+        return cityRepository.findById(id);
+    }
+
     public Optional<City> searchCityById(Integer id){
         return cityRepository.findById(id);
     }
 
-    //ELIMINAR
     public void deleteCity (Integer id)throws Exception{
         Optional<City> searchedCity = searchCityById(id);
         if (searchedCity.isPresent())
@@ -36,12 +38,10 @@ public class CityServiceImpl {
             throw new Exception("City not found");
     }
 
-    //ACTUALIZAR
     public City updateCity(City city){
         return cityRepository.save(city);
     }
 
-    //LISTAR TODOS
     public List<City> listCities(){
         List<City> cities= cityRepository.findAll();
         return cities;

@@ -3,7 +3,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Feature;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.FeatureService;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/features")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FeatureController {
-    //@Autowired
+    @Autowired
     private FeatureService featureService;
 
 
@@ -21,7 +21,6 @@ public class FeatureController {
         return ResponseHandler.generateResponse("The feature has been added successfully", HttpStatus.OK,featureService.addFeature(feature));
     }
 
-    //BUSCAR
     @GetMapping("/searchFeature/{id}")
     public ResponseEntity<Object> searchFeature(@PathVariable Integer id){
         ResponseEntity<Object> response=null;
@@ -35,7 +34,6 @@ public class FeatureController {
 
     }
 
-    //ELIMINAR
     @DeleteMapping("/deleteFeature/{id}")
     public ResponseEntity<Object> deleteFeature(@PathVariable Integer id) throws Exception {
         ResponseEntity<Object> response = null;
@@ -51,8 +49,6 @@ public class FeatureController {
         return response;
     }
 
-
-    // ACTUALIZAR
     @PutMapping("/updateFeature")
     public ResponseEntity<Object> updateFeature(@RequestBody Feature feature){
         ResponseEntity<Object> response=null;
@@ -62,12 +58,9 @@ public class FeatureController {
         else
             response = ResponseHandler.generateResponse("Feature not found",HttpStatus.NOT_FOUND,null);
 
-
         return response;
     }
 
-
-    //LISTAR TODAS
     @GetMapping("/listFeatures")
     public ResponseEntity<Object> listFeatures(){
         return ResponseHandler.generateResponse("List of all features", HttpStatus.OK, featureService.listFeatures());
