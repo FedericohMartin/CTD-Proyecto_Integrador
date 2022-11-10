@@ -14,7 +14,7 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    margin: 0.50rem 0 0 0.75rem;
+    margin: 0.50rem 0 0 2.4rem;
     min-width: 25%;  
 }
 
@@ -74,9 +74,12 @@
     width: 12.875rem;
 }
 
-.btn:not(:disabled):not(.disabled) {
+.btn:hover{
+    background-color: #FBC02D;
+    color: #FFFFFF;
     cursor: pointer;
 }
+
 
 .menuIcon{
     display: none;
@@ -84,6 +87,10 @@
 
 
 @media screen and (max-width: 768px) {
+    .headerItem:nth-child(1){
+        margin: 0.5rem 0 0 -2rem;
+    }
+
     .hideT{
         display: none;
     }
@@ -92,7 +99,11 @@
     }
 }
 
-@media screen and (max-width: 453px) {
+@media screen and (max-width: 540px) {
+    .headerItem:nth-child(1){
+        margin: 0.5rem 0;
+    }
+
     .hide{
         display: none;
     }

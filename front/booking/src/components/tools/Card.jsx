@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import style from "../../styles/card.module.css";
 //import { FaFontAwesome, FontAwesome } from "react-icons/fa";
-import {
-  FaCar,
-  FaStar
-} from "react-icons/fa";
 //import { IconName } from "react-icons/fa";
 
 

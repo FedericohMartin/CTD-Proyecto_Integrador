@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/searchbox.module.css"
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "./CalendarSearch";
 import citiesService from "../../services/citiesService"; 
@@ -28,7 +27,7 @@ function Searchbox(){
         <div className={styles.searchbox}>
             <h1>Busca ofertas en Automoviles</h1>
             
-            <form id="form" className={styles.container}>
+            <form id="form" className={styles.searchContainer}>
                 <div className={styles.formCities}>
                     <select className={styles.inputSearch} id="cities">
                         {cities.map(cityMapper)}

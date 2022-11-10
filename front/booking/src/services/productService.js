@@ -5,7 +5,7 @@ const getAll = () => {
         method: "GET",
         withCredentials: true,
         crossdomain: true,
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
      };
 
      return fetch(endpoint+"/bringAll", config)
@@ -18,7 +18,7 @@ const getById = (id) => {
         method: "GET",
         withCredentials: true,
         crossdomain: true,
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
      };
 
     return fetch(`${endpoint}/searchProductById/${id}`, config)
