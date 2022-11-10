@@ -9,12 +9,10 @@ function Searchbox(){
     const [cities, setCities] = useState([]);
 
     const cityMapper = (cities) => (
-        <div
-            key={`city-${cities.id_cities}`}
-            name={cities.name}
-            country={cities.country}
-            state={cities.state}
-        />)
+
+        <option value= {cities.name}>{cities.name} - {cities.state} - {cities.country} {cities.id}</option>
+        
+    )
 
         useEffect(() => {
             citiesService
