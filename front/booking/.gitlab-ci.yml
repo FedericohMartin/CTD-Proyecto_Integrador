@@ -45,9 +45,9 @@ variables:
 
 .build-front:
   image: node:18.12.1
-  script: |
-    yarn # Install all dependencies
-    yarn build:${APP_ENV} # Build command
+  script: 
+    npm install
+    npm run build:${APP_ENV} # Build command
   artifacts:
     paths:
       - ./front/booking/build
