@@ -3,7 +3,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Feature;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.FeatureService;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/features")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FeatureController {
-    //@Autowired
+    @Autowired
     private FeatureService featureService;
 
 

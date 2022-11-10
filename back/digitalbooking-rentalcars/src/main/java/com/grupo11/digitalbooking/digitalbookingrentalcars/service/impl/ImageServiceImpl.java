@@ -4,13 +4,14 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Image;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ImageRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductRepository;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ImageServiceImpl {
+public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
     private final ProductRepository productRepository;
 
@@ -49,7 +50,7 @@ public class ImageServiceImpl {
     }
 
     //Traer todas las imágenes
-    public List<Image> listImage(){
+    public List<Image> listImages(){
         List<Image>images= imageRepository.findAll();
         return images;
     }

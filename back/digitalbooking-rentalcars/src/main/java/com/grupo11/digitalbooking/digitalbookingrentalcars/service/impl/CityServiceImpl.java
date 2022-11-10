@@ -2,6 +2,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.City;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CityRepository;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Optional;
 
 //CRUD CIUDADES
 @Service
-public class CityServiceImpl {
+public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
     @Autowired
     public CityServiceImpl(CityRepository ciudadRepository) {
@@ -20,6 +21,11 @@ public class CityServiceImpl {
     //AGREGAR
     public City addCity(City city){
         return cityRepository.save(city);
+    }
+
+    @Override
+    public Optional<City> searchCity(Integer id) {
+        return cityRepository.findById(id);
     }
 
     //BUSCAR POR ID

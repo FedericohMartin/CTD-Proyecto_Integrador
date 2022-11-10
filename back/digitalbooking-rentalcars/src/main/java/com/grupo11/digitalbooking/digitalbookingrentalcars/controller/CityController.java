@@ -3,7 +3,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.City;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.CityService;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/cities")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CityController {
-    //@Autowired
+    @Autowired
     private CityService cityService;
 
     @PostMapping

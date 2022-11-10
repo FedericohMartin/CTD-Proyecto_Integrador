@@ -17,6 +17,6 @@ public interface ProductFeatureService {
 
     List<ProductFeature> listProdFeat();
 
-    List<ProductFeature> searchByProduct();
+    List<ProductFeature> searchByProduct(Integer id);
 
 }

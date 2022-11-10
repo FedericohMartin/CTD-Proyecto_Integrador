@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-    //Ticket Nº 29
+    //Tickets Nº 29 y 30
 @Entity
 @Table(name = "images")
 public class Image {
