@@ -83,9 +83,11 @@ deploy_dev:
     - build_dev-front
   image: python:latest
   when: manual
-  script: |
-    pip install awscli #Install awscli tools
-    aws s3 sync ./front/booking/build/ s3://$DEV_S3_BUCKET
+  script: 
+    - pip install awscli #Install awscli tools
+    - aws --version
+    - aws s3 cp --recursive front/booking/build/* s3://$DEV_S3_BUCKET
+    #- aws s3 sync ./front/booking/build/* s3://$DEV_S3_BUCKET
   only:
     refs:
       - pipeline_para_CI-CD   # dev

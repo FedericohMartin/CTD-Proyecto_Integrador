@@ -9,6 +9,7 @@ build-back:
         - cd back/digitalbooking-rentalcars/
         - echo "Building backend app..."
         - mvn clean install
+        #- mvn compile
         - echo "Finished building the backend app."
     artifacts:
         expire_in: 1 week
