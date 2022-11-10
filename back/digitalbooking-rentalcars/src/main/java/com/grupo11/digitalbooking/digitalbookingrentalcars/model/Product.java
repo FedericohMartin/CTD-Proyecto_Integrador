@@ -37,11 +37,6 @@ public class Product {
     @JoinColumn(name = "categories_id")
     private Category category;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "images_id")
-    private Image image;
-
     //Ticket Nº 24
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<ProductFeature> features = new ArrayList<>();

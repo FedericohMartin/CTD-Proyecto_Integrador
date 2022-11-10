@@ -106,11 +106,6 @@ public class ProductController {
     }
 
 
-    @GetMapping("/image/{id}")
-    public ResponseEntity<Object> searchByImage(@PathVariable Integer id){
-        return ResponseHandler.generateResponse("List of Products with the searched image",HttpStatus.OK,productService.searchByImage(id));
-    }
-
     //Ticket Nº 34
     @GetMapping("/city/{id}")
     public ResponseEntity<Object> searchByCity(@PathVariable Integer id){
@@ -118,7 +113,6 @@ public class ProductController {
     }
 
 
-    // /products/?city=""&startDate=""&endDate=""
     @GetMapping("/product/{cityId}/{initialDate}/{finalDate}")
     public ResponseEntity<Object> searchByCityAndDates(@PathVariable Integer cityId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finalDate) throws BadRequestException {
         FilteredProduct filter = new FilteredProduct();
@@ -129,6 +123,7 @@ public class ProductController {
         return ResponseHandler.generateResponse("List of Products with the city and dates sought",HttpStatus.OK,filteredProducts);
     }
 
+    //Ticket Nº 32
     @GetMapping("/random")
     public ResponseEntity<Object> randomProducts(){
         return ResponseHandler.generateResponse("Random list of products", HttpStatus.OK, productService.randomProducts());

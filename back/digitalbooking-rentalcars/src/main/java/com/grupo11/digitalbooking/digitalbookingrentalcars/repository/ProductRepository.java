@@ -4,15 +4,12 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import java.time.LocalDate;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByCategoryId(Integer id_categories);
-
-    List<Product> findByImageId(Integer id);
 
     List<Product> findByCityId(Integer cities_id);
 

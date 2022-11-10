@@ -18,23 +18,21 @@ public class FeatureServiceImpl implements FeatureService {
         this.featureRepository = featureRepository;
     }
 
-    //AGREGAR
     public Feature addFeature(Feature feature){
         return featureRepository.save(feature);
     }
 
 
-    //ACTUALIZAR
     public Feature updateFeature(Feature feature){
         return featureRepository.save(feature);
     }
 
-    //BUSCAR POR ID
+
     public Optional<Feature> searchFeature(Integer id){
         return featureRepository.findById(id);
     }
 
-    //ELIMINAR POR ID
+
     public void deleteFeature(Integer id) throws Exception{
         Optional<Feature> searchedFeature = searchFeature(id);
         if (searchedFeature.isPresent())
@@ -43,7 +41,7 @@ public class FeatureServiceImpl implements FeatureService {
             throw new Exception("Feature not found");
     }
 
-    //LISTAR TODAS
+
     public List<Feature> listFeatures(){
         List<Feature> features = featureRepository.findAll();
         return features;

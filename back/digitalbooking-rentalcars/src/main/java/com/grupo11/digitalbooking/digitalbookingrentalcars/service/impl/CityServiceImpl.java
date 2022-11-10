@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-//CRUD CIUDADES
 @Service
 public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
@@ -18,7 +17,6 @@ public class CityServiceImpl implements CityService {
     }
 
 
-    //AGREGAR
     public City addCity(City city){
         return cityRepository.save(city);
     }
@@ -28,12 +26,10 @@ public class CityServiceImpl implements CityService {
         return cityRepository.findById(id);
     }
 
-    //BUSCAR POR ID
     public Optional<City> searchCityById(Integer id){
         return cityRepository.findById(id);
     }
 
-    //ELIMINAR
     public void deleteCity (Integer id)throws Exception{
         Optional<City> searchedCity = searchCityById(id);
         if (searchedCity.isPresent())
@@ -42,12 +38,10 @@ public class CityServiceImpl implements CityService {
             throw new Exception("City not found");
     }
 
-    //ACTUALIZAR
     public City updateCity(City city){
         return cityRepository.save(city);
     }
 
-    //LISTAR TODOS
     public List<City> listCities(){
         List<City> cities= cityRepository.findAll();
         return cities;
