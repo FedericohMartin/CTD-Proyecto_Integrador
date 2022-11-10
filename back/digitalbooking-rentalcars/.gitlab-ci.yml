@@ -6,6 +6,7 @@ build-back:
     stage: build
     image: maven:3.6.1-jdk-11
     script:
+        - cd back/digitalbooking-rentalcars/
         - echo "Building backend app..."
         - mvn clean install
         - echo "Finished building the backend app."
@@ -20,6 +21,7 @@ deploy-back:
     stage: deploy
     image: alpine:3.11
     before_script:
+        - cd back/digitalbooking-rentalcars/
         - apk update && apk add openssh-client bash
         - mkdir -p ~/.ssh
         - eval $(ssh-agent -s)
