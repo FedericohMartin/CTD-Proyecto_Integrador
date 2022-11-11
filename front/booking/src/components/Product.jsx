@@ -72,12 +72,12 @@ function Product(){
             </div>
             <PhotoGallery/>
             <div className={styles.productDescription}>
-                <h2 className={styles.title}>{`Pasea por ${product.location?.state}`}</h2>
+                <h2 className={styles.title}>{`Pistea por ${product.location?.state}`}</h2>
                 <p>{product.description}
                     </p>
             </div>
             <div className={styles.features}>
-                <h2 className={styles.title}>¿Qué ofrece este lugar?</h2>
+                <h2 className={styles.title}>¿Qué ofrece este vehículo?</h2>
                 <hr className={styles.separator}/>
                 <ul>
                     {product.features?.map(featuresMapper)}
@@ -89,7 +89,7 @@ function Product(){
                 <hr className={styles.separator}/>
                 <div>
                     <div>
-                        <h3>Normas de la casa</h3>
+                        <h3>Normas</h3>
                         <ul>
                             <li key={`policy-10`}>Hola</li>
                             <li key={`policy-11`}>Hola</li>
@@ -97,7 +97,7 @@ function Product(){
                         </ul>
                     </div>
                     <div>
-                        <h3>Normas de la casa</h3>
+                        <h3>Normas</h3>
                         <ul>
                             <li key={`policy-13`}>Hola</li>
                             <li key={`policy-14`}>Hola</li>
@@ -105,7 +105,7 @@ function Product(){
                         </ul>
                     </div>
                     <div>
-                        <h3>Normas de la casa</h3>
+                        <h3>Normas</h3>
                         <ul>
                             <li key={`policy-15`}>Hola</li>
                             <li key={`policy-16`}>Hola</li>
