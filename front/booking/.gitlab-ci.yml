@@ -79,9 +79,9 @@ build_prod-front:
     
 deploy_dev:
   stage: run
+  image: python:3.6
   dependencies:
     - build_dev-front
-  image: python:latest
   when: manual
   script: 
     - pip install awscli #Install awscli tools
