@@ -8,6 +8,9 @@ function Categories(props) {
         <div
             key={`category-${category.id}`}
             className={style.card}
+            onClick={() => {
+                props.onParentClicked(category.id);
+            }}
         >
             <img src={category.imgUrl} alt="imagen categoria" />
             <h3>{category.title}</h3>

@@ -3,7 +3,6 @@ import style from "../../styles/card.module.css";
 
 
 function Card(props) {
-
   return (
     <>
       <div className={style.card}>

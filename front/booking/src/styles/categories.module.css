@@ -31,6 +31,8 @@
 
 .recomendations{
     background-color: rgb(96, 125, 139, 0.1);
+    height: 100%;
+    width: 100%;
 }
 
 .box{
