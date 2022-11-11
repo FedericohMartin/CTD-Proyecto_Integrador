@@ -16,8 +16,8 @@ public class ProductDTO {
     private Integer id;
     private String name;
     private String description;
-    private String carry_on;
-    private String suitcase;
+    private Integer carryOn;
+    private Integer suitcase;
     private City city;
     private Category category;
     private List<ProductFeature> features = new ArrayList<>();

@@ -22,8 +22,8 @@ public class Product {
     private String name;
     private String description;
     private Integer stock;
-    private String carry_on;
-    private String suitcase;
+    private Integer carryOn;
+    private Integer suitcase;
 
     //Ticket Nº 27
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
@@ -36,6 +36,12 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "categories_id")
     private Category category;
+
+    //Ticket Nº 30
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "images_id")
+    private Image image;
 
     //Ticket Nº 24
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
