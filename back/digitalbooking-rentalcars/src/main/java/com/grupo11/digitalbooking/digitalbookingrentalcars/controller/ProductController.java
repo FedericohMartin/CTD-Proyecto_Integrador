@@ -37,7 +37,7 @@ public class ProductController {
         product.setId(productDTO.getId());
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
-        product.setCarry_on(productDTO.getCarry_on());
+        product.setCarryOn(productDTO.getCarryOn());
         product.setSuitcase(productDTO.getSuitcase());
         product.setCity(productDTO.getCity());
         product.setCategory(productDTO.getCategory());
@@ -69,7 +69,7 @@ public class ProductController {
             product.setId(productDTO.getId());
             product.setName(productDTO.getName());
             product.setDescription(productDTO.getDescription());
-            product.setCarry_on(productDTO.getCarry_on());
+            product.setCarryOn(productDTO.getCarryOn());
             product.setSuitcase(productDTO.getSuitcase());
             product.setCity(productDTO.getCity());
             product.setCategory(productDTO.getCategory());

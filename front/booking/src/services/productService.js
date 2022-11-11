@@ -5,7 +5,7 @@ const getAll = () => {
         method: "GET",
         withCredentials: true,
         crossdomain: true,
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
      };
 
      return fetch(endpoint+"/bringAll", config)
@@ -18,16 +18,29 @@ const getById = (id) => {
         method: "GET",
         withCredentials: true,
         crossdomain: true,
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
      };
 
     return fetch(`${endpoint}/searchProductById/${id}`, config)
            .then(response => response.json())
 }
 
+const getByCityId = (id) => {
+    const config = {
+        method: "GET",
+        withCredentials: true,
+        crossdomain: true,
+        headers: { "Content-Type": "application/json" },
+     };
+
+    return fetch(`${endpoint}/city/${id}`, config)
+           .then(response => response.json())
+}
+
 const productService = {
     getAll,
     getById,
+    getByCityId,
 }
 
 export default productService;

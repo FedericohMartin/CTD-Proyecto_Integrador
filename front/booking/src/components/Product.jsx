@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import homeStyles from '../styles/home.module.css'
 import styles from '../styles/product.module.css'
 import BookingChart from "./tools/BookingChart";
+import PhotoGallery from "./tools/PhotoGallery";
 import productService from "../services/productService";
 import {IoChevronBack} from 'react-icons/io5'
 import {MdLocationOn } from 'react-icons/md'
@@ -50,26 +51,27 @@ function Product(){
                 newState.features = response.data.features;
 
                 return newState;
-            })});
+            })})
+        .catch(error => console.log(error));
     }, [idProducto])
 
     return(
-        <div className={`${homeStyles.container} ${styles.container}`}>
-            <div className={styles.header}>
+        <div className={`${homeStyles.container} ${styles.productContainer}`}>
+            <div className={styles.productHeader}>
                 <div>
-                    <div>{product.category?.title || `CATEGORY`}</div>
+                    <div>{product.category?.title}</div>
                     <div>{product.title}</div>
                 </div>
                 <Link to={"/"}><IoChevronBack className={styles.backIcon}/></Link>
             </div>
-            <div className={styles.location}>
+            <div className={styles.productLocation}>
                 <div>
                     <MdLocationOn className={styles.locationIcon}/>
                     <div>{`${product.location?.state}, ${product.location?.name}, ${product.location?.country}`}</div> 
                 </div>
-                <div></div>
             </div>
-            <div className={styles.description}>
+            <PhotoGallery/>
+            <div className={styles.productDescription}>
                 <h2 className={styles.title}>{`Pasea por ${product.location?.state}`}</h2>
                 <p>{product.description}
                     </p>
