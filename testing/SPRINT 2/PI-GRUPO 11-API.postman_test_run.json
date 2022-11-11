@@ -1,0 +1,128 @@
+{
+	"id": "d3cb02d5-04ab-4595-9087-2e29ef7e0bd7",
+	"name": "PI-GRUPO 11-API",
+	"timestamp": "2022-11-10T22:10:07.231Z",
+	"collection_id": "18573628-6bc5359e-37c0-4666-a88b-6ce264868137",
+	"folder_id": "18573628-78e9b798-4110-4a5a-8420-3280c9e02eba",
+	"environment_id": "0",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "27207479-64cc-4c6b-badc-12873f36681e",
+			"name": "List all products",
+			"url": "http://localhost:8080/products/bringAll",
+			"time": 8125,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				8125
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "c54906df-8fe1-4a9c-8bb8-36670de49373",
+			"name": "Search product by ID",
+			"url": "http://localhost:8080/products/searchProductById/19",
+			"time": 3707,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				3707
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "2e81abfd-35c1-4bf9-9001-4e3b60232000",
+			"name": "Search by city",
+			"url": "http://localhost:8080/products/city/2",
+			"time": 2310,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				2310
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "f725ecfa-374e-4b30-81ea-2295940f5cf7",
+			"name": "Search by category",
+			"url": "http://localhost:8080/products/category/2",
+			"time": 4746,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				4746
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "2844843a-1b8c-4f4c-a646-2ddeed9b475c",
+			"name": "Random product",
+			"url": "http://localhost:8080/products/random",
+			"time": 2651,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				2651
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 21539,
+	"collection": {
+		"requests": [
+			{
+				"id": "27207479-64cc-4c6b-badc-12873f36681e",
+				"method": "GET"
+			},
+			{
+				"id": "c54906df-8fe1-4a9c-8bb8-36670de49373",
+				"method": "GET"
+			},
+			{
+				"id": "2e81abfd-35c1-4bf9-9001-4e3b60232000",
+				"method": "GET"
+			},
+			{
+				"id": "f725ecfa-374e-4b30-81ea-2295940f5cf7",
+				"method": "GET"
+			},
+			{
+				"id": "2844843a-1b8c-4f4c-a646-2ddeed9b475c",
+				"method": "GET"
+			}
+		]
+	}
+}
