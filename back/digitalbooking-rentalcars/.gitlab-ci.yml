@@ -10,6 +10,7 @@ build-back:
         - echo "Building backend app..."
         - mvn clean install
         #- mvn compile
+        #- mvn package
         - echo "Finished building the backend app."
     artifacts:
         expire_in: 1 week
