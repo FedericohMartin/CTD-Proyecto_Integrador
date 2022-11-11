@@ -84,8 +84,8 @@ deploy_dev:
     - build_dev-front
   when: manual
   script: 
-    - pip install awscli --root-user-action=ignore
-    #- pip install awscli #Install awscli tools
+    - pip install awscli #Install awscli tools
+    - pip install --root-user-action=ignore
     - aws --version
     - aws s3 cp --recursive front/booking/build/ s3://$DEV_S3_BUCKET
     #- aws s3 sync ./front/booking/build/* s3://$DEV_S3_BUCKET
