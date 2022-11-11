@@ -35,6 +35,9 @@ stages:
   - run
 
 variables:
+  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+  AWS_REGION: $AWS_REGION
   DEV_S3_BUCKET: $DEV_S3_BUCKET
   PROD_S3_BUCKET: $PROD_S3_BUCKET
 
@@ -70,12 +73,12 @@ build_prod-front:
     refs:
       - pipeline_para_CI-CD # main
 
-.deploy_aws:
-  image: python:latest
-  when: manual
-  script: |
-    pip install awscli #Install awscli tools
-    aws s3 sync ./front/booking/build/ s3://${S3_BUCKET}
+# .deploy_aws:
+#   image: python:latest
+#   when: manual
+#   script: |
+#     pip install awscli #Install awscli tools
+#     aws s3 sync ./front/booking/build/ s3://${S3_BUCKET}
     
 deploy_dev:
   stage: run
@@ -84,7 +87,7 @@ deploy_dev:
     - build_dev-front
   #when: manual
   script: 
-    - python -m pip install --upgrade pip --root-user-action=ignore
+    #- python -m pip install --upgrade pip --root-user-action=ignore
     - pip install awscli #Install awscli tools
     - aws --version
     - aws s3 cp --recursive front/booking/build/ s3://$DEV_S3_BUCKET
