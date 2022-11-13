@@ -90,8 +90,8 @@ deploy_dev:
     #- python -m pip install --upgrade pip --root-user-action=ignore
     - pip install awscli #Install awscli tools
     - aws --version
-    #- aws s3 cp --recursive front/booking/build/* s3://$DEV_S3_BUCKET
-    - aws s3 sync ./front/booking/build/ s3://${DEV_S3_BUCKET}
+    - aws s3 cp --recursive front/booking/build/ s3://${DEV_S3_BUCKET}
+    #- aws s3 sync ./front/booking/build/ s3://$DEV_S3_BUCKET
   only:
     refs:
       - pipeline_para_CI-CD   # dev
