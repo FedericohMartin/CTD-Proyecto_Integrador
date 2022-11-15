@@ -20,7 +20,7 @@ const getInitials = (stringChain) => {
     
 function Header(props){
     const {user} = useContext(Context);
-    console.log(user);
+
     const onLocalMenuClicked = () => {
         props.onMenuParentClicked();
     }
