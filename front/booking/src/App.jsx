@@ -5,7 +5,8 @@ import Footer from './components/tools/Footer';
 import homeStyles from './styles/home.module.css'
 import Login from './components/Login';
 import Register from './components/Register';
-import Product from './components/Product'
+import Product from './components/Product';
+import ProductDetail from './components/tools/ProductDetail';
 import Menu from './components/tools/Menu';
 import {UserContextProvider} from './contexts/UserContext'
 import { useEffect, useState } from 'react';
@@ -67,7 +68,9 @@ function App() {
             <Route path='/login' element={<Login onParentSubmitClicked={onLoginClicked}/>}></Route>
             <Route path='/signup' element={<Register/>}></Route>
             <Route path='producto'>
-              <Route path=':idProducto' element={<Product/>}></Route>
+              <Route path=':idProducto' element={<Product>
+                                                  {product => <ProductDetail product={product}/>}
+                                                </Product>}></Route>
             </Route>
           </Routes>
           <Footer></Footer>
