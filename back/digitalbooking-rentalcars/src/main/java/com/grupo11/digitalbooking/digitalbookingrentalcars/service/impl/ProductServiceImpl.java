@@ -5,6 +5,7 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.BadRequest
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Category;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.City;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductList;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CategoryRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CityRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductFeatureRepository;
@@ -58,8 +59,13 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id);
     }
 
-    public List<Product> listProduct(){
-        return productRepository.findAll();
+    public ProductList listProduct(){
+        List<Product> items = productRepository.findAll();
+        ProductList response = new ProductList();
+        response.setItems(items);
+        response.setTotal(items.size());
+
+        return response;
     }
 
     public void deleteProduct(Integer id) throws Exception {
@@ -71,12 +77,22 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-    public List<Product> searchByCategory(Integer id){
-        return productRepository.findByCategoryId(id);
+    public ProductList searchByCategory(Integer id){
+        List<Product> items = productRepository.findByCategoryId(id);
+        ProductList response = new ProductList();
+        response.setItems(items);
+        response.setTotal(items.size());
+
+        return response;
     }
 
-    public List<Product> searchByCity(Integer id){
-        return productRepository.findByCityId(id);
+    public ProductList searchByCity(Integer id){
+        List<Product> items = productRepository.findByCityId(id);
+        ProductList response = new ProductList();
+        response.setItems(items);
+        response.setTotal(items.size());
+
+        return response;
     }
 
     public List<Product> getProductsByCityAndDate(FilteredProduct filter) throws BadRequestException {
