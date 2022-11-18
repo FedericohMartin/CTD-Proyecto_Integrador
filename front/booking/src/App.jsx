@@ -7,10 +7,12 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Product from './components/Product';
 import ProductDetail from './components/tools/ProductDetail';
+import ProductBooking from './components/tools/ProductBooking';
 import Menu from './components/tools/Menu';
 import {UserContextProvider} from './contexts/UserContext'
 import {  useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 
 function App() {
@@ -36,10 +38,15 @@ function App() {
             <Route path="/" element={<Home onGParentCloseClicked= {onCloseClicked} show={hideMenu}/>}> </Route>
             <Route path='/login' element={<Login/>}></Route>
             <Route path='/signup' element={<Register/>}></Route>
-            <Route path='producto'>
-              <Route path=':idProducto' element={<Product>
-                                                  {product => <ProductDetail product={product}/>}
-                                                </Product>}></Route>
+            <Route path='/producto/:idProducto'element={<Product>
+                                                          {product => <ProductDetail product={product}/>}
+                                                        </Product>}>          
+            </Route>
+            <Route path='/producto/:idProducto' element={<ProtectedRoutes></ProtectedRoutes>}>
+              <Route path='reserva' element={<Product>
+                                                  {product => <ProductBooking product={product}/>}
+                                              </Product>}>
+              </Route>
             </Route>
           </Routes>
           <Footer></Footer>

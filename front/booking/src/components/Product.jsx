@@ -44,7 +44,7 @@ function Product({children}){
                     <div>{product.category?.title}</div>
                     <div>{product.title}</div>
                 </div>
-                <Link to={"/"}><IoChevronBack className={styles.backIcon}/></Link>
+                <Link to={-1}><IoChevronBack className={styles.backIcon}/></Link>
             </div>
             {children(product)}
             <div className={styles.policy}>

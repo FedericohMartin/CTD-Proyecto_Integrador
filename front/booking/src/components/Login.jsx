@@ -2,7 +2,8 @@ import {React, useState, useEffect, useContext} from "react";
 import {Context} from '../contexts/UserContext'
 import styles from '../styles/login.module.css'
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import {Link, useNavigate} from 'react-router-dom'
+import { IoAlertCircleSharp } from "react-icons/io5";
+import {Link, useNavigate, useLocation} from 'react-router-dom'
 
 function Login(props){
     const [showPass, setShowPass] = useState(false);
@@ -16,6 +17,7 @@ function Login(props){
         password: "",
      });
      const { onLoginClicked } = useContext(Context);
+     const { state } = useLocation();
 
      const navigate = useNavigate();
 
@@ -50,7 +52,7 @@ function Login(props){
         } else if(valid.email === true && valid.password === true){
             const result = await onLoginClicked(e, formData);
             setLogin(result)
-            result  && navigate("/")
+            result  && (state === null ? navigate("/") : navigate(`${state.pathname}`))
         }
      }
 
@@ -80,6 +82,10 @@ function Login(props){
 
     return(
         <div className={styles.loginContainer}>
+            {state !==null && <div className={styles.alertContainer}>
+                <IoAlertCircleSharp className={styles.alertIcon}/>
+                <div className={styles.alertMessage}>Para realizar una reserva necesitas estar logueado</div>
+            </div>}
             <h2 className={styles.loginMobile}>Iniciar sesión</h2>
             <form action="">
                 <label className={styles.loginMobile} htmlFor="email">Correo electrónico</label>

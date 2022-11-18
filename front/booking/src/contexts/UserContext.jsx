@@ -10,7 +10,7 @@ const user = {
 }
 
 const UserContextProvider = ({children}) => {
-  const [authUser, setAuthUser] = useState(null);
+  const [authUser, setAuthUser] = useState();
 
   const onLoginClicked = (e, values) => {
     if(values.email === user.email && values.password === user.password){
@@ -28,6 +28,8 @@ const UserContextProvider = ({children}) => {
   useEffect(() => {
     if(localStorage.getItem("user")){
       setAuthUser(JSON.parse(localStorage.getItem("user")));
+    } else{
+      setAuthUser(null);
     }
   }, [])
 
