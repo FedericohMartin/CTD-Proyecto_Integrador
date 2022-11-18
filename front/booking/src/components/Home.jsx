@@ -19,6 +19,15 @@ function Home() {
         .catch(error => console.log(error));
     }
 
+    const onCategoryClicked = (catedoryId) => {
+        productService
+        .getByCategoryId(catedoryId)
+        .then(response => {
+            setProducts(response.data);;
+        })
+        .catch(error => console.log(error));
+    }
+
     useEffect(() => {
         categoryService
         .getAll()
@@ -38,7 +47,7 @@ function Home() {
     return (
             <div className={styles.container}>
                 <Searchbox onParentSubmitClicked={onSubmitClicked}></Searchbox>
-                <Categories categories={categories} products={products}></Categories>
+                <Categories categories={categories} products={products} onParentClicked={onCategoryClicked}></Categories>
             </div>
     )
 }
