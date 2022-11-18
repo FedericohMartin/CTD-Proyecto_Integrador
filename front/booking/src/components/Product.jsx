@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import homeStyles from '../styles/home.module.css'
 import styles from '../styles/product.module.css'
-import BookingChart from "./tools/BookingChart";
-import PhotoGallery from "./tools/PhotoGallery";
 import productService from "../services/productService";
 import {IoChevronBack} from 'react-icons/io5'
-import {MdLocationOn } from 'react-icons/md'
-import { FaWheelchair, FaBluetoothB, FaEnvira, FaSnowflake, FaSuitcaseRolling, FaSuitcase, FaTachometerAlt, FaTrailer, FaTruckMonster, FaAccessibleIcon} from 'react-icons/fa'
 import {Link, useParams} from 'react-router-dom'
 
-const icons = [FaWheelchair, FaBluetoothB, FaEnvira, FaSnowflake, FaSuitcaseRolling, FaSuitcase, FaTachometerAlt, FaTrailer, FaTruckMonster];
 
-function Product(){
+function Product({children}){
     const [product, setProduct] = useState(
         {
             category: "",
@@ -23,19 +18,6 @@ function Product(){
     )
 
     const { idProducto } = useParams();
-
-    const featuresMapper = (feature) => {
-        const findIcon = icons.findIndex((icon) => {
-            return icon.name === feature.feature.icon;
-        })
-        const iconTagName = findIcon !== -1 ? icons[findIcon] : FaAccessibleIcon
-
-        const icon = React.createElement(iconTagName, { className: styles.featureIcon});
-        const featureName = React.createElement('div', {}, feature.feature.name);
-        const container = React.createElement('li', { key: `feature-${feature.feature.id}`}, [icon, featureName]);
-
-        return container;
-    }
 
 
     useEffect(() => {
@@ -64,26 +46,7 @@ function Product(){
                 </div>
                 <Link to={"/"}><IoChevronBack className={styles.backIcon}/></Link>
             </div>
-            <div className={styles.productLocation}>
-                <div>
-                    <MdLocationOn className={styles.locationIcon}/>
-                    <div>{`${product.location?.state}, ${product.location?.name}, ${product.location?.country}`}</div> 
-                </div>
-            </div>
-            <PhotoGallery/>
-            <div className={styles.productDescription}>
-                <h2 className={styles.title}>{`Pistea por ${product.location?.state}`}</h2>
-                <p>{product.description}
-                    </p>
-            </div>
-            <div className={styles.features}>
-                <h2 className={styles.title}>¿Qué ofrece este vehículo?</h2>
-                <hr className={styles.separator}/>
-                <ul>
-                    {product.features?.map(featuresMapper)}
-                </ul>
-            </div>
-            <BookingChart ></BookingChart>
+            {children(product)}
             <div className={styles.policy}>
                 <h2 className={styles.title}>Qué tenés que saber</h2>
                 <hr className={styles.separator}/>

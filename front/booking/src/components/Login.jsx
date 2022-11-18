@@ -1,4 +1,5 @@
-import {React, useState, useEffect} from "react";
+import {React, useState, useEffect, useContext} from "react";
+import {Context} from '../contexts/UserContext'
 import styles from '../styles/login.module.css'
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import {Link, useNavigate} from 'react-router-dom'
@@ -14,6 +15,7 @@ function Login(props){
         email: "",
         password: "",
      });
+     const { onLoginClicked } = useContext(Context);
 
      const navigate = useNavigate();
 
@@ -46,7 +48,7 @@ function Login(props){
                 password: false,
             });
         } else if(valid.email === true && valid.password === true){
-            const result = await props.onParentSubmitClicked(e, formData);
+            const result = await onLoginClicked(e, formData);
             setLogin(result)
             result  && navigate("/")
         }
