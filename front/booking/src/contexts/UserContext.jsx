@@ -10,13 +10,7 @@ const user = {
 }
 
 const UserContextProvider = ({children}) => {
-  const defaultUser = {
-    name: "",
-    lastName: "",
-    email: "",
-    password: ""
-  }
-  const [authUser, setAuthUser] = useState(defaultUser);
+  const [authUser, setAuthUser] = useState(null);
 
   const onLoginClicked = (e, values) => {
     if(values.email === user.email && values.password === user.password){
@@ -28,7 +22,7 @@ const UserContextProvider = ({children}) => {
 
   const onLogoutClicked = () => {
     localStorage.removeItem("user");
-    setAuthUser(defaultUser);
+    setAuthUser(null);
   }
 
   useEffect(() => {
