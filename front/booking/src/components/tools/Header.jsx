@@ -19,14 +19,14 @@ const getInitials = (stringChain) => {
 }
     
 function Header(props){
-    const {user} = useContext(Context);
-    console.log(user);
+    const {authUser, onLogoutClicked} = useContext(Context);
+
     const onLocalMenuClicked = () => {
         props.onMenuParentClicked();
     }
 
     const onLocalLogoutClicked = () => {
-        props.onParentLogoutClicked();
+        onLogoutClicked();
     }
 
     const navigate = useNavigate()
@@ -42,10 +42,10 @@ function Header(props){
                 <Link to={"/"}><img src={logo} alt="Logo" /></Link>
                 <Link to={"/"} style={{ textDecoration: 'none' }}><div className={`${styles.hide} ${styles.hideT}`}>Some awesome slogan</div></Link>
             </div>
-            {user?.name 
+            {authUser?.name 
                 ? <div className={styles.nameItem}>
-                    <div className={styles.hide} id={styles.avatar}>{getInitials(`${user?.name} ${user?.lastName}`)}</div>
-                    <div className={styles.hide}>Hola, <br/> <span>{` ${user?.name} ${user?.lastName}`}</span></div>
+                    <div className={styles.hide} id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.lastName}`)}</div>
+                    <div className={styles.hide}>Hola, <br/> <span>{` ${authUser?.name} ${authUser?.lastName}`}</span></div>
                     <FaRegWindowClose className={`${styles.logoutIcon} ${styles.hide}`} onClick={onLocalLogoutClicked} />
                     <img onClick={onLocalMenuClicked} src={menuIcon} className={`${styles.btn} ${styles.menuIcon}`} alt="Menu-icon" />
                   </div> 
