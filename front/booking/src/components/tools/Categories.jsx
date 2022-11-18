@@ -45,7 +45,7 @@ function Categories(props) {
                     <h2>Recomendaciones</h2>
                 </div>
                 <div className={style.list}>
-                    {props.products.map(productMapper)}
+                    {props.products.length !== 0 ? props.products.map(productMapper) : <div>No se encontraron productos</div>}
                 </div>
             </div>
         </>
