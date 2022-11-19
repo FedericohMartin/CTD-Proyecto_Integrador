@@ -26,7 +26,6 @@ function App() {
     setHideMenu(true);
   }
 
-
   return (
     <div className="App">
       <UserContextProvider>
