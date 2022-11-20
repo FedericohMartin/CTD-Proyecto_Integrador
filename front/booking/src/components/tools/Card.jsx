@@ -3,9 +3,6 @@ import style from "../../styles/card.module.css";
 
 
 function Card(props) {
-  const onLocalShowMoreClicked = () => {
-    props.onParentShowMoreClicked();
-  }
   return (
     <>
       <div className={style.card}>
@@ -25,7 +22,6 @@ function Card(props) {
           <p className={style.description}>{props.description}</p>
           <button
             className={style.buttonCard}
-            onClick={onLocalShowMoreClicked}
           >
             Ver más
           </button>
