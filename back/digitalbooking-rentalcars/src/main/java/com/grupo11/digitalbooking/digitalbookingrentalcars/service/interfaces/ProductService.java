@@ -1,21 +1,18 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.BadRequestException;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.ProductNotFoundException;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductDTO;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.util.FilteredProduct;
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
 
-    Product addProduct(ProductDTO dto);
+    Product addProduct(Product product);
 
     Optional<Product> searchProduct(Integer id);
 
-    Product updateProduct(ProductUpdateDTO dto) throws ProductNotFoundException;
+    Product updateProduct(Product product);
 
     void deleteProduct(Integer id) throws Exception;
 

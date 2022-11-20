@@ -10,7 +10,7 @@ import ProductDetail from './components/tools/ProductDetail';
 import ProductBooking from './components/tools/ProductBooking';
 import Menu from './components/tools/Menu';
 import {UserContextProvider} from './contexts/UserContext'
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoutes from './components/ProtectedRoutes';
 
@@ -26,35 +26,16 @@ function App() {
     setHideMenu(true);
   }
 
-  const onLoginClicked = (e, values) => {
-    if(values.email === user.email && values.password === user.password){
-      window.localStorage.setItem("user", JSON.stringify(user))
-      setAuthUser(user);
-      return true
-    } else {return false}
-  }
-
-  const onLogoutClicked = () => {
-    localStorage.removeItem("user");
-    setAuthUser(defaultUser);
-  }
-
-  useEffect(() => {
-    if(localStorage.getItem("user")){
-      setAuthUser(JSON.parse(localStorage.getItem("user")));
-    }
-  }, [])
-
   return (
     <div className="App">
-      <UserContextProvider user={authUser}>
+      <UserContextProvider>
         <BrowserRouter>
-          <Header onMenuParentClicked={onMenuClicked} onParentLogoutClicked={onLogoutClicked}></Header>
+          <Header onMenuParentClicked={onMenuClicked}></Header>
           <div onClick={onCloseClicked} className={`${homeStyles.opacity} ${!hideMenu && homeStyles.darken} ${homeStyles.disableMenu}`}></div>  
-          <Menu onParentCloseClicked={onCloseClicked} show={hideMenu} onParentLogoutClicked={onLogoutClicked}></Menu>
+          <Menu onParentCloseClicked={onCloseClicked} show={hideMenu}></Menu>
           <Routes>
             <Route path="/" element={<Home onGParentCloseClicked= {onCloseClicked} show={hideMenu}/>}> </Route>
-            <Route path='/login' element={<Login onParentSubmitClicked={onLoginClicked}/>}></Route>
+            <Route path='/login' element={<Login/>}></Route>
             <Route path='/signup' element={<Register/>}></Route>
             <Route path='/producto/:idProducto'element={<Product>
                                                           {product => <ProductDetail product={product}/>}
