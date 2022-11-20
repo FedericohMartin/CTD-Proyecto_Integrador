@@ -5,32 +5,7 @@
     flex-direction: column;
     height: 100vh;
     justify-content: center;
-    overflow: scroll;
     width: 100vw;
-}
-
-.loginContainer .alertContainer{
-    align-items: center;
-    background-color: rgb(255, 0, 0, 0.1);
-    border-radius: 0.3125rem;
-    color: #B00020;
-    display: flex;
-    justify-content: center;
-    height: 3.875rem;
-    margin-bottom: 1.875rem;
-    text-align: left;
-    width: 32.7965vw;
-}
-
-.alertContainer .alertIcon{
-    height: 1.9375rem;
-    margin-right: .3rem;
-    min-width: 1.9375rem;
-}
-
-.alertContainer .alertMessage{
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .loginContainer h2{
@@ -124,23 +99,6 @@
     box-shadow: 0rem 0.0625rem 0.6rem rgba(209, 18, 18, 0.925);
 }
 
-@media screen and (max-width:820px) {
-    .loginContainer .alertContainer{
-        font-size: 0.875rem;
-        padding: 0 1.8rem;
-        width: 45.05vw;
-    }
-
-    .loginContainer .loginMobile{
-        width: 45.05vw;
-    }
-
-    .loginContainer .warning{
-        width: 45.05vw;
-    }
-    
-}
-
 @media screen and (max-width: 550px) {
     .loginContainer .loginMobile{
         width: 72.4638vw;
@@ -150,16 +108,11 @@
         width: 72.4638vw;
     }
 
-    .loginContainer .alertContainer{
-        padding: 0 .8rem;
-        width: 75vw;
-    }
-
 }
 
-@media screen and (max-height: 469px) and (min-width:600px) {
+@media screen and (max-height: 469px) {
     .loginContainer{
-        padding: 15rem 0 7rem 0;
+        padding: 42vh 0 42vh 0;
     }
 
 }

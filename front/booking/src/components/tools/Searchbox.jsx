@@ -1,84 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../../styles/searchbox.module.css"
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "./CalendarSearch";
-import citiesService from "../../services/citiesService"; 
+import {argCities} from "../../data/cities"
 
-function Searchbox(props){
-    const [formData, setFormData] = useState({
-        city: "",
-        dateRange: {
-            startDate: null,
-            endDate: null,
-        },
-     });
-    const [cities, setCities] = useState([]);
-
-    const onFormFieldChange = (event) => {
-        const target = event.target;
-  
-        const newUserValue = target.value;
-  
-        const nameOfField = target.name;
-   
-        setFormData((prevState) => {
-           const updatedFormData = {
-              ...prevState,
-           };
-              updatedFormData[nameOfField] = newUserValue;    
-           return updatedFormData;
-        });
-     };
-
-    const onDateChange = (dates) => {
-
-        const [startDate, endDate] = dates
-        setFormData((prevState) => {
-            const update = {...prevState};
-
-            update.dateRange.startDate = startDate;
-            update.dateRange.endDate = endDate;
-
-            return update;
-        })
-     }
-
-    const onLocalSubmitClicked = (e) => {
-        e.preventDefault();
-        props.onParentSubmitClicked(formData);
-     }
-
-    const cityMapper = (cities) => (
-        <option key={`city-${cities.id}`} value= {cities.id}>{cities.name} - {cities.state} - {cities.country}   </option>)
-         
-    useEffect(() => {
-        citiesService
-        .getAll()
-        .then((response) => {
-            setCities(response.data);
-        })
-        .catch(error => console.log(error))
-
-    }, []);
+function Searchbox(){
 
     return(
         <div className={styles.searchbox}>
             <h1>Busca ofertas en Automoviles</h1>
             
-            <form id="form" className={styles.searchContainer} onChange={onFormFieldChange}>
+            <form id="form" className={styles.container}>
                 <div className={styles.formCities}>
-                    <select className={styles.inputSearch} id="cities" name="city">
+                    <select className={styles.inputSearch} id="cities">
                         <option id="title" className={styles.selected} value='null'>
                             ¿En cuál ciudad querés pistear?
                         </option>
 
-                        {cities.map(cityMapper)}
+                        {argCities.map(city => 
+                            <option value={city.name}>{city.name} - {city.code}</option>
+                        )}
 
                     </select>
                 </div>
-                <Calendar className={styles.calendar} onParentDateChange={onDateChange} startDate={formData.dateRange.startDate} endDate={formData.dateRange.endDate}/>
+                <Calendar className={styles.calendar}/>
 
-                <button className={styles.buttonSearch} type="submit" onClick={onLocalSubmitClicked}>
+                <button className={styles.buttonSearch} type="submit">
                     Buscar
                 </button>
             </form>

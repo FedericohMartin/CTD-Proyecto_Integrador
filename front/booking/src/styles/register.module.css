@@ -5,7 +5,6 @@
     flex-direction: column;
     height: 100vh;
     justify-content: center;
-    overflow: scroll;
     width: 100vw;
 }
 
@@ -138,7 +137,7 @@
 }
 @media screen and (max-height: 668px) {
     .registerContainer{
-        padding: 10rem 0 5rem 0;
+        padding: 10vh 0 10vh 0;
     }
 }
 
