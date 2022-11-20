@@ -1,6 +1,5 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,11 +21,5 @@ public class Image {
     private Integer id;
     private String name;
     private String imgUrl;
-
-
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "id_products")
-    private Product product;
 
 }
