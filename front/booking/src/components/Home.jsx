@@ -78,6 +78,15 @@ function Home() {
         .catch(error => console.log(error));
     }
 
+    const onCategoryClicked = (catedoryId) => {
+        productService
+        .getByCategoryId(catedoryId)
+        .then(response => {
+            setProducts(response.data);;
+        })
+        .catch(error => console.log(error));
+    }
+
     useEffect(() => {
         categoryService
         .getAll()

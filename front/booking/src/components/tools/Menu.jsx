@@ -26,7 +26,7 @@ function Menu(props){
     }
 
     const onLocalLogoutClicked = () => {
-        props.onParentLogoutClicked();
+      onLogoutClicked();
     }
 
     return(

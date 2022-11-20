@@ -1,0 +1,171 @@
+.bookingContainer{
+    background-color: rgb(84, 87, 118, .1);
+    color: #383B58;
+    display: flex;
+    font-family: 'Poppins';
+    padding: 1rem 0;
+    width: 100%;
+}
+
+.bookFormContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.dataContainer, .dateContainer, .timeContainer{
+    background-color: #FFFF;
+    border-radius: .5rem;
+    box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    height: 15.31rem;
+    margin: 1rem 1rem;
+    width: 66vw;
+}
+
+.bookingDetails{
+    background-color: #FFFF;
+    border-radius: .5rem;
+    box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 1rem 1rem;
+    width: 33vw;
+}
+
+.bookingDetails .titleCard{
+    display: flex;
+    flex-direction: column;
+}
+
+.bookingDetails .titleCard h2{
+    margin: 0 0 0 1.3125rem;
+}
+
+.bookingDetails .titleCard img{
+    height: 35vh;
+    margin: 1.2rem 0;
+    width: 100%;
+}
+
+.bookingDetails .detailsCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.bookingDetails .detailsCard>div{
+    margin: 0 1.3125rem;
+}
+
+.bookingDetails h2{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.bookingDetails h4{
+    opacity: .5;
+}
+
+.bookingDetails .location{
+    font-size: 0.875rem;
+}
+
+.bookingDetails .location .locationIcon{
+    color: #545776;
+    height: 1.5rem;
+    width: 1rem;
+}
+
+.bookingDetails button{
+    align-self: center;
+    background-color: #FBC02D;
+    border: #FBC02D solid;
+    border-radius: 0.3125rem;
+    box-shadow: 0rem .125rem .25rem rgba(0, 0, 0, 0.12);
+    color: #FFFF;
+    font-weight: 700;
+    height: 3rem;
+    width: 90%;
+}
+
+.bookingDetails hr{
+    align-self: center;
+    background-color: #BEBEBE;
+    border: #BEBEBE solid .03rem;
+    border-radius: 5rem;
+    width: 93%;
+}
+
+@media screen and (max-width: 912px) {
+    .bookingContainer{
+        flex-direction: column;
+    }
+
+    .bookingDetails{
+        flex-direction: row;
+        min-height: 15.31rem;
+        margin: 1rem auto;
+        padding: 1.5rem 0;
+        width: 92%; 
+    }
+
+    .bookingDetails .titleCard{
+        width: 50%;
+    }
+
+    .bookingDetails .detailsCard{
+        margin: 0 0 0 -2rem;
+        width: 50%;
+    }
+
+    .bookingDetails h2{
+        font-size: 1.25rem;
+    }
+
+    .bookFormContainer div{
+        margin: 1rem auto;
+        width: 92%;
+    }
+
+    .bookingDetails .titleCard img{
+        align-self: center;
+        border-radius: .5rem;
+        height: 87%;
+        width: 87%;
+        margin: .7rem 0 .1rem 0;
+    }
+
+    .bookingDetails .titleCard h2{
+        margin: 0 0 0 1.7rem;
+    }
+
+    .bookingDetails button{
+        width: 93%;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .bookingDetails{
+        flex-direction: column;
+    }
+
+    .bookingDetails .titleCard{
+        width: 100%;
+    }
+
+    .bookingDetails .detailsCard{
+        margin: 0;
+        width: 100%;
+    }
+
+    .bookingDetails .titleCard img{
+        border-radius: 0;
+        height: 40vh;
+        margin: .7rem 0;
+        width: 100%;
+    }
+
+    .bookingDetails .titleCard h2{
+        margin: 0 0 0 1.3125rem;
+    }
+}

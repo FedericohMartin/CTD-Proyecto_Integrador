@@ -1,8 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import CalendarSearch from "./CalendarSearch";
 import styles from '../../styles/bookingChart.module.css'
 
 function BookingChart(){
+    const navigate = useNavigate();
+    const onBookinClicked = () => {
+        navigate('reserva');
+    }
 
     return(
         <div className={styles.chartContainer}>
@@ -12,7 +17,7 @@ function BookingChart(){
             </div>
             <div className={styles.buttonContainer}>
                 <div >Agregá tus fechas de viaje para obtener precios exactos</div>
-                <button>Iniciar reserva</button>
+                <button onClick={onBookinClicked}>Iniciar reserva</button>
             </div>
         </div>
     )

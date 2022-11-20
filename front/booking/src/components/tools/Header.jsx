@@ -26,7 +26,7 @@ function Header(props){
     }
 
     const onLocalLogoutClicked = () => {
-        props.onParentLogoutClicked();
+        onLogoutClicked();
     }
 
     const navigate = useNavigate()
