@@ -6,7 +6,7 @@ import "../../styles/calendarSearch.css";
 import es from 'date-fns/locale/es';
 registerLocale("es", es);
 
-const CalendarSearch = ({values, inlineProp, productCalendar, onParentDateChange, startDate, endDate}) => {
+const CalendarSearch = ({values, inlineProp, productCalendar, onParentDateChange, startDate, endDate, excludeDates}) => {
     const { width } = useWindowDimensions();
 
     const onLocalDateChange = (dates) => {
@@ -24,7 +24,7 @@ const CalendarSearch = ({values, inlineProp, productCalendar, onParentDateChange
                 minDate={new Date()}
                 dateFormat="dd 'de' MMM"
                 onChange={onLocalDateChange}
-
+                excludeDates={excludeDates}
                 isClearable={true}
                 locale="es"
                 monthsShown={width > 550 ? 2 : 1}

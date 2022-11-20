@@ -6,6 +6,12 @@
     width: 100%;
 }
 
+.bookingContainer h2{
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1.2rem 0 0 1.3125rem;
+}
+
 .bookFormContainer{
     display: flex;
     flex-direction: column;
@@ -15,9 +21,17 @@
     background-color: #FFFF;
     border-radius: .5rem;
     box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
-    height: 15.31rem;
+    min-height: 15.31rem;
     margin: 1rem 1rem;
     width: 66vw;
+}
+
+.timeContainer{
+    min-height: 10rem;
+}
+
+.dateContainer{
+    box-shadow: none;
 }
 
 .dataContainer{
@@ -39,7 +53,7 @@
     height: 1.5rem;
 }
 
-.dataContainer input, .dataContainer select{
+.dataContainer input, .dataContainer select, .timeContainer select{
     box-shadow: 0rem 0.0625rem 0.3125rem rgba(0, 0, 0, 0.15);
     border: none;
     border-radius: 0.3125rem;
@@ -52,6 +66,37 @@
 .dataContainer input:disabled{
     background-color: rgb(96, 125, 139, .15);
     color: rgb(56, 59, 88, .75);
+}
+
+.timeContainer{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-size: .875rem;
+    justify-content: space-evenly;
+}
+
+.timeContainer div{
+    align-items: center;
+    display: flex;
+    width: 90%;
+}
+
+.timeContainer select{
+    margin: .7rem 0 0 0;
+    width: 50%;
+}
+
+.timeContainer .arrivalHour{
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.timeContainer .hourIcon{
+    color: #545776;
+    height: 1.5rem;
+    margin: 0 .5rem 0 0;
+    width: 1.5rem;
 }
 
 .bookingDetails{
@@ -70,6 +115,10 @@
     flex-direction: column;
 }
 
+.bookingDetails .detailsCard h2{
+    margin: 0;
+}
+
 .bookingDetails .titleCard h2{
     margin: 0 0 0 1.3125rem;
 }
@@ -83,6 +132,7 @@
 .bookingDetails .detailsCard{
     display: flex;
     flex-direction: column;
+    height: 45%;
     justify-content: space-evenly;
 }
 
@@ -90,12 +140,8 @@
     margin: 0 1.3125rem;
 }
 
-.bookingDetails h2{
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
 .bookingDetails h4{
+    font-size: 0.875rem;
     opacity: .5;
 }
 
@@ -148,14 +194,16 @@
 
     .bookingDetails .detailsCard{
         margin: 0 0 0 -2rem;
+        height: 100%;
         width: 50%;
     }
 
-    .bookingDetails h2{
+    .bookingContainer h2{
         font-size: 1.25rem;
+        margin: 1.2rem 0 0 1.8rem;
     }
 
-    .bookFormContainer div{
+    .bookFormContainer>div{
         margin: 1rem auto;
         width: 92%;
     }
@@ -168,7 +216,7 @@
         margin: .7rem 0 .1rem 0;
     }
 
-    .bookingDetails .titleCard h2{
+    .bookingDetails .titleCard>h2{
         margin: 0 0 0 1.7rem;
     }
 
@@ -178,6 +226,23 @@
 }
 
 @media screen and (max-width:550px) {
+    .bookFormContainer .dataContainer div{
+        margin: .7rem auto;
+        width: 92%;
+    }
+
+    .bookingContainer h2{
+        margin: 1.2rem 0 0 .8rem;
+    }
+
+    .timeContainer select{
+        width: 100%;
+    }
+
+    .timeContainer .hourIcon{
+        margin: 0 1rem 0 0;
+    }
+
     .bookingDetails{
         flex-direction: column;
     }
@@ -188,6 +253,7 @@
 
     .bookingDetails .detailsCard{
         margin: 0;
+        height: 45%;
         width: 100%;
     }
 
