@@ -1,10 +1,9 @@
-import React, {useContext} from "react";
+import React from "react";
 import styles from '../../styles/menu.module.css'
 import iconFB from '../../img/iconFBMobile.png'
 import iconIG from '../../img/iconIGMobile.png'
 import iconLI from '../../img/iconLIMobile.png'
 import iconTW from '../../img/iconTWMobile.png'
-import {Context} from '../../contexts/UserContext'
 import closeIcon from '../../img/X.png'
 import { Link } from "react-router-dom";
 
@@ -19,29 +18,27 @@ const getInitials = (stringChain) => {
 }
 
 function Menu(props){
-    const {authUser, onLogoutClicked} = useContext(Context);
-
     const onLocalCloseClicked = () => {
         props.onParentCloseClicked();
     }
 
     const onLocalLogoutClicked = () => {
-      onLogoutClicked();
+        props.onParentLogoutClicked();
     }
 
     return(
         <div className={`${styles.container} ${props.show && styles.hide} ${!props.show && styles.show} ${styles.disableMenu}`}>
             <header className={styles.menuHeader}>
                 <img onClick={onLocalCloseClicked} className={styles.close} src={closeIcon} alt="Close Icon" />
-                {authUser?.name ? 
+                {props.user.name ? 
                   <div className={styles.nameItem}>
-                    <div id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.lastName}`)}</div>
+                    <div id={styles.avatar}>{getInitials(`${props.user?.name} ${props.user?.lastName}`)}</div>
                     <div>Hola, </div>
-                    <div>{` ${authUser?.name} ${authUser?.lastName}`}</div>
+                    <div>{` ${props.user?.name} ${props.user?.lastName}`}</div>
                   </div> 
                   :<div>MENÚ</div>}
             </header>
-            {authUser?.name ?
+            {props.user.name ?
               <div className={styles.userMenuBody}>
                 <div>¿Deseas <Link onClick={onLocalLogoutClicked}>cerrar sesión</Link>?</div>
                 <hr className={styles.separator}/>

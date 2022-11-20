@@ -17,8 +17,7 @@ import javax.persistence.*;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_categories")
-    private Integer id;
+    private Integer idCategories;
     private String title;
     private String description;
     private String imgUrl;

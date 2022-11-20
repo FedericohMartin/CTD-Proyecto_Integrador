@@ -19,10 +19,11 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
+    position: fixed;
 }
 
-@media screen and (min-width: 541px) {
+@media screen and (min-width: 453px) {
     .disableMenu{
         display: none;
     }

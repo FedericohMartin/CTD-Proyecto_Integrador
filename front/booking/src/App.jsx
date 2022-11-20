@@ -5,18 +5,26 @@ import Footer from './components/tools/Footer';
 import homeStyles from './styles/home.module.css'
 import Login from './components/Login';
 import Register from './components/Register';
-import Product from './components/Product';
-import ProductDetail from './components/tools/ProductDetail';
-import ProductBooking from './components/tools/ProductBooking';
 import Menu from './components/tools/Menu';
-import {UserContextProvider} from './contexts/UserContext'
-import {  useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ProtectedRoutes from './components/ProtectedRoutes';
 
+const user = {
+  name: "Pedro",
+  lastName: "Picapiedra",
+  email: "pedro.p@domain.com",
+  password: "pedrit0elMejor"
+}
 
 function App() {
+  const defaultUser = {
+    name: "",
+    lastName: "",
+    email: "",
+    password: ""
+  }
   const [hideMenu, setHideMenu] = useState(true);
+  const [authUser, setAuthUser] = useState(defaultUser)
 
   const onMenuClicked = () => {
     setHideMenu(false);
@@ -26,31 +34,32 @@ function App() {
     setHideMenu(true);
   }
 
+  const onLoginClicked = (e, values) => {
+    if(values.email === user.email && values.password === user.password){
+      setAuthUser(user);
+      return true
+    } else {return false}
+  }
+
+  const onLogoutClicked = () => {
+    setAuthUser(defaultUser);
+  }
+
   return (
     <div className="App">
-      <UserContextProvider>
+      
         <BrowserRouter>
-          <Header onMenuParentClicked={onMenuClicked}></Header>
+          <Header user={authUser} onMenuParentClicked={onMenuClicked} onParentLogoutClicked={onLogoutClicked}></Header>
           <div onClick={onCloseClicked} className={`${homeStyles.opacity} ${!hideMenu && homeStyles.darken} ${homeStyles.disableMenu}`}></div>  
-          <Menu onParentCloseClicked={onCloseClicked} show={hideMenu}></Menu>
+          <Menu onParentCloseClicked={onCloseClicked} show={hideMenu} user={authUser}></Menu>
           <Routes>
             <Route path="/" element={<Home onGParentCloseClicked= {onCloseClicked} show={hideMenu}/>}> </Route>
-            <Route path='/login' element={<Login/>}></Route>
+            <Route path='/login' element={<Login onParentSubmitClicked={onLoginClicked} user={authUser}/>}></Route>
             <Route path='/signup' element={<Register/>}></Route>
-            <Route path='/producto/:idProducto'element={<Product>
-                                                          {product => <ProductDetail product={product}/>}
-                                                        </Product>}>          
-            </Route>
-            <Route path='/producto/:idProducto' element={<ProtectedRoutes></ProtectedRoutes>}>
-              <Route path='reserva' element={<Product>
-                                                  {product => <ProductBooking product={product}/>}
-                                              </Product>}>
-              </Route>
-            </Route>
           </Routes>
           <Footer></Footer>
         </BrowserRouter>
-      </UserContextProvider>
+      
     </div>
   );
 }

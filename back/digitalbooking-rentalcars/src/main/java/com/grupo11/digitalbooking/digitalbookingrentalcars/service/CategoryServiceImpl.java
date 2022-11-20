@@ -1,8 +1,7 @@
-package com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl;
+package com.grupo11.digitalbooking.digitalbookingrentalcars.service;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Category;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CategoryRepository;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

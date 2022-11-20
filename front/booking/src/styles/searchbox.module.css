@@ -2,11 +2,12 @@
 
 .searchbox{
     background-color: #607D8B; 
-    width: 100%;
+    width: 100vw;
+    height: 19.5849vh;
     color: #ffff;
     text-align: center;
-    padding-top: 6rem;
-    padding-bottom: 2rem;
+    padding-top: 6vh;
+    padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,7 +21,7 @@
 
 .buttonSearch {
     width: 10vw;
-    height: 2.5rem;
+    height: 4.4vh;
     font-size: 1rem;
     font-weight: bold;
     background: #FBC02D;
@@ -42,19 +43,16 @@
     width: 100%;
 }
 
-.searchContainer {
+.container {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.searchContainer .icon {
+.container .icon {
     color: grey;
 }
 
-.searchContainer input{
-    height: 2.5rem;
-}
 
 .formCities {
     font-family: 'Poppins', 'Font Awesome 5 Free';
@@ -62,8 +60,8 @@
     max-height: 100vh;
 }
 
-.searchContainer input {
-    width: 30vw;
+.container input {
+    width: 900px;
     background-color: white; 
     color: gray;   
 }
@@ -72,7 +70,7 @@
     font-size: 14px;
     color: #7F7F7F;
     width: 30vw;
-    height: 2.5rem;
+    height: 4.4vh;
     padding: 10px;
     border-radius: 5px;
     border-style: none;
@@ -104,10 +102,12 @@
 
 
 /*--- Responsive: Mobile ---*/
-@media screen and (min-device-width: 280px) and (max-device-width: 550px){
+@media screen and (min-device-width: 320px) and (max-device-width: 568px){
     .searchbox {
-        padding-top: 7rem;
-        padding-bottom: 2rem;
+        height: 26vh;
+        width: 100vw;
+        padding-top: 13vh;
+        padding-bottom: 1.5rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -120,7 +120,7 @@
         line-height: 1.4rem;
     }
 
-    .searchContainer {
+    .container {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -130,18 +130,13 @@
 
     .inputSearch {
         width: 93vw;
-        height: 2.5rem;
+        height: 6vh;
         margin-bottom: 4%;
-    }
-
-    .searchContainer input{
-        width: 93vw;
-        height: 2.5rem;
     }
 
     .buttonSearch{
         width: 93vw;
-        height: 2.5rem;
+        height: 5.6vh;
         margin-top: 3%;
         margin-left: 0px;
         margin-bottom: .5rem;
@@ -150,6 +145,12 @@
 
 /*--- Responsive: Tablet Portrait---*/
 @media screen and (min-width:551px) and (max-width: 768px){
+    .searchbox {
+        height: 9vh;
+        width: 100vw;
+        padding-top: 10vh;
+        padding-bottom: 1.5rem;
+    }
     
     .searchbox h1 {
         font-size: 2rem;
@@ -157,7 +158,7 @@
         line-height: 1.4rem;
     }
     
-    .searchContainer {
+    .container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -167,23 +168,21 @@
     
     .inputSearch {
         width: 30vw;
-        height: 2.5rem;
-    }
-
-    .searchContainer input{
-        width: 30vw;
+        height: 3rem;
     }
     
     .buttonSearch{
         width: 20vw;
-        height: 2.5rem;
+        height: 3rem;
     }
 }
 
 /*--- Responsive: Tablet Landscape---*/
 @media screen and (min-width:769px) and (max-width: 1024px){
     .searchbox {
-        padding-top: 6rem;
+        height: 10vh;
+        width: 100vw;
+        padding-top: 13vh;
         padding-bottom: 1.5rem;
     }
     
@@ -193,7 +192,7 @@
         line-height: 1.4rem;
     }
     
-    .searchContainer {
+    .container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -203,17 +202,12 @@
     
     .inputSearch {
         width: 30vw;
-        height: 2.5rem;
+        height: 3rem;
     }
     
-    .searchContainer input{
-        width: 30vw;
-    }
-
     .buttonSearch{
         width: 20vw;
-        height: 2.5rem;
+        height: 3rem;
     }
 }
-
 

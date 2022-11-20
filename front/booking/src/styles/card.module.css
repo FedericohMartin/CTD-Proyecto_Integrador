@@ -16,6 +16,7 @@
     background-color: #ffffff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     width: 47vw;
+    max-width: 800px;
 }
 
 /* img{
@@ -98,13 +99,13 @@
 
 .buttonCard:hover {
     cursor: pointer;
-    background-color: rgb(96, 125, 139, 0.8);
+    background-color: #FBC02D;
 }
 
 
-@media screen and (max-width: 1268px) and (min-width:721px){
+@media screen and (max-width: 1268px){
     .card {
-        width: 90vw;
+        width: 615px;
     }
     .card_left{
         min-width: 311px;
@@ -115,28 +116,31 @@
 
 
 
-@media screen and (max-width: 720px){
-    .card_left .imagen{
+@media screen and (max-width: 768px){
+    .imagen{
         height: 279px;
         width: 311px;
         border-radius: 10px;
     }
 
 }
-@media (max-width: 550px){
+@media (max-width: 480px){
 
     .card{
         display: flex;
         flex-direction: column;
         border-radius: 10px;
-        width: 90vw;
-        height: 70vh;
+        width: 310px;
+        height: 370px;
         justify-content: space-between;
-        overflow: hidden;
+        overflow: hidd;
     }
     
-    .card_left .imagen{
-        width: inherit;
+    .imagen{
+        max-width: 310px;
+        min-width: 310px;
+        max-height: 185px;
+        min-height: 185px;
         border-bottom-left-radius: 0%;
         border-bottom-right-radius: 0%;
     }
@@ -145,24 +149,14 @@
         margin-top: 5px;
     }
     .card_left{
-        height: 50%;
-        width: 100%;
-        max-width: none;
         padding: 0px;
     }
-
-    .card_left .imagen{
-        height: 100%;
-    }
-
     .card_right{
-        height: 50%;
-        padding: 0px 10px 10px 10px;
+        padding-top: 0px;
         margin-bottom: 5px;
     }
     .description{
         height: 42px;
-    
     }
     .iconBox{
         display:flex;
