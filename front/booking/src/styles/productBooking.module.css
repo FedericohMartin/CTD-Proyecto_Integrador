@@ -1,6 +1,5 @@
 .bookingContainer{
     background-color: rgb(84, 87, 118, .1);
-    color: #383B58;
     display: flex;
     font-family: 'Poppins';
     padding: 1rem 0;
@@ -19,6 +18,40 @@
     height: 15.31rem;
     margin: 1rem 1rem;
     width: 66vw;
+}
+
+.dataContainer{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: .75rem;
+    justify-content: space-evenly;
+    padding: 1rem 0;
+}
+
+.dataContainer>div{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.dataContainer label{
+    height: 1.5rem;
+}
+
+.dataContainer input, .dataContainer select{
+    box-shadow: 0rem 0.0625rem 0.3125rem rgba(0, 0, 0, 0.15);
+    border: none;
+    border-radius: 0.3125rem;
+    color: #4F4F50;
+    height: 2.5rem;
+    font-weight: 500;
+    padding-left: 1rem;   
+}
+
+.dataContainer input:disabled{
+    background-color: rgb(96, 125, 139, .15);
+    color: rgb(56, 59, 88, .75);
 }
 
 .bookingDetails{
