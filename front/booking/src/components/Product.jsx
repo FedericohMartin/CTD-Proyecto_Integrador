@@ -44,7 +44,26 @@ function Product({children}){
                     <div>{product.category?.title}</div>
                     <div>{product.title}</div>
                 </div>
-                <Link to={-1}><IoChevronBack className={styles.backIcon}/></Link>
+                <Link to={"/"}><IoChevronBack className={styles.backIcon}/></Link>
+            </div>
+            <div className={styles.productLocation}>
+                <div>
+                    <MdLocationOn className={styles.locationIcon}/>
+                    <div>{`${product.location?.state}, ${product.location?.name}, ${product.location?.country}`}</div> 
+                </div>
+            </div>
+            <PhotoGallery/>
+            <div className={styles.productDescription}>
+                <h2 className={styles.title}>{`Pistea por ${product.location?.state}`}</h2>
+                <p>{product.description}
+                    </p>
+            </div>
+            <div className={styles.features}>
+                <h2 className={styles.title}>¿Qué ofrece este vehículo?</h2>
+                <hr className={styles.separator}/>
+                <ul>
+                    {product.features?.map(featuresMapper)}
+                </ul>
             </div>
             {children(product)}
             <div className={styles.policy}>
