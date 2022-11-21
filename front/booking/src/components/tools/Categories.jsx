@@ -21,9 +21,9 @@ function Pagination({onParentPrevClicked, onParentNextClicked, page, buttonConta
     return(
         <>
             <div className={buttonContainer}>
-                <button className={btn} type="button" onClick={onLocalPrevClicked} disabled={page.pageNumber === 0}>{"<"}</button>
+                {page.totalPages !== 0 && <button className={btn} type="button" onClick={onLocalPrevClicked} disabled={page.pageNumber === 0}>{"<"}</button>}
                 {pageNumbreComponents}
-                <button className={btn} type="button" onClick={onLocalNextClicked} disabled={page.totalPages-1 === page.pageNumber}>{">"}</button>
+                {page.totalPages !== 0 && <button className={btn} type="button" onClick={onLocalNextClicked} disabled={page.totalPages-1 === page.pageNumber}>{">"}</button>}
             </div>  
         </>
     )
