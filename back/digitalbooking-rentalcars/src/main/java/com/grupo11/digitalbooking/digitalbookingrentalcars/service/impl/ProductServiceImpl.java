@@ -78,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> searchByCity(Integer id){
         return productRepository.findByCityId(id);
     }
-
+    //Ticket Nº 55
     public List<Product> getProductsByCityAndDate(FilteredProduct filter) throws BadRequestException {
         //errores
         boolean noNullData = filter.getInitialDate() != null && filter.getFinalDate() != null && filter.getCityId() != null;
