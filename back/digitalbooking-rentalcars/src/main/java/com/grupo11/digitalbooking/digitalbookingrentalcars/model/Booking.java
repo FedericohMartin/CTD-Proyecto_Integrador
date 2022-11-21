@@ -23,10 +23,14 @@ public class Booking {
     private LocalDate initialDate;
     private LocalDate finalDate;
     private Integer userId;
+
+
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @JoinColumn(name = "product_id")
     private Product product;
+
+    //Ticket Nº 58
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @JoinColumn(name = "users_id")

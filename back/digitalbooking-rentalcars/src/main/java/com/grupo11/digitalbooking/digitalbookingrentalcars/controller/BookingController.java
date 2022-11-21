@@ -20,6 +20,7 @@ public class BookingController {
         return ResponseHandler.generateResponse("Reservation list", HttpStatus.OK, bookingService.listBookings());
     }
 
+    //Ticket Nº 59
     @PostMapping("/saveBooking")
     public ResponseEntity<Object> saveBooking(@RequestBody Booking booking) throws Exception{
         return ResponseHandler.generateResponse("The reservation was successfully saved", HttpStatus.OK, bookingService.newBooking(booking));
@@ -54,6 +55,19 @@ public class BookingController {
             response = ResponseHandler.generateResponse("The user does not have reservations", HttpStatus.NOT_FOUND, null);
         }else {
             response=ResponseHandler.generateResponse("Reservation list", HttpStatus.OK, bookingService.findByUserId(id));
+        }
+        return response;
+    }
+
+    //Ticket Nº 59
+    //Consulta de reservas por Id de Producto
+    @GetMapping("/listByProduct/{id}")
+    public ResponseEntity<Object> listBookingsByProductId(@PathVariable Integer id) throws Exception{
+        ResponseEntity<Object> response = null;
+        if (bookingService.findByProductId(id).isEmpty()){
+            response = ResponseHandler.generateResponse("The product does not have reservations", HttpStatus.NOT_FOUND, null);
+        }else {
+            response=ResponseHandler.generateResponse("Reservation list", HttpStatus.OK, bookingService.findByProductId(id));
         }
         return response;
     }

@@ -71,4 +71,8 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findByUserId(id);
     }
 
+    public List<Booking> findByProductId(Integer id) {
+        return bookingRepository.findByProductId(id);
+    }
+
 }

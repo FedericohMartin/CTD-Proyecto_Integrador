@@ -17,5 +17,7 @@ public interface BookingService {
 
     List<Booking> findByUserId(Integer users_id);
 
+    List<Booking> findByProductId(Integer products_id);
+
     Object newBooking(Booking booking);
 }
