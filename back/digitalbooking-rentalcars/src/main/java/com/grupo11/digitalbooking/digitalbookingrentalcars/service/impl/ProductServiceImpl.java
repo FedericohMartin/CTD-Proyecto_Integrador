@@ -94,7 +94,7 @@ public class ProductServiceImpl implements ProductService {
 
         return response;
     }
-
+    //Ticket Nº 55
     public List<Product> getProductsByCityAndDate(FilteredProduct filter) throws BadRequestException {
         //errores
         boolean noNullData = filter.getInitialDate() != null && filter.getFinalDate() != null && filter.getCityId() != null;
@@ -108,18 +108,16 @@ public class ProductServiceImpl implements ProductService {
         if(!datesAreInOrder){throw new BadRequestException("The dates are in the wrong order or are the same");}
 
         if(oldCheckIn){throw new BadRequestException("Check In cannot be in the past");}
-        //searchByCity(filter.getCityId());
-        //TODO: para cuando cree el Service de City: cityService.searchByCity(filter.getCityId());     //si no existe el id, arrojará un badRequest
 
         List<Product> results = productRepository.getProductsByCityAndDates(filter.getCityId(), filter.getInitialDate(), filter.getFinalDate());
 
         if (results == null){
-            //TODO: a verificar
+
             throw new BadRequestException("No available cars found with your search");
         }else{
             return results;
         }
-        //return results;
+
     }
 
 
