@@ -235,6 +235,10 @@
     width: 100%;
 }
 
+#calendarSearch.calendar.bookingCalendar .react-datepicker{
+    box-shadow: none;
+}
+
 #calendarSearch.calendar .react-datepicker .react-datepicker__month-container{
     width: 45%;
 }
@@ -255,6 +259,10 @@
 
 #calendarSearch.calendar .react-datepicker__navigation{
     top: 15vh;
+}
+
+.react-datepicker__day--disabled, .react-datepicker__month-text--disabled, .react-datepicker__quarter-text--disabled, .react-datepicker__year-text--disabled{
+    text-decoration-line: line-through;
 }
 
 

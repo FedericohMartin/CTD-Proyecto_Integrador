@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import citiesService from "../../services/citiesService";
+import moment from 'moment'
 import CalendarSearch from "./CalendarSearch";
 import {Context} from '../../contexts/UserContext';
 import styles from '../../styles/productBooking.module.css';
@@ -11,6 +12,7 @@ import { useEffect } from "react";
 const hours = Array.from({length: 24}, (_, i) => {let a = i-1 
                                                 return`${a + 1}:00`})
 
+const excludeDates = [new Date(), new Date("2022-11-30 EDT"), new Date("2022-12-17 EDT")]
 
 function ProductBooking({product}){
     const [bookingFormData, setBookingFormData] = useState({
@@ -23,6 +25,7 @@ function ProductBooking({product}){
         arrivalHour: "",
     });
     const [cities, setCities] = useState([]);
+    const [maxDateDatepicker, setMaxDateDatepicker] = useState(null);
     const {authUser} = useContext(Context);
 
     const onFormFieldChange = (event) => {
@@ -42,17 +45,46 @@ function ProductBooking({product}){
         });
      };
 
-     const onDateChange = (dates) => {
-
-        const [startDate, endDate] = dates
+     const onClearDatesClicked = () => {
         setBookingFormData((prevState) => {
-            const update = {...prevState};
-
-            update.startDate = startDate;
-            update.endDate = endDate;
-
-            return update;
+            return {...prevState, startDate: null, endDate: null};
         })
+
+        setMaxDateDatepicker(null);
+     }
+     const onDateChange = (dates) => {
+        const [start, end] = dates;
+
+        setBookingFormData((prevState) => {
+            return {...prevState, startDate: start};
+        })
+
+        if (end == null) {
+            setBookingFormData((prevState) => {
+                return {...prevState, endDate: end};
+            })
+
+            if (bookingFormData.startDate != null && start.toString() === bookingFormData.startDate.toString()) {
+                setBookingFormData((prevState) => {
+                    return {...prevState, startDate: null};
+                })
+                setMaxDateDatepicker(null);
+            } else if (excludeDates.length > 0) {
+                for (const date of excludeDates) {
+                    if (moment(new Date(date)).isAfter(new Date(start))) {
+                        setMaxDateDatepicker(new Date(date));
+                        break;
+                    }
+                }
+            }
+        } else if (start.toString() !== end.toString()) {
+            setBookingFormData((prevState) => {
+                return {...prevState, endDate: end};
+            })
+
+            setMaxDateDatepicker(end);
+        }
+        
      }
 
     const cityMapper = (cities) => (
@@ -63,7 +95,7 @@ function ProductBooking({product}){
     useEffect(() => {
         if(authUser){
             setBookingFormData((prevState) => {
-                return {...prevState, ...authUser};
+                return {...prevState, ...authUser, password: null};
             })
         }
     }, [authUser]);
@@ -109,13 +141,16 @@ function ProductBooking({product}){
                     </div>
                     <h2>Seleccioná tu fecha de reserva</h2>
                     <div className={styles.dateContainer}>
-                    <CalendarSearch 
-                        inlineProp={'inline'} 
-                        productCalendar='calendar bookingCalendar'
-                        onParentDateChange={onDateChange} 
-                        startDate={bookingFormData.startDate} 
-                        endDate={bookingFormData.endDate}
-                    ></CalendarSearch>
+                        <CalendarSearch 
+                            inlineProp={'inline'} 
+                            productCalendar='calendar bookingCalendar'
+                            onParentDateChange={onDateChange} 
+                            startDate={bookingFormData.startDate} 
+                            endDate={bookingFormData.endDate}
+                            maxDateDatepicker={maxDateDatepicker}
+                            excludeDates={excludeDates}
+                        ></CalendarSearch>
+                        <div className={styles.clear} onClick={onClearDatesClicked}>Borrar selección</div>
                     </div>
                     <h2>Tu horario de llegada</h2>
                     <div className={styles.timeContainer}>

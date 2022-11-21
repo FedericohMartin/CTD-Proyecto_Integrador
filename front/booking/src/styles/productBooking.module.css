@@ -99,6 +99,18 @@
     width: 1.5rem;
 }
 
+.dateContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.dateContainer .clear{
+    align-self: flex-end;
+    cursor: pointer;
+    margin: 0 1rem .3rem 0;
+    text-decoration: underline;
+}
+
 .bookingDetails{
     background-color: #FFFF;
     border-radius: .5rem;
