@@ -1,6 +1,6 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto;
 
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.UserRole;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.UserRol;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +14,6 @@ public class UserDTO {
     private String email;
     private String password;
     private String userCity;
-    private String username;
-    private UserRole role;
+    //private String username;
+    private UserRol rol;
 }

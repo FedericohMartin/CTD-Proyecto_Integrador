@@ -1,9 +1,11 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.BadRequestException;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.ProductNotFoundException;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductDTO;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ProductService;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.util.FilteredProduct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +35,7 @@ public class ProductController {
 
     @PostMapping("/addProduct")
     public ResponseEntity<Object> addProduct(@RequestBody ProductDTO productDTO){
-        Product product = new Product();
-        product.setId(productDTO.getId());
-        product.setName(productDTO.getName());
-        product.setDescription(productDTO.getDescription());
-        product.setCarryOn(productDTO.getCarryOn());
-        product.setSuitcase(productDTO.getSuitcase());
-        product.setCity(productDTO.getCity());
-        product.setCategory(productDTO.getCategory());
-        product.setFeatures(productDTO.getFeatures());
-        return ResponseHandler.generateResponse("The product has been added successfully", HttpStatus.OK, productService.addProduct(product));
+        return ResponseHandler.generateResponse("The product has been added successfully", HttpStatus.OK, productService.addProduct(productDTO));
     }
 
 
@@ -61,26 +54,15 @@ public class ProductController {
 
 
     @PutMapping("/updateProduct")
-    public ResponseEntity<Object> updateProduct(@RequestBody ProductDTO productDTO){
-        ResponseEntity<Object> response=null;
-
-        if (productDTO.getId() != null && productService.searchProduct(productDTO.getId()).isPresent()) {
-            Product product = new Product();
-            product.setId(productDTO.getId());
-            product.setName(productDTO.getName());
-            product.setDescription(productDTO.getDescription());
-            product.setCarryOn(productDTO.getCarryOn());
-            product.setSuitcase(productDTO.getSuitcase());
-            product.setCity(productDTO.getCity());
-            product.setCategory(productDTO.getCategory());
-            product.setFeatures(productDTO.getFeatures());
-            response = ResponseHandler.generateResponse("The product has been successfully updated", HttpStatus.OK, productService.updateProduct(product));
+    public ResponseEntity<Object> updateProduct(@RequestBody ProductUpdateDTO productDTO){
+        try{
+            return ResponseHandler.generateResponse("The product has been successfully updated", HttpStatus.OK, productService.updateProduct(productDTO));
+        }catch(ProductNotFoundException ex){
+            return ResponseHandler.generateResponse("Product not found",HttpStatus.NOT_FOUND,ex.getMessage());
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return ResponseHandler.generateResponse("Error to update product",HttpStatus.INTERNAL_SERVER_ERROR,ex.getMessage());
         }
-        else
-            response = ResponseHandler.generateResponse("Product not found",HttpStatus.NOT_FOUND,null);
-
-        return response;
-
     }
 
 
@@ -112,7 +94,7 @@ public class ProductController {
         return ResponseHandler.generateResponse("List of Products with the city searched",HttpStatus.OK,productService.searchByCity(id));
     }
 
-    //Ticket Nº 55
+
     @GetMapping("/product/{cityId}/{initialDate}/{finalDate}")
     public ResponseEntity<Object> searchByCityAndDates(@PathVariable Integer cityId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finalDate) throws BadRequestException {
         FilteredProduct filter = new FilteredProduct();

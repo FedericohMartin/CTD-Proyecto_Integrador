@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
-public class UserRole {
+public class UserRol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

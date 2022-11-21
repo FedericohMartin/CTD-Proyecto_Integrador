@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class UserModel {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,11 +22,11 @@ public class UserModel {
     private String email;
     private String password;
     private String userCity;
-    private String username;
+    //private String username;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "roles_id")
     /* @Enumerated(EnumType.STRING)*/
-    private UserRole role;
+    private RolUsuario rol;
 }

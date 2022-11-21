@@ -3,7 +3,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.util;
 import java.time.LocalDate;
 
 public class FilteredProduct {
-    //Ticket Nº 55
+
     //Attributes
     private LocalDate initialDate;
     private LocalDate finalDate;

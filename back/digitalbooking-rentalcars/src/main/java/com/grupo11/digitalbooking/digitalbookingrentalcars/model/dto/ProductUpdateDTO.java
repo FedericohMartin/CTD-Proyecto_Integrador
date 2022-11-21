@@ -1,18 +1,15 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto;
 
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Category;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.City;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Image;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.ProductFeature;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-public class ProductDTO {
+public class ProductUpdateDTO {
+
+    private Integer id;
     private String name;
     private String description;
     private Integer stock;
@@ -20,7 +17,7 @@ public class ProductDTO {
     private Integer suitcase;
     private Integer cityId;
     private Integer categoryId;
-    private List<String> images;
+    private List<ImageDTO> images;
     private List<Integer> feature_ids;
 
 }
