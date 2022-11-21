@@ -100,7 +100,7 @@
     font-family: 'Poppins';
     font-weight: 500;
     margin: 0 2.6rem 1rem 2.6rem;
-    width: 30%;
+    max-width: 30%;
 }
 
 .buttonContainer div{
@@ -194,7 +194,7 @@
 
     .buttonContainer{
         margin: 0 1rem 1rem 1rem;
-        width: auto;
+        max-width: 100%;
     }
 }
 
