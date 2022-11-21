@@ -9,71 +9,21 @@ import Searchbox from "./tools/Searchbox";
 function Home() {
     const [categories, setCategories] = useState([])
     const [products, setProducts] = useState([]);
-    const [page, setPage] = useState({
-        pageNumber: 0,
-        totalPages: 0,
-    });
-
-    const onNextClicked = () => {
-        setPage(prevState => {
-            const update = {...prevState};
-            update.pageNumber++
-
-            return update;
-        })
-    }
-
-    const onPrevClicked = () => {
-        setPage(prevState => {
-            const update = {...prevState};
-            update.pageNumber--
-
-            return update;
-        })
-    }
-
-    const onNumberClicked= (targetPage) => {
-        setPage(prevState => {
-            const update = {...prevState};
-            update.pageNumber = parseInt(targetPage);
-
-            return update;
-        })
-    }
-
-    const onResetPage = () => {
-        setPage((prevState) => {
-            return {...prevState, pageNumber:0}
-        })
-    }
-    
     
     const onSubmitClicked = (data) => {
-        onResetPage();
         productService
         .getByCityId(data.city)
         .then(response => {
-            setProducts(response.data.items);
-            setPage((prevState)=>{
-                const update = {...prevState};
-                update.totalPages = Math.ceil(response.data.total/4);
-                return update;
-            })
+            setProducts(response.data);;
         })
         .catch(error => console.log(error));
     }
 
-    const onCategoryClicked = (categoryId) => {
-        onResetPage();
+    const onCategoryClicked = (catedoryId) => {
         productService
-        .getByCategoryId(categoryId)
+        .getByCategoryId(catedoryId)
         .then(response => {
-            setProducts(response.data.items);
-            setPage((prevState)=>{
-                const update = {...prevState};
-                update.totalPages = Math.ceil(response.data.total/4);
-                return update;
-            })
+            setProducts(response.data);;
         })
         .catch(error => console.log(error));
     }
@@ -89,12 +39,7 @@ function Home() {
         productService
         .getAll()
         .then((response) => {
-            setProducts(response.data.items);
-            setPage((prevState)=>{
-                const update = {...prevState};
-                update.totalPages = Math.ceil(response.data.total/4);
-                return update;
-            })
+            setProducts(response.data);
         })
         .catch(error => console.log(error))
     }, []);
@@ -102,15 +47,7 @@ function Home() {
     return (
             <div className={styles.container}>
                 <Searchbox onParentSubmitClicked={onSubmitClicked}></Searchbox>
-                <Categories 
-                    categories={categories} 
-                    products={products} 
-                    onParentClicked={onCategoryClicked}
-                    onParentNextClicked={onNextClicked}
-                    onParentPrevClicked={onPrevClicked}
-                    onParentNumberClicked={onNumberClicked}
-                    page={page}
-                ></Categories>
+                <Categories categories={categories} products={products} onParentClicked={onCategoryClicked}></Categories>
             </div>
     )
 }

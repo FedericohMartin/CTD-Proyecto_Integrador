@@ -2,150 +2,55 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.BadRequestException;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.ProductNotFoundException;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.*;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductDTO;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Category;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.City;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CategoryRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CityRepository;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.FeatureRepository;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductFeatureRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ProductService;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.util.FilteredProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CityRepository cityRepository;
     private final CategoryRepository categoryRepository;
-    private final FeatureRepository featureRepository;
+    private final ProductFeatureRepository productFeatureRepository;
     private ObjectMapper mapper;
 
     private final Integer LIMIT_RANDOM = 3;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository,
-                              CityRepository cityRepository,
-                              CategoryRepository categoryRepository,
-                              FeatureRepository featureRepository,
-                              ObjectMapper mapper) {
+    public ProductServiceImpl(ProductRepository productRepository, CityRepository cityRepository, CategoryRepository categoryRepository, ProductFeatureRepository productFeatureRepository, ObjectMapper mapper) {
         this.productRepository = productRepository;
         this.cityRepository = cityRepository;
         this.categoryRepository = categoryRepository;
-        this.featureRepository = featureRepository;
+        this.productFeatureRepository= productFeatureRepository;
         this.mapper = mapper;
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public Product addProduct(ProductDTO dto){
-
-        City city =  cityRepository
-                .findById(dto.getCityId())
-                .orElseThrow(() -> new RuntimeException("City not found"));
-
-        Category category =  categoryRepository
-                .findById(dto.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
-
-        Product product = new Product();
-        product.setName(dto.getName());
-        product.setDescription(dto.getDescription());
-        product.setStock(dto.getStock());
-        product.setCarryOn(dto.getCarryOn());
-        product.setSuitcase(dto.getSuitcase());
-        product.setCity(city);
-        product.setCategory(category);
-
-        List<ProductImage> productImages = dto
-                .getImages()
-                .stream()
-                .map(imgUrl -> {
-                    Image img = new Image();
-                    img.setName(product.getName());
-                    img.setImgUrl(imgUrl);
-                    return img;
-                }).map(image -> {
-                    ProductImage productImage = new ProductImage();
-                    productImage.setProduct(product);
-                    productImage.setImage(image);
-                    return productImage;
-                }).toList();
-
-        List<ProductFeature> productFeatures = featureRepository
-                .findByFeatureIds(dto.getFeature_ids())
-                .stream()
-                .map(feature -> {
-                    ProductFeature productFeature = new ProductFeature();
-                    productFeature.setProduct(product);
-                    productFeature.setFeature(feature);
-                    return productFeature;
-                }).toList();
-
-        product.getImages().addAll(productImages);
-        product.getFeatures().addAll(productFeatures);
-
+    public Product addProduct(Product product){
+        Optional<City> city =  cityRepository.findById(product.getCity().getId());
+        product.setCity(city.get());
+        Optional<Category> category =  categoryRepository.findById(product.getCategory().getId());
+        product.setCategory(category.get());
         return productRepository.save(product);
     }
 
-    public Product updateProduct(ProductUpdateDTO dto){
-        Product  product = searchProduct(dto.getId())
-                .orElseThrow(() -> new ProductNotFoundException(dto.getId()));
-
-        City city =  cityRepository
-                .findById(dto.getCityId())
-                .orElseThrow(() -> new RuntimeException("City not found"));
-
-        Category category =  categoryRepository
-                .findById(dto.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
-
-        List<ProductImage> productImages = dto
-                .getImages()
-                .stream()
-                .map(img ->
-                        product.getImages()
-                                .stream()
-                                .filter(x -> x.getImage().getId().equals(img.getId()))
-                                .toList()
-                                .stream()
-                                .findFirst()
-                                .map(x -> {
-                                    x.getImage().setName(img.getName());
-                                    x.getImage().setImgUrl(img.getImgUrl());
-                                    return x;
-                                })
-                                .orElse(new ProductImage(null, product, new Image(img.getId(), img.getName(), img.getImgUrl()))))
-                .toList();
-
-        List<ProductFeature> productFeatures = featureRepository
-                .findByFeatureIds(dto.getFeature_ids())
-                .stream()
-                .map(feature -> product.getFeatures()
-                        .stream()
-                        .filter(featureProduct ->
-                                Objects.equals(
-                                        featureProduct.getFeature().getId(), feature.getId())
-                        ).toList().stream().findFirst()
-                        .orElse(new ProductFeature(null, product, feature))).toList();
-
-        product.setName(dto.getName());
-        product.setDescription(dto.getDescription());
-        product.setStock(dto.getStock());
-        product.setCarryOn(dto.getCarryOn());
-        product.setSuitcase(dto.getSuitcase());
-        product.setCity(city);
-        product.setCategory(category);
-        product.getImages().clear();
-        product.getFeatures().clear();
-        product.getImages().addAll(productImages);
-        product.getFeatures().addAll(productFeatures);
-
+    public Product updateProduct(Product product){
+        Optional<City> ciudad =  cityRepository.findById(product.getCity().getId());
+        product.setCity(ciudad.get());
+        Optional<Category> category =  categoryRepository.findById(product.getCategory().getId());
+        product.setCategory(category.get());
         return productRepository.save(product);
     }
 
@@ -188,11 +93,7 @@ public class ProductServiceImpl implements ProductService {
 
         if(oldCheckIn){throw new BadRequestException("Check In cannot be in the past");}
 
-        List<Product> results = productRepository.getProductsByCityAndDates(
-                filter.getCityId(),
-                filter.getInitialDate(),
-                filter.getFinalDate()
-        );
+        List<Product> results = productRepository.getProductsByCityAndDates(filter.getCityId(), filter.getInitialDate(), filter.getFinalDate());
 
         if (results == null){
 
@@ -212,7 +113,7 @@ public class ProductServiceImpl implements ProductService {
         Integer indexEnd = categories.size() < LIMIT_RANDOM ? categories.size()-1 : LIMIT_RANDOM -1;
         List<Category> categoriesSubList = categories.subList(0, indexEnd);
         if (categories.isEmpty()){
-            return Collections.emptyList();
+            return Collections.EMPTY_LIST;
         }
         List<Product> products = productRepository
                 .findByCategoryIds(

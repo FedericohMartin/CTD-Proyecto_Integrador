@@ -19,29 +19,29 @@ const getInitials = (stringChain) => {
 }
 
 function Menu(props){
-    const {user} = useContext(Context);
+    const {authUser, onLogoutClicked} = useContext(Context);
 
     const onLocalCloseClicked = () => {
         props.onParentCloseClicked();
     }
 
     const onLocalLogoutClicked = () => {
-        props.onParentLogoutClicked();
+      onLogoutClicked();
     }
 
     return(
         <div className={`${styles.container} ${props.show && styles.hide} ${!props.show && styles.show} ${styles.disableMenu}`}>
             <header className={styles.menuHeader}>
                 <img onClick={onLocalCloseClicked} className={styles.close} src={closeIcon} alt="Close Icon" />
-                {user?.name ? 
+                {authUser?.name ? 
                   <div className={styles.nameItem}>
-                    <div id={styles.avatar}>{getInitials(`${user?.name} ${user?.lastName}`)}</div>
+                    <div id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.lastName}`)}</div>
                     <div>Hola, </div>
-                    <div>{` ${user?.name} ${user?.lastName}`}</div>
+                    <div>{` ${authUser?.name} ${authUser?.lastName}`}</div>
                   </div> 
                   :<div>MENÚ</div>}
             </header>
-            {user?.name ?
+            {authUser?.name ?
               <div className={styles.userMenuBody}>
                 <div>¿Deseas <Link onClick={onLocalLogoutClicked}>cerrar sesión</Link>?</div>
                 <hr className={styles.separator}/>
