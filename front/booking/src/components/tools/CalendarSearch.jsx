@@ -6,12 +6,11 @@ import "../../styles/calendarSearch.css";
 import es from 'date-fns/locale/es';
 registerLocale("es", es);
 
-const CalendarSearch = ({values, inlineProp, productCalendar, onParentDateChange, startDate, endDate, excludeDates}) => {
+const CalendarSearch = ({ inlineProp, productCalendar, onParentDateChange, startDate, endDate, excludeDates}) => {
     const { width } = useWindowDimensions();
 
     const onLocalDateChange = (dates) => {
         onParentDateChange(dates);
-        values(dates);
     }
 
     return (

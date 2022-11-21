@@ -18,8 +18,8 @@ function ProductBooking({product}){
         lastName: "",
         email: "",
         city: "",
-        dateStart: "",
-        dateEnd: "",
+        startDate: null,
+        endDate: null,
         arrivalHour: "",
     });
     const [cities, setCities] = useState([]);
@@ -41,6 +41,19 @@ function ProductBooking({product}){
            return updatedFormData;
         });
      };
+
+     const onDateChange = (dates) => {
+
+        const [startDate, endDate] = dates
+        setBookingFormData((prevState) => {
+            const update = {...prevState};
+
+            update.startDate = startDate;
+            update.endDate = endDate;
+
+            return update;
+        })
+     }
 
     const cityMapper = (cities) => (
         <option key={`city-${cities.id}`} value= {cities.id}>{cities.name} - {cities.state} - {cities.country}   </option>)
@@ -96,7 +109,13 @@ function ProductBooking({product}){
                     </div>
                     <h2>Seleccioná tu fecha de reserva</h2>
                     <div className={styles.dateContainer}>
-                    <CalendarSearch inlineProp={'inline'} productCalendar='calendar'></CalendarSearch>
+                    <CalendarSearch 
+                        inlineProp={'inline'} 
+                        productCalendar='calendar bookingCalendar'
+                        onParentDateChange={onDateChange} 
+                        startDate={bookingFormData.startDate} 
+                        endDate={bookingFormData.endDate}
+                    ></CalendarSearch>
                     </div>
                     <h2>Tu horario de llegada</h2>
                     <div className={styles.timeContainer}>
@@ -130,9 +149,9 @@ function ProductBooking({product}){
                             {`${product.location?.state}, ${product.location?.name}, ${product.location?.country}`}
                         </div>
                         <hr />
-                        <div>Fecha de entrega:</div>
+                        <div>Fecha de entrega: {bookingFormData.startDate?.toLocaleDateString()}</div>
                         <hr />
-                        <div>Fecha de devolución:</div>
+                        <div>Fecha de devolución: {bookingFormData.endDate?.toLocaleDateString()}</div>
                         <hr />
                         <button type="submit">Confirmar reserva</button>
                     </div>   
