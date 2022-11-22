@@ -20,8 +20,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "where P.cities_id = ?1 " +
             "and P.id not in ( " +
             "    select distinct R.products_id " +
-            "    from reservas R " +
-            "    where (R.fecha_final > ?2 and R.fecha_inicial < ?3) " +
+            "    from bookings R " +
+            "    where (R.final_date > ?2 and R.initial_date < ?3) " +
             ")" +
             " group by P.id; ", nativeQuery = true)
     List<Product> getProductsByCityAndDates(Integer cities_id,

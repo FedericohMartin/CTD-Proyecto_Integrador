@@ -3,6 +3,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+
 import javax.persistence.*;
 
 @ToString
@@ -12,22 +13,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "products_features")
-public class ProductFeature {
-
+@Table(name = "products_images")
+public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //Ticket Nº 24
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JoinColumn(name = "products_id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    @JoinColumn(name = "features_id")
-    private Feature feature;
-
+    @JoinColumn(name = "images_id")
+    private Image image;
 }
