@@ -13,17 +13,13 @@ import java.util.Optional;
 @Service
 public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
-    private final ProductRepository productRepository;
 
     @Autowired
-    public ImageServiceImpl(ImageRepository imageRepository, ProductRepository productRepository) {
+    public ImageServiceImpl(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
-        this.productRepository = productRepository;
     }
 
     public Image addImage(Image image){
-        Optional<Product> product = productRepository.findById(image.getProduct().getId());
-        image.setProduct(product.get());
         return imageRepository.save(image);
     }
 
@@ -32,8 +28,6 @@ public class ImageServiceImpl implements ImageService {
     }
 
     public Image updateImage(Image image){
-        Optional<Product> product = productRepository.findById(image.getProduct().getId());
-        image.setProduct(product.get());
         return imageRepository.save(image);
     }
 
@@ -49,4 +43,5 @@ public class ImageServiceImpl implements ImageService {
         List<Image>images= imageRepository.findAll();
         return images;
     }
+
 }

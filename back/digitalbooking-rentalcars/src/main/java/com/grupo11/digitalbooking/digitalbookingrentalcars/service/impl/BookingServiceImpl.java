@@ -5,6 +5,7 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.ResourceNo
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Booking;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.UserModel;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.BookingDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.BookingRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.UserRepository;
@@ -12,6 +13,10 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.Bo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -33,17 +38,22 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findById(id);
     }
 
-    public Booking saveBooking(Booking booking) {
-        UserModel userModel = userRepository.findById(booking.getUserModel().getId()).get();
-        Product product = productRepository.findById(booking.getProduct().getId()).get();
+    public Booking saveBooking(BookingDTO dto) {
+        UserModel userModel = userRepository.findById(dto.getUserId()).get();
+        Product product = productRepository.findById(dto.getProductId()).get();
 
+        Booking booking = new Booking();
+        booking.setHour(LocalTime.parse(dto.getHour()));
+        booking.setInitialDate(stringToLocalDateTime(dto.getInitialDate()));
+        booking.setFinalDate(stringToLocalDateTime(dto.getFinalDate()));
+        booking.setUserId(dto.getUserId());
         booking.setUserModel(userModel);
         booking.setProduct(product);
 
         return bookingRepository.save(booking);
     }
 
-    public Booking newBooking(Booking booking) {
+    public Booking newBooking(BookingDTO booking) {
         return saveBooking(booking);
     }
 
@@ -57,14 +67,14 @@ public class BookingServiceImpl implements BookingService {
         }
     }
 
-    public List<Booking> listBookings() {
+    public Set<Booking> listBookings() {
         List<Booking> bookings = bookingRepository.findAll();
         Set<Booking> bookings1 = new HashSet<>();
 
         for (Booking booking : bookings) {
             bookings1.add(mapper.convertValue(booking, Booking.class));
         }
-        return (List<Booking>) bookings1;
+        return bookings1;
     }
 
     public List<Booking> findByUserId(Integer id) {
@@ -75,4 +85,10 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findByProductId(id);
     }
 
+
+    public LocalDate stringToLocalDateTime(String stringDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(stringDate, formatter);
+        return date;
+    }
 }

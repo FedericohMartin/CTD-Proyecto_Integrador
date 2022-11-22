@@ -91,6 +91,48 @@
    color: #263238;
 }
 
+.buttonContainer{
+    align-items: center;
+    color: #263238;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-family: 'Poppins';
+    font-weight: 500;
+    margin: 0 2.6rem 1rem 2.6rem;
+    max-width: 30%;
+}
+
+.buttonContainer div{
+    cursor: pointer;
+}
+
+.pageBtn{
+    background-color: #FBC02D;
+    border: 1px solid #FBC02D;
+    border-radius: 0.3125rem;
+    color: #FFFF;
+    font-family: 'Poppins';
+    font-weight: 700;
+    height: 1.6rem;
+    width: 2rem;
+}
+
+.pageBtn:hover{
+    background-color: transparent;
+    color: #FBC02D;
+}
+
+.pageBtn:disabled{
+    background-color: rgb(251, 192, 45, 0.5);
+    border: 1px solid #FBC02D;
+    color: #FFFF;
+}
+
+.active{
+    text-decoration: underline;
+}
+
 /*RESPONSIVE TABLET*/
 @media(max-width: 912px){   
     .parentContainer{
@@ -110,7 +152,7 @@
 }
 
 /*RESPONSIVE MOBILE*/
-@media screen and (max-width: 541px)  {
+@media screen and (max-width: 550px)  {
 
     .recomendations{
         background-color: #607D8B;
@@ -150,6 +192,10 @@
         width: 100%;
     }
 
+    .buttonContainer{
+        margin: 0 1rem 1rem 1rem;
+        max-width: 100%;
+    }
 }
 
 @media screen and (max-height:800px) and (min-width:844px) {

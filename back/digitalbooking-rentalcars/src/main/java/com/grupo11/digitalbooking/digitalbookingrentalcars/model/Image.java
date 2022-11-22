@@ -23,10 +23,4 @@ public class Image {
     private String name;
     private String imgUrl;
 
-
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "id_products")
-    private Product product;
-
 }

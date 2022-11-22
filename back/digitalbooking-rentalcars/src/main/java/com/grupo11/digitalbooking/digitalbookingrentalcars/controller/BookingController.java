@@ -2,6 +2,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Booking;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.BookingDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class BookingController {
 
     //Ticket Nº 59
     @PostMapping("/saveBooking")
-    public ResponseEntity<Object> saveBooking(@RequestBody Booking booking) throws Exception{
+    public ResponseEntity<Object> saveBooking(@RequestBody BookingDTO booking) throws Exception{
         return ResponseHandler.generateResponse("The reservation was successfully saved", HttpStatus.OK, bookingService.newBooking(booking));
     }
 

@@ -29,22 +29,24 @@ public class Product {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "cities_id")
+    @ToString.Exclude
     private City city;
 
     //Ticket Nº 22
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "categories_id")
+    @ToString.Exclude
     private Category category;
 
     //Ticket Nº 30
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "images_id")
-    private Image image;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY, orphanRemoval = true)
+    @ToString.Exclude
+    private List<ProductImage> images = new ArrayList<>();
 
     //Ticket Nº 24
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product", fetch = FetchType.LAZY, orphanRemoval = true)
+    @ToString.Exclude
     private List<ProductFeature> features = new ArrayList<>();
 
 }
