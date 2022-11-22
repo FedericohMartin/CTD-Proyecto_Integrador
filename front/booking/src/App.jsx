@@ -8,6 +8,7 @@ import Register from './components/Register';
 import Product from './components/Product';
 import ProductDetail from './components/tools/ProductDetail';
 import ProductBooking from './components/tools/ProductBooking';
+import BookingConfirm from './components/BookingConfirm';
 import Menu from './components/tools/Menu';
 import {UserContextProvider} from './contexts/UserContext'
 import {  useState } from 'react';
@@ -45,6 +46,10 @@ function App() {
               <Route path='reserva' element={<Product>
                                                   {product => <ProductBooking product={product}/>}
                                               </Product>}>
+              </Route>
+            </Route>
+            <Route path='/booking-confirm' element={<ProtectedRoutes></ProtectedRoutes>}>
+              <Route path='/booking-confirm' element={<BookingConfirm/>}>
               </Route>
             </Route>
           </Routes>
