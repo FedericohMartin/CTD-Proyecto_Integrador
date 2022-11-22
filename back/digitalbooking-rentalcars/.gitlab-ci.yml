@@ -40,9 +40,9 @@ deploy-back:
         - ssh-keyscan -H $DEPLOY_SERVER_IP >> ~/.ssh/known_hosts
     script:
         - echo "Deploying started..."
-        - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
-        - scp .back/digitalbooking-rentalcars//target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
-        - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
+        - ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
+        - scp -o StrictHostKeyChecking=no back/digitalbooking-rentalcars//target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
+        - ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
         - echo "Finished deploying the app."
     only:
         - pipeline_para_CI-CD  # main
