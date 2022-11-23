@@ -16,14 +16,24 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query( value = "select P.* from products P where P.categories_id in :ids", nativeQuery = true )
     List<Product> findByCategoryIds(@Param("ids") List<Integer> categoryIdList);
 
+    @Query(value = "select P.* from products P\n" +
+            "where P.id_products not in ( select B.product_id from bookings B \n" +
+            "where (B.initial_date >= :initial_date AND B.final_date <= :final_date)\n" +
+            "OR (:initial_date between B.initial_date AND B.final_date)\n" +
+            "OR (:final_date between B.initial_date AND B.final_date)\n" +
+            " group by B.product_id " +
+            "HAVING count(B.product_id)=P.stock);", nativeQuery = true)
+    List<Product> getProductsByDate(LocalDate initial_date, LocalDate final_date);
+
     @Query(value = "select P.* from products P " +
             "where P.cities_id = ?1 " +
-            "and P.id not in ( " +
-            "    select distinct R.products_id " +
-            "    from bookings R " +
-            "    where (R.final_date > ?2 and R.initial_date < ?3) " +
-            ")" +
-            " group by P.id; ", nativeQuery = true)
+            "and P.id_products not in ( select B.product_id from bookings B \n" +
+            "where (B.initial_date >= ?2 AND B.final_date <= ?3)\n" +
+            "OR (?2 between B.initial_date AND B.final_date)\n" +
+            "OR (?3 between B.initial_date AND B.final_date)\n" +
+            " group by B.product_id " +
+            "HAVING count(B.product_id)=P.stock);"
+            , nativeQuery = true)
     List<Product> getProductsByCityAndDates(Integer cities_id,
                                              LocalDate initialDate,
                                              LocalDate finalDate);
