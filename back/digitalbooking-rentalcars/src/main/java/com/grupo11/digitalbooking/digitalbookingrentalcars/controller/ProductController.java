@@ -5,6 +5,7 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.ProductNot
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductDTO;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductList;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ProductService;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.util.FilteredProduct;
@@ -95,14 +96,20 @@ public class ProductController {
     }
 
     //Ticket Nº 55
-    @GetMapping("/product/{cityId}/{initialDate}/{finalDate}")
-    public ResponseEntity<Object> searchByCityAndDates(@PathVariable Integer cityId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finalDate) throws BadRequestException {
+    @GetMapping("/search")
+    public ResponseEntity<Object> searchByCityAndDates(@RequestParam Integer cityId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finalDate) throws BadRequestException {
         FilteredProduct filter = new FilteredProduct();
         filter.setInitialDate(initialDate);
         filter.setFinalDate(finalDate);
         filter.setCityId(cityId);
-        List<Product> filteredProducts = productService.getProductsByCityAndDate(filter);
+        ProductList filteredProducts = productService.getProductsByCityAndDate(filter);
         return ResponseHandler.generateResponse("List of Products with the city and dates sought",HttpStatus.OK,filteredProducts);
+    }
+
+    @GetMapping("/searchByDates")
+    public ResponseEntity<Object> searchByDates(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finalDate) throws BadRequestException {
+        ProductList filteredProducts = productService.searchByDates(initialDate, finalDate);
+        return ResponseHandler.generateResponse("List of Products with dates sought",HttpStatus.OK,filteredProducts);
     }
 
     //Ticket Nº 32

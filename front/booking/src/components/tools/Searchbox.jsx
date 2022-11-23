@@ -3,6 +3,8 @@ import styles from "../../styles/searchbox.module.css"
 import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "./CalendarSearch";
 import citiesService from "../../services/citiesService"; 
+import { IoCloseCircleSharp } from "react-icons/io5";
+import {FaInfoCircle} from "react-icons/fa";
 
 function Searchbox(props){
     const [formData, setFormData] = useState({
@@ -43,6 +45,11 @@ function Searchbox(props){
         })
      }
 
+    const onClearCityClicked = () => {
+        setFormData(prevState => {
+            return {...prevState, city: ""};
+        })
+    }
     const onLocalSubmitClicked = (e) => {
         e.preventDefault();
         props.onParentSubmitClicked(formData);
@@ -64,24 +71,27 @@ function Searchbox(props){
     return(
         <div className={styles.searchbox}>
             <h1>Busca ofertas en Automoviles</h1>
-            
             <form id="form" className={styles.searchContainer} onChange={onFormFieldChange}>
                 <div className={styles.formCities}>
-                    <select className={styles.inputSearch} id="cities" name="city">
-                        <option id="title" className={styles.selected} value='null'>
+                    <select className={styles.inputSearch} value={formData.city} id="cities" name="city">
+                        <option id="title" className={styles.selected} value="">
                             ¿En cuál ciudad querés pistear?
                         </option>
 
                         {cities.map(cityMapper)}
 
                     </select>
+                    {formData.city && <IoCloseCircleSharp className={styles.clearCityIcon} onClick={onClearCityClicked}/>}
                 </div>
                 <Calendar className={styles.calendar} onParentDateChange={onDateChange} startDate={formData.dateRange.startDate} endDate={formData.dateRange.endDate}/>
-
                 <button className={styles.buttonSearch} type="submit" onClick={onLocalSubmitClicked}>
                     Buscar
                 </button>
             </form>
+            {!props.hasData &&<div className={styles.searchInfo}>
+                <FaInfoCircle className={styles.infoIcon}/>
+                <div>Podés buscar tu vehículo ideal indicando la ciudad en la que estarás o las fechas, o ¿por qué no ambos?</div>
+            </div> }   
         </div>
     )
 
