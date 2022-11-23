@@ -30,7 +30,7 @@ deploy-back:
     stage: deploy
     image: alpine:3.11
     before_script:
-        - cd back/digitalbooking-rentalcars/
+        #- cd back/digitalbooking-rentalcars/
         - apk update && apk add openssh-client bash
         - mkdir -p ~/.ssh
         - eval $(ssh-agent -s)
