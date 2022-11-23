@@ -42,9 +42,9 @@ deploy-back:
         - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
         - ssh-keyscan -H $DEPLOY_SERVER_IP >> ~/.ssh/known_hosts
     script:
-        - echo "Deploying started..."
+        #- echo "Deploying started..."
         #- ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
-        - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
+        #- ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
         #- scp -o StrictHostKeyChecking=no back/digitalbooking-rentalcars//target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
         - scp back/digitalbooking-rentalcars//target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
         #- ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
