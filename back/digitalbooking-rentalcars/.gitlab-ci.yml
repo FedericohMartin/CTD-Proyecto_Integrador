@@ -27,25 +27,23 @@ build-back:
         - pipeline_para_CI-CD  # main
 
 deploy-back:
-    stage: deploy
-    image: alpine:3.11
-    before_script:
-        # - cd back/digitalbooking-rentalcars/
-        - apk update && apk add openssh-client bash
-        # - mkdir -p ~/.ssh
-        - eval $(ssh-agent -s)
-        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-        - mkdir -p ~/.ssh
-        - chmod 400 ~/.ssh
-        # - systemctl status ssh
-        # - touch ~/.ssh/config
-        # - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-        # - ssh-keyscan -H $DEPLOY_SERVER_IP >> ~/.ssh/known_hosts
-    script:
-        - echo "Deploying started..."
-        - ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
-        - scp -o StrictHostKeyChecking=no back/digitalbooking-rentalcars//target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
-        - ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
+  stage: deploy 
+  image: alpine:3.11 
+  before_script: 
+      - apk update && apk add openssh-client bash 
+      - mkdir -p ~/.ssh 
+      - eval $(ssh-agent -s) 
+      - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null 
+      - touch ~/.ssh/config 
+      - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config 
+      - ssh-keyscan -H $DEPLOY_SERVER_IP >> ~/.ssh/known_hosts 
+  script:
+      - echo "Deploying started..."
+      - ssh ubuntu@$DEPLOY_SERVER_IP "pwd && ls -la"
+
+      #- ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
+      #- scp -o StrictHostKeyChecking=no back/digitalbooking-rentalcars//target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
+        #- ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
         # - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
         # - scp back/digitalbooking-rentalcars//target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
         # - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
