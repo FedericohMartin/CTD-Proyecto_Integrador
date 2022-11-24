@@ -9,6 +9,7 @@ import {Link, useParams} from 'react-router-dom'
 function Product({children}){
     const [product, setProduct] = useState(
         {
+            id: "",
             category: "",
             title: "",
             location: {},
@@ -26,6 +27,7 @@ function Product({children}){
         .then(response => {
             setProduct((prevState) => {
                 const newState = {...prevState};
+                newState.id = response.data.id
                 newState.category = response.data.category;
                 newState.title = response.data.name;
                 newState.location = response.data.city;

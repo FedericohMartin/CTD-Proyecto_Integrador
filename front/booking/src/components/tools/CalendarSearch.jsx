@@ -10,7 +10,7 @@ const CalendarSearch = ({ inlineProp, productCalendar, onParentDateChange, start
     const { width } = useWindowDimensions();
 
     const onLocalDateChange = (dates) => {
-        onParentDateChange(dates);
+        onParentDateChange ? onParentDateChange(dates) : console.log(dates);;
     }
 
     return (
@@ -24,12 +24,13 @@ const CalendarSearch = ({ inlineProp, productCalendar, onParentDateChange, start
                 minDate={startDate || new Date()}
                 dateFormat="dd 'de' MMM"
                 onChange={onLocalDateChange}
-                excludeDates={excludeDates}
+                excludeDateIntervals={excludeDates}
                 maxDate={maxDateDatepicker}
                 isClearable={true}
                 locale="es"
                 monthsShown={width > 550 ? 2 : 1}
                 inline={inlineProp}
+                disabledKeyboardNavigation
             />
         </div>
 

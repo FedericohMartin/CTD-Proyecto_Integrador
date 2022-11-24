@@ -187,6 +187,41 @@
     width: 93%;
 }
 
+.bookingDetails .detailsCard span, .bookFormContainer .missingDataWarning{
+    color: crimson;
+}
+
+.bookingDetails .detailsCard span{
+    margin-top: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+.bookFormContainer .missingDataContainer{
+    box-shadow: 0rem 0.0625rem 0.6rem rgba(209, 18, 18, 0.925);
+}
+
+.bookingDetails .detailsCard .missingDataWarning{
+    align-self: center;
+    margin-top: 0;
+    text-align: left;
+    width: 88%;
+}
+
+.bookFormContainer .missingDataWarning{
+    align-self: center;
+    width: 95%;
+}
+
+.bookFormContainer .timeContainer .missingDataWarning{
+    width: 90%;
+}
+
+.bookingDetails .detailsCard .alertIcon{
+    height: 2rem;
+    width: 2rem;
+}
+
 @media screen and (max-width: 912px) {
     .bookingContainer{
         flex-direction: column;
@@ -235,6 +270,14 @@
     .bookingDetails button{
         width: 93%;
     }
+
+    .bookingDetails .detailsCard span, .bookFormContainer .missingDataWarning{
+        margin-bottom: 1rem;
+    }
+
+    .bookFormContainer .missingDataWarning{
+        width: 92%;
+    }
 }
 
 @media screen and (max-width:550px) {
@@ -279,4 +322,6 @@
     .bookingDetails .titleCard h2{
         margin: 0 0 0 1.3125rem;
     }
+
+
 }

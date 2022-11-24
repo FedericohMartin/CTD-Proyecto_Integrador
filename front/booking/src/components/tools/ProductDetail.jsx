@@ -43,7 +43,7 @@ function ProductDetail({product}){
                     {product.features?.map(featuresMapper)}
                 </ul>
             </div>
-            <BookingChart ></BookingChart>
+            <BookingChart product={product}></BookingChart>
         </>
     )
 }

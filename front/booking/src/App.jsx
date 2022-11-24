@@ -48,8 +48,8 @@ function App() {
                                               </Product>}>
               </Route>
             </Route>
-            <Route path='/booking-confirm' element={<ProtectedRoutes></ProtectedRoutes>}>
-              <Route path='/booking-confirm' element={<BookingConfirm/>}>
+            <Route path='/producto/:idProducto/reserva' element={<ProtectedRoutes></ProtectedRoutes>}>
+              <Route path='booking-confirm' element={<BookingConfirm/>}>
               </Route>
             </Route>
           </Routes>
