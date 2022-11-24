@@ -1,0 +1,47 @@
+.confirmContainer{
+    justify-content: center;
+}
+
+.confirmContainer>div{
+    align-items: center;
+    background-color: #FFFF;
+    border: 0.0625rem solid #DFE4EA;
+    box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    border-radius: 0.5rem 0rem 0rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; 
+    height: 18.875rem;
+    width: 39.875rem;
+}
+
+.confirmContainer .bookingConfirmIcon{
+    color: #FBC02D;
+    height: 4.875rem;
+    margin: .5rem 0 0 0;
+    width: 4.625rem;
+}
+
+.confirmContainer h4{
+    color: #FBC02D;
+
+}
+
+.confirmContainer button{
+    background-color: #FBC02D;
+    border: .2rem solid #FBC02D;
+    border-radius: .3125rem;
+    box-shadow: 0rem 0.125rem 0.25rem rgba(0, 0, 0, 0.12);
+    color: #FFFF;
+    font-weight: 700;
+    height: 2.5rem;
+    margin: 0 0 .5rem 0;
+    width: 12.875rem;
+}
+
+@media screen and (max-width:550px) {
+    .confirmContainer>div{
+        width: 90%;
+    }
+    
+}

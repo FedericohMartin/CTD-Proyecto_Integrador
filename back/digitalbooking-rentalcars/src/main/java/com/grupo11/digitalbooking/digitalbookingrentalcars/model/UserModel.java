@@ -16,7 +16,11 @@ import javax.persistence.*;
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     @Column(name = "id_users")
+=======
+    @Column(name="id_users")
+>>>>>>> b259c9a65ccc642016d7ce740431e1f1958046f3
     private Integer id;
     private String name;
     private String surname;

@@ -120,7 +120,7 @@
 /*------------Border radius dates------------------------*/
 .react-datepicker__close-icon::after {
     cursor: pointer;
-    background-color: #e68200;
+    background-color: #FBC02D;
     color: #fff;
     border-radius: 100%;
 }

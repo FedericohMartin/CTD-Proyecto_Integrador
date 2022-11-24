@@ -5,11 +5,17 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.BadRequest
 import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.ProductNotFoundException;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.*;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductDTO;
+<<<<<<< HEAD
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CategoryRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CityRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.FeatureRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductRepository;
+=======
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductList;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.*;
+>>>>>>> b259c9a65ccc642016d7ce740431e1f1958046f3
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ProductService;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.util.FilteredProduct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,8 +159,13 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id);
     }
 
-    public List<Product> listProduct(){
-        return productRepository.findAll();
+    public ProductList listProduct(){
+        List<Product> items = productRepository.findAll();
+        ProductList response = new ProductList();
+        response.setItems(items);
+        response.setTotal(items.size());
+
+        return response;
     }
 
     public void deleteProduct(Integer id) throws Exception {
@@ -166,15 +177,59 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-    public List<Product> searchByCategory(Integer id){
-        return productRepository.findByCategoryId(id);
+    public ProductList searchByCategory(Integer id){
+        List<Product> items = productRepository.findByCategoryId(id);
+        ProductList response = new ProductList();
+        response.setItems(items);
+        response.setTotal(items.size());
+
+        return response;
     }
 
-    public List<Product> searchByCity(Integer id){
-        return productRepository.findByCityId(id);
+    public ProductList searchByCity(Integer id){
+        List<Product> items = productRepository.findByCityId(id);
+        ProductList response = new ProductList();
+        response.setItems(items);
+        response.setTotal(items.size());
+
+        return response;
     }
 
+    @Override
+    public ProductList searchByDates(LocalDate initialDate, LocalDate finalDate) throws BadRequestException {
+        boolean noNullData = initialDate != null && finalDate != null;
+
+        if(!noNullData){throw new BadRequestException("The filter comes with null data");}
+
+        boolean datesAreInOrder = finalDate.isAfter(initialDate);
+
+        boolean oldCheckIn = LocalDate.now().isAfter(initialDate);
+
+        if(!datesAreInOrder){throw new BadRequestException("The dates are in the wrong order or are the same");}
+
+        if(oldCheckIn){throw new BadRequestException("Check In cannot be in the past");}
+
+        List<Product> items = productRepository.getProductsByDate(initialDate, finalDate);
+
+        ProductList response = new ProductList();
+        response.setItems(items);
+        response.setTotal(items.size());
+
+        if (items == null){
+
+            throw new BadRequestException("No available cars found with your search");
+        }else{
+            return response;
+        }
+    }
+
+<<<<<<< HEAD
     public List<Product> getProductsByCityAndDate(FilteredProduct filter) throws BadRequestException {
+=======
+
+    //Ticket Nº 55
+    public ProductList getProductsByCityAndDate(FilteredProduct filter) throws BadRequestException {
+>>>>>>> b259c9a65ccc642016d7ce740431e1f1958046f3
         //errores
         boolean noNullData = filter.getInitialDate() != null && filter.getFinalDate() != null && filter.getCityId() != null;
 
@@ -190,6 +245,7 @@ public class ProductServiceImpl implements ProductService {
         //searchByCity(filter.getCityId());
         //TODO: para cuando cree el Service de City: cityService.searchByCity(filter.getCityId());     //si no existe el id, arrojará un badRequest
 
+<<<<<<< HEAD
         List<Product> results = productRepository.getProductsByCityAndDates(
                 filter.getCityId(),
                 filter.getInitialDate(),
@@ -198,9 +254,18 @@ public class ProductServiceImpl implements ProductService {
 
         if (results == null){
             //TODO: a verificar
+=======
+        List<Product> items = productRepository.getProductsByCityAndDates(filter.getCityId(), filter.getInitialDate(), filter.getFinalDate());
+        ProductList response = new ProductList();
+        response.setItems(items);
+        response.setTotal(items.size());
+
+        if (items == null){
+
+>>>>>>> b259c9a65ccc642016d7ce740431e1f1958046f3
             throw new BadRequestException("No available cars found with your search");
         }else{
-            return results;
+            return response;
         }
         //return results;
     }

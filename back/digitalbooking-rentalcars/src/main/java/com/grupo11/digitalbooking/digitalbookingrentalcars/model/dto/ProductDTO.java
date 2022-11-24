@@ -13,6 +13,10 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductDTO {
+<<<<<<< HEAD
+=======
+
+>>>>>>> b259c9a65ccc642016d7ce740431e1f1958046f3
     private String name;
     private String description;
     private Integer stock;

@@ -42,4 +42,5 @@ public class ImageServiceImpl implements ImageService {
         List<Image>images= imageRepository.findAll();
         return images;
     }
+
 }

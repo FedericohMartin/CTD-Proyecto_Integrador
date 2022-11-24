@@ -91,6 +91,10 @@
     color: #FBC02D;
 }
 
+.formCities{
+    position: relative;
+}
+
 .formCities select {
     background-image: url("../img/iconLocation.svg");
     background-repeat: no-repeat;
@@ -101,6 +105,27 @@
     display: none;
 }
 
+.formCities .clearCityIcon{
+    position: relative;
+    color: #FBC02D;
+    cursor: pointer;
+    height: 1.2rem;
+    right: 1.8rem;
+    width: 1.2rem;
+}
+
+.searchbox .searchInfo{
+    color: #FBC02D;
+    align-items: center;
+    display: flex;
+    margin: .5rem 0 0 0;
+}
+
+.searchbox .searchInfo .infoIcon{
+    height: 1.5rem;
+    width: 1.5rem;
+    margin: 0 .5rem 0 0;
+}
 
 
 /*--- Responsive: Mobile ---*/
@@ -146,6 +171,14 @@
         margin-left: 0px;
         margin-bottom: .5rem;
     }
+
+    .searchbox .searchInfo{
+        flex-direction: column;
+    }
+
+    .searchbox .searchInfo .infoIcon{
+        margin: 0 0 .5rem 0;
+    }
 } 
 
 /*--- Responsive: Tablet Portrait---*/
@@ -177,6 +210,13 @@
     .buttonSearch{
         width: 20vw;
         height: 2.5rem;
+    }
+    .searchbox .searchInfo{
+        flex-direction: column;
+    }
+
+    .searchbox .searchInfo .infoIcon{
+        margin: 0 0 .5rem 0;
     }
 }
 
@@ -213,6 +253,14 @@
     .buttonSearch{
         width: 20vw;
         height: 2.5rem;
+    }
+
+    .searchbox .searchInfo{
+        flex-direction: column;
+    }
+
+    .searchbox .searchInfo .infoIcon{
+        margin: 0 0 .5rem 0;
     }
 }
 

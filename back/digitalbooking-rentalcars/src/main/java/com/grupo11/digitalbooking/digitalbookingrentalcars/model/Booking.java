@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @ToString
 @Getter
@@ -18,8 +18,9 @@ import java.time.LocalDate;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_bookings")
     private Integer id;
-    private Time hour;
+    private LocalTime hour;
     private LocalDate initialDate;
     private LocalDate finalDate;
     private Integer userId;
