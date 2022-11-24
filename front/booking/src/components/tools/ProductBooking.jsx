@@ -1,85 +1,102 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import citiesService from "../../services/citiesService";
+import bookingService from "../../services/bookingService";
 import moment from 'moment'
 import CalendarSearch from "./CalendarSearch";
 import {Context} from '../../contexts/UserContext';
 import styles from '../../styles/productBooking.module.css';
 import {FaRegCheckCircle} from "react-icons/fa";
+import { IoAlertCircleOutline } from "react-icons/io5";
 import {MdLocationOn } from 'react-icons/md';
-import { useState } from "react";
-import { useEffect } from "react";
 
 const hours = Array.from({length: 24}, (_, i) => {let a = i-1 
-                                                return`${a + 1}:00`})
-
-const excludeDates = [new Date(), new Date("2022-11-30 EDT"), new Date("2022-12-17 EDT")]
-
+                                                return a<9 ? `0${a + 1}:00` : `${a + 1}:00`})
+                                                
 function ProductBooking({product}){
     const [bookingFormData, setBookingFormData] = useState({
+        userId: "",
         name: "",
         lastName: "",
         email: "",
         city: "",
-        startDate: null,
-        endDate: null,
-        arrivalHour: "",
+        initialDate: null,
+        finalDate: null,
+        hour: "",
+        productId: "",
     });
     const [cities, setCities] = useState([]);
     const [maxDateDatepicker, setMaxDateDatepicker] = useState(null);
+    const [bookedDates, setBookedDates] = useState([]);
+    const [bookingFailed, setbookingFailed] =useState(false);
+    const [validated, setValidated] = useState({
+        initialDate: true,
+        finalDate: true,
+        hour: true,
+    });
+    const [submitClicked, setSubmitClicked] = useState(false);
+    const [nextDayBlocked, setNextDayBlocked] = useState(false);
     const {authUser} = useContext(Context);
+    const navigate = useNavigate();
 
     const onFormFieldChange = (event) => {
         const target = event.target;
-  
+
         const newUserValue = target.value;
-  
+
         const nameOfField = target.name;
-  
+    
         setBookingFormData((prevState) => {
-           const updatedFormData = {
-              ...prevState,
-           };
-              updatedFormData[nameOfField] = newUserValue;
-  
-           return updatedFormData;
-        });
+            const updatedFormData = {
+                ...prevState,
+            };
+                updatedFormData[nameOfField] = newUserValue;
+    
+            return updatedFormData;
+            });
      };
 
-     const onClearDatesClicked = () => {
+    const onClearDatesClicked = () => {
         setBookingFormData((prevState) => {
-            return {...prevState, startDate: null, endDate: null};
+            return {...prevState, initialDate: null, finalDate: null};
         })
-
+        setNextDayBlocked(false);
         setMaxDateDatepicker(null);
      }
-     const onDateChange = (dates) => {
+
+    const onDateChange = (dates) => {
         const [start, end] = dates;
 
         setBookingFormData((prevState) => {
-            return {...prevState, startDate: start};
+            return {...prevState, initialDate: start};
         })
 
         if (end == null) {
             setBookingFormData((prevState) => {
-                return {...prevState, endDate: end};
+                return {...prevState, finalDate: end};
             })
 
-            if (bookingFormData.startDate != null && start.toString() === bookingFormData.startDate.toString()) {
+            if (bookingFormData.initialDate != null) {
                 setBookingFormData((prevState) => {
-                    return {...prevState, startDate: null};
+                    return {...prevState, initialDate: null};
                 })
                 setMaxDateDatepicker(null);
-            } else if (excludeDates.length > 0) {
-                for (const date of excludeDates) {
-                    if (moment(new Date(date)).isAfter(new Date(start))) {
-                        setMaxDateDatepicker(new Date(date));
+            } else if (bookedDates?.length > 0) {
+                for (const date of bookedDates) {
+                    const bookedStartDate = new Date(date.start);
+                    if (moment(bookedStartDate).isAfter(new Date(start))) {
+                        const tomorrow = new Date(start+1);
+                        if(moment(bookedStartDate).isSame(tomorrow, 'day')){
+                            setNextDayBlocked(true);
+                        }
+                        setMaxDateDatepicker(new Date(date.start));
                         break;
                     }
                 }
             }
         } else if (start.toString() !== end.toString()) {
             setBookingFormData((prevState) => {
-                return {...prevState, endDate: end};
+                return {...prevState, finalDate: end};
             })
 
             setMaxDateDatepicker(end);
@@ -91,6 +108,34 @@ function ProductBooking({product}){
         <option key={`city-${cities.id}`} value= {cities.id}>{cities.name} - {cities.state} - {cities.country}   </option>)
 
     const hoursMapper = (hour) => (<option key={`hour-${hour}`} value={hour}>{hour}</option>)
+
+    const onSaveBookingClicked = async (e) =>{
+        e.preventDefault();
+        setSubmitClicked(true);
+        setValidated(prevState =>{
+            return {...prevState, initialDate: !bookingFormData.initialDate ? false : true}
+        })
+
+        setValidated(prevState =>{
+            return {...prevState, finalDate: !bookingFormData.finalDate ? false : true}
+        })
+
+        setValidated(prevState =>{
+            return {...prevState, hour: !bookingFormData.hour ? false : true}
+        })
+
+        if(validated.finalDate && validated.initialDate && validated.hour){
+            const payload = {...bookingFormData, initialDate: bookingFormData.initialDate.toISOString().split('T')[0], finalDate: bookingFormData.finalDate.toISOString().split('T')[0]}
+            const bookingPromise = await bookingService.add(payload);
+
+            if(bookingPromise.data){
+                console.log(bookingPromise);
+                navigate('booking-confirm'); 
+            }else{
+                setbookingFailed(true);
+            }
+        }
+    }
 
     useEffect(() => {
         if(authUser){
@@ -108,8 +153,43 @@ function ProductBooking({product}){
         })
         .catch(error => console.log(error))
 
-    }, []);
+        if(product.id){
+            setBookingFormData(prevState => {
+                return {...prevState, productId:product.id }
+            })
 
+            bookingService
+            .getBookingsByProdId(product.id)
+            .then(response => {
+                const datesArray = response.data?.map(item => {
+                    const initialDate = new Date(`${item.initialDate} EDT`);
+                    return {
+                        start: initialDate.setDate(initialDate.getDate() - 1),
+                        end: new Date(`${item.finalDate} EDT`)
+                    }
+                })
+                setBookedDates(datesArray);
+            })
+            .catch(error => console.log(error))
+        }
+
+    }, [bookingFormData.productId, product]);
+
+    useEffect(() => {
+        if(submitClicked){
+            setValidated(prevState =>{
+                return {...prevState, initialDate: !bookingFormData.initialDate ? false : true}
+            })
+    
+            setValidated(prevState =>{
+                return {...prevState, finalDate: !bookingFormData.finalDate ? false : true}
+            })
+    
+            setValidated(prevState =>{
+                return {...prevState, hour: !bookingFormData.hour ? false : true}
+            })
+        }
+    }, [bookingFormData.initialDate, bookingFormData.finalDate, bookingFormData.hour, submitClicked])
 
     return(
         <>
@@ -140,18 +220,19 @@ function ProductBooking({product}){
                         </div>
                     </div>
                     <h2>Seleccioná tu fecha de reserva</h2>
-                    <div className={styles.dateContainer}>
+                    <div className={`${styles.dateContainer} ${!(validated.initialDate && validated.finalDate) && styles.missingDataContainer}`}>
                         <CalendarSearch 
                             inlineProp={'inline'} 
                             productCalendar='calendar bookingCalendar'
                             onParentDateChange={onDateChange} 
-                            startDate={bookingFormData.startDate} 
-                            endDate={bookingFormData.endDate}
+                            startDate={bookingFormData.initialDate} 
+                            endDate={bookingFormData.finalDate}
                             maxDateDatepicker={maxDateDatepicker}
-                            excludeDates={excludeDates}
+                            excludeDates={bookedDates}
                         ></CalendarSearch>
                         <div className={styles.clear} onClick={onClearDatesClicked}>Borrar selección</div>
                     </div>
+                    {!(validated.initialDate && validated.finalDate) && <span className={styles.missingDataWarning}>Debes seleccionar un rango de fechas</span>}
                     <h2>Tu horario de llegada</h2>
                     <div className={styles.timeContainer}>
                         <div>
@@ -160,13 +241,14 @@ function ProductBooking({product}){
                         </div>
                         <div className={styles.arrivalHour}>
                             <label htmlFor="arrivalHour">Incicá tu horario estimado de llegada</label>
-                            <select onChange={onFormFieldChange} id="arrivalHour" name="arrivalHour">
+                            <select onChange={onFormFieldChange} id="arrivalHour" name="hour" value={bookingFormData.hour} className={`${!validated.hour && styles.missingDataContainer}`}>
                                 <option id="title" value='null'>
                                     Seleccionar hora de llegada
                                 </option>
                                 {hours.map(hoursMapper)}
                             </select>
                         </div>
+                        {!validated.hour && <span className={styles.missingDataWarning}>Debes seleccionar un horario de llegada</span>}
                     </div>
                 </div>
                 <div className={styles.bookingDetails}>
@@ -184,11 +266,13 @@ function ProductBooking({product}){
                             {`${product.location?.state}, ${product.location?.name}, ${product.location?.country}`}
                         </div>
                         <hr />
-                        <div>Fecha de entrega: {bookingFormData.startDate?.toLocaleDateString()}</div>
+                        <div>Fecha de entrega: {bookingFormData.initialDate?.toLocaleDateString()}</div>
+                        {nextDayBlocked && <span className={styles.missingDataWarning}>Fecha válida sólo para devolución</span>}
                         <hr />
-                        <div>Fecha de devolución: {bookingFormData.endDate?.toLocaleDateString()}</div>
+                        <div>Fecha de devolución: {bookingFormData.finalDate?.toLocaleDateString()}</div>
                         <hr />
-                        <button type="submit">Confirmar reserva</button>
+                        <button type="submit" onClick={onSaveBookingClicked}>Confirmar reserva</button>
+                        {bookingFailed && <span><IoAlertCircleOutline className={styles.alertIcon}/>Lamentablemente la reserva no ha podido realizarse. Por favor, intente más tarde</span>}
                     </div>   
                 </div>
             </form>
