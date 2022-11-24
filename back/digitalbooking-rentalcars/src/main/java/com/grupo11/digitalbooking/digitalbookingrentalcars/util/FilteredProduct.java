@@ -1,7 +1,7 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.util;
 
 import java.time.LocalDate;
-
+//Ticket Nº 55
 public class FilteredProduct {
 
     //Attributes
