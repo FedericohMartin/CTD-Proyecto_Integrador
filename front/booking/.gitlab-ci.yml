@@ -52,7 +52,7 @@ build_dev-front:
     - npm run build
   artifacts:
     paths:
-      - ./front/booking/build
+      - front/booking/build
   only:
     refs:
       - pipeline_para_CI-CD  # dev
@@ -68,7 +68,7 @@ build_prod-front:
     - npm run build
   artifacts:
     paths:
-      - ./front/booking/build
+      - front/booking/build
   only:
     refs:
       - pipeline_para_CI-CD # main
@@ -78,7 +78,7 @@ build_prod-front:
   when: manual
   script: |
     pip install awscli #Install awscli tools
-    aws s3 sync ./front/booking/build/ s3://${S3_BUCKET}
+    aws s3 sync front/booking/build/ s3://${S3_BUCKET}
     
 deploy_dev:
   stage: run
