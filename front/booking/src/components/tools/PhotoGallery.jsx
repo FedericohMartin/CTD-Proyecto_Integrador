@@ -6,42 +6,54 @@ import Carousel from 'react-bootstrap/Carousel';
 
 
 function CarouselGallery(props) {
+
+  const defaultImages = Array.from({length: 5}, (_, i) => {return i})
+
+  const imagesMapper = (image,i) => {
+    return(<Carousel.Item key={"image-"+image.id} className={styles.item}>
+        <img
+          className={`d-block w-100 ${styles.picture}`}
+          src={image.image.imgUrl}
+          alt={"slide-"+(i+1)}
+        />
+        <Carousel.Caption>
+          <h5>{i+1}</h5>
+        </Carousel.Caption>
+        </Carousel.Item>)
+  }
+
+  const defaultImagesMapper = (number) => {
+    if(number === 0){
+      return(<Carousel.Item key={"image-"+number+1} className={styles.item}>
+      <img
+        className={`d-block w-100 ${styles.picture}`}
+        src={props.product.category?.imgUrl}
+        alt={"slide-"+number+1}
+      />
+      <Carousel.Caption>
+        <h5>{number+1}</h5>
+      </Carousel.Caption>
+      </Carousel.Item>)
+    }
+    return(<Carousel.Item key={"image-"+number+1} className={styles.item}>
+    <img
+      className={`d-block w-100 ${styles.picture}`}
+      src="https://picsum.photos/500"
+      alt={"slide-"+number+1}
+    />
+    <Carousel.Caption>
+      <h5>{number+1}</h5>
+    </Carousel.Caption>
+    </Carousel.Item>)
+  }
+
   return (
     <Carousel 
     className={props.mobile} 
     interval={props.interval}
     controls={props.controls}
     indicators={props.indicators}>
-      <Carousel.Item className={styles.item}>
-        <img
-          className={`d-block w-100 ${styles.picture}`}
-          src="https://picsum.photos/500"
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h5>1/3</h5>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item className={styles.item}>
-        <img
-          className={`d-block w-100 ${styles.picture}`}
-          src="https://picsum.photos/500"
-          alt="Second slide"
-        />
-        <Carousel.Caption>
-          <h5>2/3</h5>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item className={styles.item}>
-        <img
-          className={`d-block w-100 ${styles.picture}`}
-          src="https://picsum.photos/500"
-          alt="Third slide"
-        />
-        <Carousel.Caption>
-          <h5>3/3</h5>
-        </Carousel.Caption>
-      </Carousel.Item>
+      {props.product?.images?.length !== 0 ? props.product?.images?.map(imagesMapper) : defaultImages.map(defaultImagesMapper)}
     </Carousel>
   );
 }
@@ -61,7 +73,8 @@ function ModalGallery(props) {
         </Modal.Header>
         <Modal.Body className={props.modalBody}>
             <CarouselGallery
-            interval={null}/>
+            interval={null}
+            product={props.product}/>
         </Modal.Body>
         <Modal.Footer className={props.modalFooter}>
         </Modal.Footer>
@@ -69,8 +82,22 @@ function ModalGallery(props) {
   );
 }
 
-function PhotoGallery(){
+function PhotoGallery({product, isLoaded}){
     const [modalShow, setModalShow] = useState(false);
+    const loaders = Array.from({length: 4}, (_, i) => {return i})
+
+    const imagesMapper = (image, i) =>{
+      if(i>0 && i<=4){
+        return (<img src={image.image.imgUrl} alt={image.id} key={"image-"+image.id}/>)
+      }
+    }
+    const defaultImagesMapper = (n) => (<img src="https://picsum.photos/500" alt={n} key={"image-"+n}/>)
+
+    const loaderMapper = (loader) => {
+      return(
+          <div key={loader} className={styles.secondaryImagesLoader}></div>
+      )
+    }
     const onShowModalClicked = () => {
         setModalShow(true);
     }
@@ -78,18 +105,32 @@ function PhotoGallery(){
         setModalShow(false);
     }
 
+    const filterImages = (image) => {
+      return image.image?.name?.includes('Primary');
+    }
+
+    const image = product.images?.length !== 0 && product.images?.find(filterImages);
+    const imageUrl = image 
+    ? image.image.imgUrl 
+    : product.images?.length !== 0
+        ? product.images[0].image?.imgUrl 
+        : product.category?.imgUrl
+
     return(
         <>
             <div className={`${styles.galleryContainer} ${styles.desktop}`}>
-                <div className={styles.mainPhoto}>
-                    <img src="https://picsum.photos/500" alt="" />
+                {isLoaded
+                ?<div className={styles.mainPhoto}>
+                    <img src={imageUrl} alt="Main" />
                 </div>
-                <div className={styles.secondaryPictures}>
-                    <img src="https://picsum.photos/500" alt="" />
-                    <img src="https://picsum.photos/500" alt="" />
-                    <img src="https://picsum.photos/500" alt="" />
-                    <img src="https://picsum.photos/500" alt="" />
+                : <div className={`${styles.mainPhoto} ${styles.mainPhotoLoader}`}></div>}
+                {isLoaded
+                ?<div className={styles.secondaryPictures}>
+                    {product.images?.length !== 0 ? product.images?.map(imagesMapper) : loaders.map(defaultImagesMapper)}
                 </div>
+                : <div className={styles.secondaryPictures}>
+                  {loaders.map(loaderMapper)}
+                  </div>}
                 <div className={styles.seeMore}>
                     <div onClick={onShowModalClicked}>Ver más</div>
                 </div>
@@ -99,13 +140,17 @@ function PhotoGallery(){
                     modalHeader={styles.modalHeader}
                     modalFooter={styles.modalFooter}
                     modalBody={styles.modalBody}
+                    product={product}
                 />
             </div>
-            <CarouselGallery 
+            {isLoaded
+            ?<CarouselGallery 
                 mobile={styles.mobile}
                 interval={3000}
                 controls={false}
-                indicators={false}/>
+                indicators={false}
+                product={product}/>
+            : <div className={styles.carouselLoader}></div>}
         </>
             
     )

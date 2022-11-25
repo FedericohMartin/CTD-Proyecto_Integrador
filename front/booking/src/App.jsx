@@ -39,17 +39,17 @@ function App() {
             <Route path='/login' element={<Login/>}></Route>
             <Route path='/signup' element={<Register/>}></Route>
             <Route path='/producto/:idProducto'element={<Product>
-                                                          {product => <ProductDetail product={product}/>}
+                                                          {(product, isLoaded) => <ProductDetail product={product} isLoaded={isLoaded}/>}
                                                         </Product>}>          
             </Route>
             <Route path='/producto/:idProducto' element={<ProtectedRoutes></ProtectedRoutes>}>
               <Route path='reserva' element={<Product>
-                                                  {product => <ProductBooking product={product}/>}
+                                                  {(product, isLoaded, onSubmitclicked) => <ProductBooking product={product} isLoaded={isLoaded} onSubmitclicked={onSubmitclicked}/>}
                                               </Product>}>
               </Route>
             </Route>
-            <Route path='/booking-confirm' element={<ProtectedRoutes></ProtectedRoutes>}>
-              <Route path='/booking-confirm' element={<BookingConfirm/>}>
+            <Route path='/producto/:idProducto/reserva' element={<ProtectedRoutes></ProtectedRoutes>}>
+              <Route path='booking-confirm' element={<BookingConfirm/>}>
               </Route>
             </Route>
           </Routes>

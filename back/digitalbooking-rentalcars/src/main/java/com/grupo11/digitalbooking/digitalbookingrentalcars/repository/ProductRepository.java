@@ -21,8 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "where (B.initial_date >= :initial_date AND B.final_date <= :final_date)\n" +
             "OR (:initial_date between B.initial_date AND B.final_date)\n" +
             "OR (:final_date between B.initial_date AND B.final_date)\n" +
-            " group by B.product_id " +
-            "HAVING count(B.product_id)=P.stock);", nativeQuery = true)
+            " group by B.product_id);", nativeQuery = true)
     List<Product> getProductsByDate(LocalDate initial_date, LocalDate final_date);
 
     @Query(value = "select P.* from products P " +
@@ -31,8 +30,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "where (B.initial_date >= ?2 AND B.final_date <= ?3)\n" +
             "OR (?2 between B.initial_date AND B.final_date)\n" +
             "OR (?3 between B.initial_date AND B.final_date)\n" +
-            " group by B.product_id " +
-            "HAVING count(B.product_id)=P.stock);"
+            " group by B.product_id);"
             , nativeQuery = true)
     List<Product> getProductsByCityAndDates(Integer cities_id,
                                              LocalDate initialDate,

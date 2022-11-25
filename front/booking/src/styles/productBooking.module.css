@@ -17,7 +17,7 @@
     flex-direction: column;
 }
 
-.dataContainer, .dateContainer, .timeContainer{
+.dataContainer, .dateContainer, .timeContainer, .dataLoader, .dateLoader, .hourLoader{
     background-color: #FFFF;
     border-radius: .5rem;
     box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
@@ -26,7 +26,12 @@
     width: 66vw;
 }
 
-.timeContainer{
+.dataLoader, .dateLoader, .hourLoader, .detailLoader{
+    background-color: rgb(84, 87, 118, .5);
+    animation: ease 2s infinite running load;
+}
+
+.timeContainer, .hourLoader{
     min-height: 10rem;
 }
 
@@ -122,6 +127,13 @@
     width: 33vw;
 }
 
+.detailLoader{
+    border-radius: .5rem;
+    box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    margin: 1rem 1rem;
+    width: 33vw;
+}
+
 .bookingDetails .titleCard{
     display: flex;
     flex-direction: column;
@@ -187,12 +199,53 @@
     width: 93%;
 }
 
+.bookingDetails .detailsCard span, .bookFormContainer .missingDataWarning{
+    color: crimson;
+}
+
+.bookingDetails .detailsCard span{
+    margin-top: 1rem;
+    text-align: center;
+    width: 100%;
+}
+
+.bookFormContainer .missingDataContainer{
+    box-shadow: 0rem 0.0625rem 0.6rem rgba(209, 18, 18, 0.925);
+}
+
+.bookingDetails .detailsCard .missingDataWarning{
+    align-self: center;
+    margin-top: 0;
+    text-align: left;
+    width: 88%;
+}
+
+.bookFormContainer .missingDataWarning{
+    align-self: center;
+    width: 95%;
+}
+
+.bookFormContainer .timeContainer .missingDataWarning{
+    width: 90%;
+}
+
+.bookingDetails .detailsCard .alertIcon{
+    height: 2rem;
+    width: 2rem;
+}
+
+@keyframes load{
+    0%    { opacity: 0; }
+    50%   { opacity: .5; }
+    100%  { opacity: 0; }
+  }
+
 @media screen and (max-width: 912px) {
     .bookingContainer{
         flex-direction: column;
     }
 
-    .bookingDetails{
+    .bookingDetails, .detailLoader{
         flex-direction: row;
         min-height: 15.31rem;
         margin: 1rem auto;
@@ -235,6 +288,14 @@
     .bookingDetails button{
         width: 93%;
     }
+
+    .bookingDetails .detailsCard span, .bookFormContainer .missingDataWarning{
+        margin-bottom: 1rem;
+    }
+
+    .bookFormContainer .missingDataWarning{
+        width: 92%;
+    }
 }
 
 @media screen and (max-width:550px) {
@@ -259,6 +320,10 @@
         flex-direction: column;
     }
 
+    .detailLoader{
+        min-height: 100vh;
+    }
+
     .bookingDetails .titleCard{
         width: 100%;
     }
@@ -279,4 +344,6 @@
     .bookingDetails .titleCard h2{
         margin: 0 0 0 1.3125rem;
     }
+
+
 }

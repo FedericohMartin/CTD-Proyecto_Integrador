@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "./CalendarSearch";
 import citiesService from "../../services/citiesService"; 
 import { IoCloseCircleSharp } from "react-icons/io5";
-import {FaInfoCircle} from "react-icons/fa";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 function Searchbox(props){
     const [formData, setFormData] = useState({
@@ -73,7 +73,7 @@ function Searchbox(props){
             <h1>Busca ofertas en Automoviles</h1>
             <form id="form" className={styles.searchContainer} onChange={onFormFieldChange}>
                 <div className={styles.formCities}>
-                    <select className={styles.inputSearch} value={formData.city} id="cities" name="city">
+                    <select className={styles.inputSearch} value={formData.city} id="cities" name="city" onChange={onFormFieldChange}>
                         <option id="title" className={styles.selected} value="">
                             ¿En cuál ciudad querés pistear?
                         </option>
@@ -89,8 +89,8 @@ function Searchbox(props){
                 </button>
             </form>
             {!props.hasData &&<div className={styles.searchInfo}>
-                <FaInfoCircle className={styles.infoIcon}/>
-                <div>Podés buscar tu vehículo ideal indicando la ciudad en la que estarás o las fechas, o ¿por qué no ambos?</div>
+                <IoMdInformationCircleOutline className={styles.infoIcon}/>
+                <span>Podés buscar tu vehículo ideal indicando la ciudad en la que estarás o las fechas, o ¿por qué no ambos?</span>
             </div> }   
         </div>
     )

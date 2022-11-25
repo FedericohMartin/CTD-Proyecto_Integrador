@@ -24,7 +24,7 @@ public class BookingController {
     //Ticket Nº 59
     @PostMapping("/saveBooking")
     public ResponseEntity<Object> saveBooking(@RequestBody BookingDTO booking) throws Exception{
-        return ResponseHandler.generateResponse("The reservation was successfully saved", HttpStatus.OK, bookingService.newBooking(booking));
+        return ResponseHandler.generateResponse("The reservation was successfully saved", HttpStatus.CREATED, bookingService.newBooking(booking));
     }
 
     @GetMapping("/searchBooking/{id}")
@@ -39,10 +39,10 @@ public class BookingController {
         if (bookingService.searchBooking(id).isPresent()) {
 
             bookingService.deleteBooking(id);
-            response = ResponseHandler.generateResponse("Product removed", HttpStatus.OK, null);
+            response = ResponseHandler.generateResponse("Reservation removed", HttpStatus.OK, null);
 
         }else {
-            response = ResponseHandler.generateResponse("Product NOT found", HttpStatus.NOT_FOUND, null);
+            response = ResponseHandler.generateResponse("Reservation NOT found", HttpStatus.NOT_FOUND, null);
         }
         return response;
 
@@ -53,7 +53,7 @@ public class BookingController {
     public ResponseEntity<Object> listBookingsByUser(@PathVariable Integer id) throws Exception{
         ResponseEntity<Object> response = null;
         if (bookingService.findByUserId(id).isEmpty()){
-            response = ResponseHandler.generateResponse("The user does not have reservations", HttpStatus.NOT_FOUND, null);
+            response = ResponseHandler.generateResponse("The user has no reservations", HttpStatus.NOT_FOUND, null);
         }else {
             response=ResponseHandler.generateResponse("Reservation list", HttpStatus.OK, bookingService.findByUserId(id));
         }
@@ -66,7 +66,7 @@ public class BookingController {
     public ResponseEntity<Object> listBookingsByProductId(@PathVariable Integer id) throws Exception{
         ResponseEntity<Object> response = null;
         if (bookingService.findByProductId(id).isEmpty()){
-            response = ResponseHandler.generateResponse("The product does not have reservations", HttpStatus.NOT_FOUND, null);
+            response = ResponseHandler.generateResponse("The product has no reservations", HttpStatus.NOT_FOUND, null);
         }else {
             response=ResponseHandler.generateResponse("Reservation list", HttpStatus.OK, bookingService.findByProductId(id));
         }

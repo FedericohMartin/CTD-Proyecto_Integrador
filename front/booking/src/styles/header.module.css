@@ -85,10 +85,28 @@
     display: none;
 }
 
+.headerContainer .loader{
+    background-color: rgb(84, 87, 118, .5);
+    border-radius: 0.3125rem;
+    height: 3rem;
+    margin: 0 0.75rem;
+    width: 26vw;
+    animation: ease 2s infinite running sun-rise;
+}
+
+@keyframes sun-rise{
+    0%    { opacity: 0; }
+    50%   { opacity: .5; }
+    100%  { opacity: 0; }
+  }
 
 @media screen and (max-width: 768px) {
     .headerItem:nth-child(1){
         margin: 0.5rem 0 0 -2rem;
+    }
+
+    .headerContainer .loader{
+        margin: 0 0.75rem;
     }
 
     .hideT{
@@ -115,5 +133,9 @@
     .headerContainer{
         box-shadow: 0rem 0.125rem 0.25rem rgba(0, 0, 0, 0.14), 0rem 0.25rem 0.3125rem rgba(0, 0, 0, 0.12), 0rem 0.0625rem 0.625rem rgba(0, 0, 0, 0.2);
         max-height: 5.8125rem;
+    }
+
+    .headerContainer .loader{
+        margin: 0 0.75rem;
     }
 }

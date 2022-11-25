@@ -4,8 +4,6 @@ import categoryService from "../services/categoryService";
 import productService from "../services/productService";
 import Categories from "./tools/Categories";
 import Searchbox from "./tools/Searchbox";
-import {FaRegSadCry} from "react-icons/fa";
-
 
 function Home() {
     const [categories, setCategories] = useState([])
@@ -15,6 +13,8 @@ function Home() {
         pageNumber: 0,
         totalPages: 0,
     });
+    const [isLoaded, setIsLoaded] =useState(false);
+    const [categoriesLoaded, setCategoriesLoaded] = useState(false);
 
     const onNextClicked = () => {
         setPage(prevState => {
@@ -51,6 +51,7 @@ function Home() {
     
     
     const onSubmitClicked = (data) => {
+        setIsLoaded(false);
         onResetPage();
         if(!(data.city || data.dateRange.startDate || data.dateRange.endDate)){
             setHasData(false);
@@ -66,6 +67,7 @@ function Home() {
                     update.totalPages = Math.ceil(response.data.total/4);
                     return update;
                 })
+                setIsLoaded(true);
             })
             .catch(error => console.log(error));
         }else if(!data.city && (data.dateRange.startDate && data.dateRange.endDate)){
@@ -79,6 +81,7 @@ function Home() {
                     update.totalPages = Math.ceil(response.data.total/4);
                     return update;
                 })
+                setIsLoaded(true);
             })
             .catch(error => console.log(error));
         }else if(data.city && data.dateRange.startDate && data.dateRange.endDate){
@@ -92,12 +95,14 @@ function Home() {
                     update.totalPages = Math.ceil(response.data.total/4);
                     return update;
                 })
+                setIsLoaded(true);
             })
             .catch(error => console.log(error));
         }
     }
 
     const onCategoryClicked = (categoryId) => {
+        setIsLoaded(false);
         onResetPage();
         productService
         .getByCategoryId(categoryId)
@@ -108,6 +113,7 @@ function Home() {
                 update.totalPages = Math.ceil(response.data.total/4);
                 return update;
             })
+            setIsLoaded(true);
         })
         .catch(error => console.log(error));
     }
@@ -117,6 +123,7 @@ function Home() {
         .getAll()
         .then((response) => {
             setCategories(response.data);
+            setCategoriesLoaded(true);
         })
         .catch(error => console.log(error));
 
@@ -129,8 +136,10 @@ function Home() {
                 update.totalPages = Math.ceil(response.data.total/4);
                 return update;
             })
+            setIsLoaded(true);
         })
-        .catch(error => console.log(error))
+        .catch(error => {console.log(error)
+            setIsLoaded(true);})
     }, []);
 
     return (
@@ -143,6 +152,8 @@ function Home() {
                     onParentNextClicked={onNextClicked}
                     onParentPrevClicked={onPrevClicked}
                     onParentNumberClicked={onNumberClicked}
+                    isLoaded={isLoaded}
+                    categoriesLoaded={categoriesLoaded}
                     page={page}
                 ></Categories>
             </div>

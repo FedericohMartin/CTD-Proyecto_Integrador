@@ -3,6 +3,7 @@ import { createContext, useState, useEffect } from "react";
 const Context = createContext()
 
 const user = {
+  userId: 2,
   name: "Pedro",
   lastName: "Picapiedra",
   email: "pedro.p@domain.com",
