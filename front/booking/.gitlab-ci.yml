@@ -66,6 +66,7 @@ build_prod-front:
     - npm install
     #- npm audit fix --force
     - npm install react-icons --save
+    - npm install --save moment-timezone
     - npm run build
   artifacts:
     paths:
@@ -87,9 +88,11 @@ deploy_dev:
   dependencies:
     - build_dev-front
   #when: manual
-  script:  |
-    - python -m pip install --upgrade pip
-    - pip install awscli #Install awscli tools
+  script:  
+    - python -m pip install 
+    - upgrade pip
+    - pip install awscli 
+    - pip install awscli tools
     - aws --version
     - aws s3 cp --recursive front/booking/build/ s3://${DEV_S3_BUCKET}
     
