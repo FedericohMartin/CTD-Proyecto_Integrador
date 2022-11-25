@@ -90,11 +90,11 @@ deploy_dev:
   #when: manual
   script:  
     - python -m pip install --upgrade pip 
-    - python --root-user-action=ignore
+    - python root-user-action=ignore
     - pip install awscli 
     - pip install awscli tools
     - aws --version
-    - aws s3 cp --recursive front/booking/build/ s3://${DEV_S3_BUCKET} --acl public-read
+    - aws s3 cp --recursive front/booking/build/ s3://$DEV_S3_BUCKET --acl public-read
     
   only:
     refs:
