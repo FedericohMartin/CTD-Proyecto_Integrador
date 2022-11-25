@@ -16,10 +16,10 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     List<Booking> findByProductId(Integer products_id);
 
     //Ticket Nº 55
-    @Query("SELECT b FROM Booking b WHERE b.booking.name = :initialDate")//JPQL
-    List<Product>findByInitialDate(@Param("initialDate") String initialDate);
+    //@Query("SELECT b FROM Booking b WHERE b.booking.name = :initialDate")//JPQL
+    //List<Product>findByInitialDate(@Param("initialDate") String initialDate);
 
-    @Query("SELECT b FROM Booking b WHERE b.booking.name = :finalDate")//JPQL
-    List<Product>findByFinalDate(@Param("finalDate") String finalDate);
+    //@Query("SELECT b FROM Booking b WHERE b.booking.name = :finalDate")//JPQL
+    //List<Product>findByFinalDate(@Param("finalDate") String finalDate);
 
 }
