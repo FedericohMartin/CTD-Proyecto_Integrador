@@ -7,7 +7,7 @@ import { FaWheelchair, FaBluetoothB, FaEnvira, FaSnowflake, FaSuitcaseRolling, F
 
 const icons = [FaWheelchair, FaBluetoothB, FaEnvira, FaSnowflake, FaSuitcaseRolling, FaSuitcase, FaTachometerAlt, FaTrailer, FaTruckMonster];
 
-function ProductDetail({product}){
+function ProductDetail({product, isLoaded}){
 
     const featuresMapper = (feature) => {
         const findIcon = icons.findIndex((icon) => {
@@ -25,25 +25,30 @@ function ProductDetail({product}){
     return (
         <>
             <div className={styles.productLocation}>
-                <div>
+                {isLoaded
+                ? <div>
                     <MdLocationOn className={styles.locationIcon}/>
                     <div>{`${product.location?.state}, ${product.location?.name}, ${product.location?.country}`}</div> 
-                </div>
+                  </div>
+                : <div className={styles.locationLoader}></div>}
             </div>
-            <PhotoGallery/>
-            <div className={styles.productDescription}>
-                <h2 className={styles.title}>{`Pistea por ${product.location?.state}`}</h2>
-                <p>{product.description}
-                    </p>
+            <PhotoGallery product={product} isLoaded={isLoaded}/>
+            {isLoaded
+            ?<div className={styles.productDescription}>
+                <h2 className={styles.title}>{`Pistea con tu ${product.title}`}</h2>
+                <p>{product.description}</p>
             </div>
+            : <div className={styles.descriptionLoader}></div>}
             <div className={styles.features}>
                 <h2 className={styles.title}>¿Qué ofrece este vehículo?</h2>
                 <hr className={styles.separator}/>
-                <ul>
+                {isLoaded
+                ?<ul>
                     {product.features?.map(featuresMapper)}
-                </ul>
+                 </ul>
+                : <div className={styles.featuresLoader}></div>}
             </div>
-            <BookingChart product={product}></BookingChart>
+            <BookingChart product={product} isLoaded={isLoaded}></BookingChart>
         </>
     )
 }

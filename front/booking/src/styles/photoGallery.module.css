@@ -16,11 +16,16 @@
     z-index: 800;
 }
 
+.mainPhotoLoader, .secondaryImagesLoader{
+    background-color: rgb(84, 87, 118, .5);
+    animation: ease 2s infinite running load;
+}
+
 .mainPhoto{
     margin-left: 2.3rem;
 }
 
-.mainPhoto img, .secondaryPictures img{
+.mainPhoto img, .secondaryPictures img, .mainPhotoLoader, .secondaryImagesLoader{
     border-radius: .7rem;
     box-shadow: 0rem .3rem 0.25rem rgba(0, 0, 0, 0.1);
 }
@@ -30,13 +35,18 @@
     width: 97%;
 }
 
+.mainPhotoLoader{
+    height: 90%;
+    width: 48%;
+}
+
 .secondaryPictures{
     flex-direction: column;
     flex-wrap: wrap;
     margin-right: 2.3rem;
 }
 
-.secondaryPictures img{
+.secondaryPictures img, .secondaryImagesLoader{
     height: 42.5%;
     width: 48%;   
 }
@@ -74,15 +84,28 @@ div.modalWindow img{
 .modalWindow>div{
     width: 70vw;
 }
+
+@keyframes load{
+    0%    { opacity: 0; }
+    50%   { opacity: .5; }
+    100%  { opacity: 0; }
+  }
+
 @media screen and (max-width: 820px) {
     .desktop{
         display: none;
     }
-    .mobile{
+    .mobile, .carouselLoader{
         display: block;
         height: 50vh;
         margin-bottom: 2rem;
         width: 100%;
+    }
+
+    .carouselLoader{
+        min-height: 50vh;
+        background-color: rgb(84, 87, 118, .5);
+        animation: ease 2s infinite running load;
     }
 
     .item>div{
