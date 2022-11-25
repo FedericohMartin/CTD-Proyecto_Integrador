@@ -4670,6 +4670,19 @@
 					"item": [
 						{
 							"name": "Add user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -5020,6 +5033,23 @@
 						},
 						{
 							"name": "Update user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"user Status code es 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"user includes role\", function(){\r",
+											"    pm.expect(pm.response.text()).to.include(\"role\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -5141,11 +5171,25 @@
 						},
 						{
 							"name": "Search user by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/users/9",
+									"raw": "http://localhost:8080/users/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -5153,7 +5197,7 @@
 									"port": "8080",
 									"path": [
 										"users",
-										"9"
+										"1"
 									]
 								}
 							},
@@ -5865,6 +5909,19 @@
 						},
 						{
 							"name": "List roles",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "GET",
 								"header": [],
