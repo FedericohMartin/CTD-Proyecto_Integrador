@@ -112,7 +112,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
     const onSaveBookingClicked = async (e) =>{
         e.preventDefault();
         setSubmitClicked(true);
-        onSubmitclicked();
+
         setValidated(prevState =>{
             return {...prevState, initialDate: !bookingFormData.initialDate ? false : true}
         })
@@ -134,7 +134,6 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
                 navigate('booking-confirm'); 
             }else{
                 setbookingFailed(true);
-                onSubmitclicked();
             }
         }
     }
