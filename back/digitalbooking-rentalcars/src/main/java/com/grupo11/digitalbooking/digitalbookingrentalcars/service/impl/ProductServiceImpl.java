@@ -5,17 +5,9 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.BadRequest
 import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.ProductNotFoundException;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.*;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductDTO;
-<<<<<<< HEAD
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CategoryRepository;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.CityRepository;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.FeatureRepository;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductRepository;
-=======
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductList;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.*;
->>>>>>> b259c9a65ccc642016d7ce740431e1f1958046f3
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ProductService;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.util.FilteredProduct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -223,13 +215,9 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-<<<<<<< HEAD
-    public List<Product> getProductsByCityAndDate(FilteredProduct filter) throws BadRequestException {
-=======
 
     //Ticket Nº 55
     public ProductList getProductsByCityAndDate(FilteredProduct filter) throws BadRequestException {
->>>>>>> b259c9a65ccc642016d7ce740431e1f1958046f3
         //errores
         boolean noNullData = filter.getInitialDate() != null && filter.getFinalDate() != null && filter.getCityId() != null;
 
@@ -242,19 +230,7 @@ public class ProductServiceImpl implements ProductService {
         if(!datesAreInOrder){throw new BadRequestException("The dates are in the wrong order or are the same");}
 
         if(oldCheckIn){throw new BadRequestException("Check In cannot be in the past");}
-        //searchByCity(filter.getCityId());
-        //TODO: para cuando cree el Service de City: cityService.searchByCity(filter.getCityId());     //si no existe el id, arrojará un badRequest
 
-<<<<<<< HEAD
-        List<Product> results = productRepository.getProductsByCityAndDates(
-                filter.getCityId(),
-                filter.getInitialDate(),
-                filter.getFinalDate()
-        );
-
-        if (results == null){
-            //TODO: a verificar
-=======
         List<Product> items = productRepository.getProductsByCityAndDates(filter.getCityId(), filter.getInitialDate(), filter.getFinalDate());
         ProductList response = new ProductList();
         response.setItems(items);
@@ -262,12 +238,11 @@ public class ProductServiceImpl implements ProductService {
 
         if (items == null){
 
->>>>>>> b259c9a65ccc642016d7ce740431e1f1958046f3
             throw new BadRequestException("No available cars found with your search");
         }else{
             return response;
         }
-        //return results;
+
     }
 
 
@@ -279,7 +254,7 @@ public class ProductServiceImpl implements ProductService {
         Integer indexEnd = categories.size() < LIMIT_RANDOM ? categories.size()-1 : LIMIT_RANDOM -1;
         List<Category> categoriesSubList = categories.subList(0, indexEnd);
         if (categories.isEmpty()){
-            return Collections.emptyList();
+            return Collections.EMPTY_LIST;
         }
         List<Product> products = productRepository
                 .findByCategoryIds(

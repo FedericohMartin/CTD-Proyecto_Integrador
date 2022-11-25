@@ -4,10 +4,7 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.BadRequest
 import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.ProductNotFoundException;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductDTO;
-<<<<<<< HEAD
-=======
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductList;
->>>>>>> b259c9a65ccc642016d7ce740431e1f1958046f3
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.util.FilteredProduct;
 
