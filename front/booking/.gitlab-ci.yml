@@ -89,8 +89,7 @@ deploy_dev:
     - build_dev-front
   #when: manual
   script:  
-    - python -m pip install 
-    - upgrade pip
+    - python -m pip install --upgrade pip
     - pip install awscli 
     - pip install awscli tools
     - aws --version
