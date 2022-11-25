@@ -13,7 +13,7 @@ import {MdLocationOn } from 'react-icons/md';
 const hours = Array.from({length: 24}, (_, i) => {let a = i-1 
                                                 return a<9 ? `0${a + 1}:00` : `${a + 1}:00`})
                                                 
-function ProductBooking({product}){
+function ProductBooking({product, isLoaded, onSubmitclicked}){
     const [bookingFormData, setBookingFormData] = useState({
         userId: "",
         name: "",
@@ -112,6 +112,7 @@ function ProductBooking({product}){
     const onSaveBookingClicked = async (e) =>{
         e.preventDefault();
         setSubmitClicked(true);
+        onSubmitclicked();
         setValidated(prevState =>{
             return {...prevState, initialDate: !bookingFormData.initialDate ? false : true}
         })
@@ -133,6 +134,7 @@ function ProductBooking({product}){
                 navigate('booking-confirm'); 
             }else{
                 setbookingFailed(true);
+                onSubmitclicked();
             }
         }
     }
@@ -196,7 +198,8 @@ function ProductBooking({product}){
             <form className={styles.bookingContainer}>
                 <div className={styles.bookFormContainer}>
                     <h2>Completá tus datos</h2>
-                    <div className={styles.dataContainer}>
+                    {isLoaded
+                    ?<div className={styles.dataContainer}>
                         <div>
                             <label htmlFor="name">Nombre</label>
                             <input type="text" value={bookingFormData?.name} onChange={onFormFieldChange} name="name" disabled/>
@@ -218,9 +221,11 @@ function ProductBooking({product}){
                                 {cities.map(cityMapper)}
                             </select>
                         </div>
-                    </div>
+                     </div>
+                    : <div className={styles.dataLoader}></div>}  
                     <h2>Seleccioná tu fecha de reserva</h2>
-                    <div className={`${styles.dateContainer} ${!(validated.initialDate && validated.finalDate) && styles.missingDataContainer}`}>
+                    {isLoaded
+                    ?<div className={`${styles.dateContainer} ${!(validated.initialDate && validated.finalDate) && styles.missingDataContainer}`}>
                         <CalendarSearch 
                             inlineProp={'inline'} 
                             productCalendar='calendar bookingCalendar'
@@ -231,10 +236,12 @@ function ProductBooking({product}){
                             excludeDates={bookedDates}
                         ></CalendarSearch>
                         <div className={styles.clear} onClick={onClearDatesClicked}>Borrar selección</div>
-                    </div>
+                     </div>
+                    : <div className={styles.dateLoader}></div>}
                     {!(validated.initialDate && validated.finalDate) && <span className={styles.missingDataWarning}>Debes seleccionar un rango de fechas</span>}
                     <h2>Tu horario de llegada</h2>
-                    <div className={styles.timeContainer}>
+                    {isLoaded
+                    ?<div className={styles.timeContainer}>
                         <div>
                             <FaRegCheckCircle className={styles.hourIcon}/>
                             <div>Tu vehículo estará esperándote en el aeropuerto de la ciudad</div>
@@ -250,8 +257,10 @@ function ProductBooking({product}){
                         </div>
                         {!validated.hour && <span className={styles.missingDataWarning}>Debes seleccionar un horario de llegada</span>}
                     </div>
+                    : <div className={styles.hourLoader}></div>}
                 </div>
-                <div className={styles.bookingDetails}>
+                {isLoaded
+                ?<div className={styles.bookingDetails}>
                     <div className={styles.titleCard}>
                         <h2>Detalle de reserva</h2>
                         <img src={product?.category?.imgUrl} alt="" />
@@ -274,7 +283,8 @@ function ProductBooking({product}){
                         <button type="submit" onClick={onSaveBookingClicked}>Confirmar reserva</button>
                         {bookingFailed && <span><IoAlertCircleOutline className={styles.alertIcon}/>Lamentablemente la reserva no ha podido realizarse. Por favor, intente más tarde</span>}
                     </div>   
-                </div>
+                 </div>
+                : <div className={styles.detailLoader}></div>}
             </form>
         </>
     )

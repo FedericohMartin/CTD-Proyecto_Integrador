@@ -4,7 +4,7 @@ import bookingService from "../../services/bookingService";
 import CalendarSearch from "./CalendarSearch";
 import styles from '../../styles/bookingChart.module.css'
 
-function BookingChart({product}){
+function BookingChart({product, isLoaded}){
     const [bookedDates, setBookedDates] = useState([]);
     const navigate = useNavigate();
     const onBookingClicked = () => {
@@ -34,7 +34,9 @@ function BookingChart({product}){
         <div className={styles.chartContainer}>
             <div className={styles.calendarContainer}>
                 <h2>Fechas disponibles</h2>
-                <CalendarSearch inlineProp={'inline'} productCalendar='calendar' excludeDates={bookedDates}></CalendarSearch>
+                {isLoaded
+                ?<CalendarSearch inlineProp={'inline'} productCalendar='calendar' excludeDates={bookedDates}></CalendarSearch>
+                : <div className={styles.calendarLoader}></div>}
             </div>
             <div className={styles.buttonContainer}>
                 <div >Agregá tus fechas de viaje para obtener precios exactos</div>

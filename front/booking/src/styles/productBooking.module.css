@@ -17,7 +17,7 @@
     flex-direction: column;
 }
 
-.dataContainer, .dateContainer, .timeContainer{
+.dataContainer, .dateContainer, .timeContainer, .dataLoader, .dateLoader, .hourLoader{
     background-color: #FFFF;
     border-radius: .5rem;
     box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
@@ -26,7 +26,12 @@
     width: 66vw;
 }
 
-.timeContainer{
+.dataLoader, .dateLoader, .hourLoader, .detailLoader{
+    background-color: rgb(84, 87, 118, .5);
+    animation: ease 2s infinite running load;
+}
+
+.timeContainer, .hourLoader{
     min-height: 10rem;
 }
 
@@ -118,6 +123,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin: 1rem 1rem;
+    width: 33vw;
+}
+
+.detailLoader{
+    border-radius: .5rem;
+    box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
     margin: 1rem 1rem;
     width: 33vw;
 }
@@ -222,12 +234,18 @@
     width: 2rem;
 }
 
+@keyframes load{
+    0%    { opacity: 0; }
+    50%   { opacity: .5; }
+    100%  { opacity: 0; }
+  }
+
 @media screen and (max-width: 912px) {
     .bookingContainer{
         flex-direction: column;
     }
 
-    .bookingDetails{
+    .bookingDetails, .detailLoader{
         flex-direction: row;
         min-height: 15.31rem;
         margin: 1rem auto;
@@ -300,6 +318,10 @@
 
     .bookingDetails{
         flex-direction: column;
+    }
+
+    .detailLoader{
+        min-height: 100vh;
     }
 
     .bookingDetails .titleCard{

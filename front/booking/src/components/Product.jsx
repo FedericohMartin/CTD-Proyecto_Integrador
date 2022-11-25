@@ -14,12 +14,23 @@ function Product({children}){
             title: "",
             location: {},
             description: "",
-            features: [],   
+            features: [],
+            images: [],   
         }
     )
-
+    const [isLoaded, setIsLoaded] =useState(false);
+    const loaders = Array.from({length: 3}, (_, i) => {return i})
     const { idProducto } = useParams();
 
+    const loaderMapper = (loader) => {
+        return(
+            <div key={loader} className={styles.policiesLoader}></div>
+        )
+    }
+
+    const onSubmitclicked = () =>{
+        setIsLoaded(!isLoaded);
+    }
 
     useEffect(() => {
         productService
@@ -33,26 +44,32 @@ function Product({children}){
                 newState.location = response.data.city;
                 newState.description = response.data.description;
                 newState.features = response.data.features;
+                newState.images = response.data.images;
 
                 return newState;
-            })})
+            })
+            setIsLoaded(true);
+        })       
         .catch(error => console.log(error));
     }, [idProducto])
 
     return(
         <div className={`${homeStyles.container} ${styles.productContainer}`}>
             <div className={styles.productHeader}>
-                <div>
+                {isLoaded 
+                ? <div>
                     <div>{product.category?.title}</div>
                     <div>{product.title}</div>
-                </div>
+                  </div> 
+                : <div className={styles.categoryLoader}></div>}
                 <Link to={-1}><IoChevronBack className={styles.backIcon}/></Link>
             </div>
-            {children(product)}
+            {children(product, isLoaded, onSubmitclicked)}
             <div className={styles.policy}>
                 <h2 className={styles.title}>Qué tenés que saber</h2>
                 <hr className={styles.separator}/>
-                <div>
+                {isLoaded
+                ?<div>
                     <div>
                         <h3>Normas</h3>
                         <ul>
@@ -78,7 +95,7 @@ function Product({children}){
                         </ul>
                     </div>
                 </div>
-                
+                : <div>{loaders.map(loaderMapper)}</div>}
             </div>
         </div>
     )

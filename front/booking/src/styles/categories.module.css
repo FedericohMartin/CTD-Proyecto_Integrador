@@ -29,6 +29,16 @@
     object-fit: cover;
 }
 
+.categoriesContainer .loader{
+    background-color: rgb(84, 87, 118, .5);
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 35vh;
+    margin-top: 0.625rem;
+    width: 22vw;
+    animation: ease 2s infinite running load;
+}
+
 .recomendations{
     background-color: rgb(96, 125, 139, 0.1);
     width: 100%;
@@ -83,6 +93,16 @@
     padding-bottom: 5rem;   
 }
 
+.list .loader{
+    background-color: rgb(84, 87, 118, .5);
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 16.86rem;
+    margin-top: 0.625rem;
+    width: 47vw;
+    animation: ease 2s infinite running load;
+}
+
 .captionSub{
     padding-left: 1.5%;
    font-style: normal;
@@ -105,6 +125,15 @@
 
 .buttonContainer div{
     cursor: pointer;
+}
+
+.pageLoader{
+    background-color: rgb(84, 87, 118, .5);
+    border-radius: 0.3125rem;
+    height: 1.625rem;
+    margin-top: 0.625rem;
+    max-width: 30%;
+    animation: ease 2s infinite running load;
 }
 
 .pageBtn{
@@ -133,6 +162,28 @@
     text-decoration: underline;
 }
 
+.notFound{
+    align-items: center;
+    color: #263238;
+    display: flex;
+    font-weight: 500;
+    flex-direction: column;
+    margin-bottom: 10rem;
+}
+
+.notFoundIcon{
+    color: #FBC02D;
+    height: 4rem;
+    width: 4rem;
+}
+
+@keyframes load{
+    0%    { opacity: 0; }
+    50%   { opacity: .5; }
+    100%  { opacity: 0; }
+  }
+
+
 /*RESPONSIVE TABLET*/
 @media(max-width: 912px){   
     .parentContainer{
@@ -145,10 +196,20 @@
         padding-bottom: 3rem;
     }
     
-    .categoriesContainer .card {
+    .categoriesContainer .card, .categoriesContainer .loader {
         width: 42vw;
     }
 
+    .list .loader{
+        width: 90vw;
+    }
+
+}
+
+@media screen and (max-width: 1268px) and (min-width: 721px){
+    .list .loader{
+        width: 90vw;
+    }
 }
 
 /*RESPONSIVE MOBILE*/
@@ -179,7 +240,7 @@
         justify-content: space-around;
     }
 
-    .categoriesContainer .card {
+    .categoriesContainer .card, .categoriesContainer .loader {
         width: 90vw;
         border-radius: 10px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -196,10 +257,24 @@
         margin: 0 1rem 1rem 1rem;
         max-width: 100%;
     }
+
+    .pageLoader{
+        background-color: rgba(215, 224, 228, 0.5);
+    }
+
+    .list .loader{
+        background-color: rgba(215, 224, 228, 0.5);
+        height: 70vh;
+        width: 90vw;
+    }
+
+    .notFound{
+        color: #FFFF;
+    }
 }
 
 @media screen and (max-height:800px) and (min-width:844px) {
-    .categoriesContainer .card {
+    .categoriesContainer .card, .categoriesContainer .loader {
         height: 50vh;
     }
 }

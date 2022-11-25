@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from '../../img/logo-1.png'
 import menuIcon from '../../img/menu-i.png'
 import styles from '../../styles/header.module.css'
@@ -20,6 +20,7 @@ const getInitials = (stringChain) => {
     
 function Header(props){
     const {authUser, onLogoutClicked} = useContext(Context);
+    const [isLoaded, setIsLoaded] =useState(false);
 
     const onLocalMenuClicked = () => {
         props.onMenuParentClicked();
@@ -36,6 +37,22 @@ function Header(props){
         navigate(targetPage);
      }
 
+     useEffect(() => {
+        if(authUser){
+            setIsLoaded(true);
+        }
+     }, [authUser]);
+
+     if(!isLoaded){
+        return(
+            <header className={styles.headerContainer}>
+            <div className={`${styles.headerItem} ${styles.loader}`}>
+            </div>
+            <div className={`${styles.headerItem} ${styles.loader}`}>
+            </div>
+        </header>
+        )
+     }
     return(
         <header className={styles.headerContainer}>
             <div className={styles.headerItem}>
