@@ -48,6 +48,7 @@ public class BookingController {
 
     }
 
+    //Ticket Nº 75
     //Endpoint para buscar reservas por usuario
     @GetMapping("/listByUser/{id}")
     public ResponseEntity<Object> listBookingsByUser(@PathVariable Integer id) throws Exception{

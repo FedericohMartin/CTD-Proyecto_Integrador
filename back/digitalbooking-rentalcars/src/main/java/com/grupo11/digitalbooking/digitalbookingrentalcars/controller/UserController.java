@@ -19,7 +19,7 @@ public class UserController {
     @PostMapping("/addUser")
     public ResponseEntity<Object> addUser(@RequestBody UserDTO userDTO){
         return ResponseHandler.generateResponse("The User has been generated successfully",
-                HttpStatus.CREATED, userService.addUser(userDTO));
+                HttpStatus.CREATED, userService.addUser(userDTO));//Ticket Nº 49 (Retornar un código 201 en caso de éxito. Esto lo hace el CREATED))
     }
 
     @GetMapping("/listAll")

@@ -38,11 +38,9 @@ public class UserServiceImpl implements UserService {
                 this.userRoleRepository = userRoleRepository;
                 this.passwordEncoder = passwordEncoder;
     }
-
+    //Ticket Nº 49
     public UserModel addUser(UserDTO userDTO){
-        //UserRole userRole = userRoleRepository.findById(userDTO.getRole().getId()).get();
-        //userDTO.setRole(userRole);
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));//Ticket Nº 49
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));//Ticket Nº 49 (Utilizamos un "encoder" para encriptar la contraseña)
         UserModel userModel = mapper.convertValue(userDTO, UserModel.class);
         return userRepository.save(userModel);
     }
@@ -58,8 +56,6 @@ public class UserServiceImpl implements UserService {
 
     //actualizar usuario
     public UserModel updateUser(UserDTO userDTO){
-        //UserRole userRole = userRoleRepository.findById(userDTO.getRole().getId()).get();
-        //userDTO.setRole(userRole);
         UserModel userModel = mapper.convertValue(userDTO, UserModel.class);
         return userRepository.save(userModel);
     }

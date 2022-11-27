@@ -40,7 +40,7 @@ public class ProductController {
     }
 
 
-    //Tickets Nº 15, 16 y 17
+    //Tickets Nº 15, 16, 17 y 73
     @GetMapping("/searchProductById/{id}")
     public ResponseEntity<Object> searchProduct(@PathVariable Integer id){
         ResponseEntity<Object> response=null;
@@ -53,7 +53,7 @@ public class ProductController {
         return response;
     }
 
-
+    //Ticket Nº 73
     @PutMapping("/updateProduct")
     public ResponseEntity<Object> updateProduct(@RequestBody ProductUpdateDTO productDTO){
         try{

@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     //Ticket Nº 52
+    //Se configura método de autenticación que nos retorne un  JWT
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()

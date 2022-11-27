@@ -3,13 +3,14 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.JwtService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.Claims;//Ticket Nº 52
+import io.jsonwebtoken.Jwts;//Ticket Nº 52
+import io.jsonwebtoken.SignatureAlgorithm;//Ticket Nº 52
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+//Ticket Nº 52
+//(Se configura Spring Security junto con la librería io.jsonwebtoken para implementar autenticación mediante JWT)
 @Component
 public class JwtServiceImpl implements JwtService {
 
