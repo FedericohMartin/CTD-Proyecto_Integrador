@@ -79,6 +79,8 @@ build_prod-front:
   image: python:latest
   when: manual
   script: |
+    pip install --upgrade pip
+    pip install --root-user-action=ignore requests
     pip install awscli #Install awscli tools
     aws s3 sync front/booking/build/ s3://${DEV_S3_BUCKET}
     
@@ -89,7 +91,8 @@ deploy_dev:
     - build_dev-front
   #when: manual
   script:  
-    - python -m pip install --upgrade pip 
+    - python -m pip install --upgrade pip
+    - pip --version
     # - python -m pip install --root-user-action=ignore
     - pip install --root-user-action=ignore requests
     - pip install awscli 
