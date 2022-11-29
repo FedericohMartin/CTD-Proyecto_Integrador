@@ -33,10 +33,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/products/**","/features/**").permitAll()
+                .antMatchers("/authenticate").permitAll()
+                .antMatchers(HttpMethod.GET,"/products/**",
+                        "/bookings/**",
+                        "/categories/**",
+                        "/features/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/images/**",
+                        "/cities/**",
+                        "/users/**",
+                        "/roles/**").hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.POST,"/bookings/**").hasAnyRole("USER","ADMIN")
-                .antMatchers(HttpMethod.PUT,"/products/**").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE,"/products/**").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/products/**",
+                        "/categories/**",
+                        "/features/**",
+                        "/images/**",
+                        "/cities/**",
+                        "/productsFeatures/**",
+                        "/users/**",
+                        "/roles/**").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/products/**",
+                        "/bookings/**",
+                        "/categories/**",
+                        "/features/**",
+                        "/images/**",
+                        "/cities/**",
+                        "/productsFeatures/**",
+                        "/users/**",
+                        "/roles/**").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/products/**",
+                        "/bookings/**",
+                        "/categories/**",
+                        "/features/**",
+                        "/productsFeatures/**",
+                        "/images/**",
+                        "/cities/**",
+                        "/users/**",
+                        "/roles/**").hasAnyRole("ADMIN")
                 .and().exceptionHandling().authenticationEntryPoint(jwtEntryPointConfig)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
