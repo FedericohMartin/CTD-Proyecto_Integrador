@@ -61,6 +61,7 @@ build_dev-front:
 build_prod-front:
   stage: build
   image: node:18.12.1
+  when: manual
   script: 
     - cd front/booking
     - npm install
@@ -79,7 +80,7 @@ build_prod-front:
   image: python:latest
   when: manual
   script: |
-    pip install --upgrade pip
+    pip install --upgrade pip==22.1.0
     pip install --root-user-action=ignore requests
     pip install awscli #Install awscli tools
     aws s3 sync front/booking/build/ s3://${DEV_S3_BUCKET}
