@@ -86,7 +86,7 @@ build_prod-front:
     
 deploy_dev:
   stage: run
-  image: python:3.6
+  image: python:3.7
   dependencies:
     - build_dev-front
   #when: manual
