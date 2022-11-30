@@ -1,35 +1,3 @@
-# stages:
-#   - build
-#   - deploy
-
-# build project:
-#   stage: build
-#   image: node:18.12.1
-#   script:
-#     - cd front/booking
-#     - npm install
-#     - npm run build
-#   artifacts:
-#     paths:
-#       - front/booking/build
-
-# deploy project:
-#   stage: deploy
-#   image: 
-#     name: amazon/aws-cli
-#     entrypoint: [""]
-#   script:
-#     - pwd
-#     - ls
-#     - cd front/booking/
-#     - echo "Deploying front-end app started..."
-#     #- ssh -o StrictHostKeyChecking=no ubuntu@15.228.13.234 "sudo systemctl stop consoleapp.service"
-#     #- scp -o StrictHostKeyChecking=no /front/booking/build/* ubuntu@15.228.13.234:~/var/www/html/
-#     - aws s3 sync /front/booking/build/* s3://$DEV_S3_BUCKET
-#     #- ssh -o StrictHostKeyChecking=no ubuntu@15.228.13.234 "sudo systemctl start consoleapp.service"
-#     - echo "Finished deploying the frontend app."
-
-
 stages:
   - build
   - run
@@ -83,7 +51,7 @@ build_prod-front:
     pip install --upgrade pip==22.1.0
     pip install --root-user-action=ignore requests
     pip install awscli #Install awscli tools
-    aws s3 sync front/booking/build/ s3://${DEV_S3_BUCKET}
+    aws s3 sync front/booking/build/ s3://${PROD_S3_BUCKET}
     
 deploy_dev:
   stage: run
@@ -94,7 +62,6 @@ deploy_dev:
   script:  
     - python3.7 -m pip install --upgrade pip==22.1.0
     - pip --version
-    # - python -m pip install --root-user-action=ignore
     - pip install --root-user-action=ignore requests
     - pip install awscli 
     - pip install awscli tools
@@ -115,5 +82,3 @@ deploy_prod:
   only:
     refs:
       - pipeline_para_CI-CD  # main
-
-# Cambiando valor de Variable Bucket dev por el en arn para prueba
