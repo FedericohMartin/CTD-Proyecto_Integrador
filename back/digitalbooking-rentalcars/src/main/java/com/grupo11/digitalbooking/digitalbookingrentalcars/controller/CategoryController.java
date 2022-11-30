@@ -3,6 +3,8 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Category;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.CategoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +12,14 @@ import org.springframework.web.bind.annotation.*;
 
 //Request to the db
 @RestController
+@Api(tags = "Categories")
 @RequestMapping("/categories")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @ApiOperation(value="addCategory", notes="Agregar una nueva característica")
     @PostMapping
     public ResponseEntity<Object> addCategory(@RequestBody Category category){
         return ResponseHandler.generateResponse("The category has been added successfully", HttpStatus.CREATED,categoryService.addCategory(category));
