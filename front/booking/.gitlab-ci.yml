@@ -57,17 +57,12 @@ build_prod-front:
     
 deploy_dev:
   stage: run
-  image: python:3.7
+  image: python:latest
   dependencies:
     - build_dev-front
   #when: manual
-  script:  
-    - python3.7 -m pip install --upgrade pip==22.1.0
-    - pip --version
-    - pip install --root-user-action=ignore requests
-    - pip install awscli 
-    - pip install awscli tools
-    - aws --version
+  script:
+    - pip3 install awscl
     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
     - aws s3 cp --recursive front/booking/build/ s3://DEV_S3_BUCKET --acl public-read
