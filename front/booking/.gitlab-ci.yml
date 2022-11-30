@@ -51,6 +51,8 @@ build_prod-front:
     pip install --upgrade pip==22.1.0
     pip install --root-user-action=ignore requests
     pip install awscli #Install awscli tools
+    aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
     aws s3 sync front/booking/build/ s3://${PROD_S3_BUCKET}
     
 deploy_dev:
@@ -66,6 +68,8 @@ deploy_dev:
     - pip install awscli 
     - pip install awscli tools
     - aws --version
+    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
     - aws s3 cp --recursive front/booking/build/ s3://DEV_S3_BUCKET --acl public-read
     
   only:
