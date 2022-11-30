@@ -7,7 +7,7 @@ import { FaWheelchair, FaBluetoothB, FaEnvira, FaSnowflake, FaSuitcaseRolling, F
 
 const icons = [FaWheelchair, FaBluetoothB, FaEnvira, FaSnowflake, FaSuitcaseRolling, FaSuitcase, FaTachometerAlt, FaTrailer, FaTruckMonster];
 
-function ProductDetail({product, isLoaded}){
+function ProductDetail({product, isLoaded, bookedDates}){
 
     const featuresMapper = (feature) => {
         const findIcon = icons.findIndex((icon) => {
@@ -48,7 +48,7 @@ function ProductDetail({product, isLoaded}){
                  </ul>
                 : <div className={styles.featuresLoader}></div>}
             </div>
-            <BookingChart product={product} isLoaded={isLoaded}></BookingChart>
+            <BookingChart product={product} isLoaded={isLoaded} bookedDates={bookedDates}></BookingChart>
         </>
     )
 }

@@ -1,11 +1,12 @@
 const endpoint = "http://localhost:8080/products";
 
-const getAll = () => {
+const getAll = (signal) => {
     const config = {
         method: "GET",
         withCredentials: true,
         crossdomain: true,
         headers: { "Content-Type": "application/json; charset=UTF-8" },
+        signal: signal,
      };
 
      return fetch(endpoint+"/bringAll", config)
@@ -13,12 +14,13 @@ const getAll = () => {
 
 }
 
-const getById = (id) => {
+const getById = (id, signal) => {
     const config = {
         method: "GET",
         withCredentials: true,
         crossdomain: true,
         headers: { "Content-Type": "application/json; charset=UTF-8" },
+        signal: signal,
      };
 
     return fetch(`${endpoint}/searchProductById/${id}`, config)

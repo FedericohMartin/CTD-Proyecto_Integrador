@@ -13,7 +13,7 @@ import {MdLocationOn } from 'react-icons/md';
 const hours = Array.from({length: 24}, (_, i) => {let a = i-1 
                                                 return a<9 ? `0${a + 1}:00` : `${a + 1}:00`})
                                                 
-function ProductBooking({product, isLoaded, onSubmitclicked}){
+function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates}){
     const [bookingFormData, setBookingFormData] = useState({
         userId: "",
         name: "",
@@ -27,7 +27,8 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
     });
     const [cities, setCities] = useState([]);
     const [maxDateDatepicker, setMaxDateDatepicker] = useState(null);
-    const [bookedDates, setBookedDates] = useState([]);
+    const [tempBookedDates, setTempBookedDates] = useState([]);
+    const [excludedDates, setExcludedDates] = useState([]);
     const [bookingFailed, setbookingFailed] =useState(false);
     const [validated, setValidated] = useState({
         initialDate: true,
@@ -38,6 +39,17 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
     const [nextDayBlocked, setNextDayBlocked] = useState(false);
     const {authUser} = useContext(Context);
     const navigate = useNavigate();
+
+    const filterImages = (image) => {
+        return image.image?.name?.includes('Primary');
+      }
+  
+      const image = product.images?.length !== 0 && product.images?.find(filterImages);
+      const imageUrl = image 
+      ? image.image.imgUrl 
+      : product.images?.length !== 0
+          ? product.images[0].image?.imgUrl 
+          : product.category?.imgUrl
 
     const onFormFieldChange = (event) => {
         const target = event.target;
@@ -76,22 +88,21 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
                 return {...prevState, finalDate: end};
             })
 
-            if (bookingFormData.initialDate != null) {
-                setBookingFormData((prevState) => {
-                    return {...prevState, initialDate: null};
-                })
-                setMaxDateDatepicker(null);
-            } else if (bookedDates?.length > 0) {
-                for (const date of bookedDates) {
+            if (excludedDates?.length > 0) {
+                for (const date of excludedDates) {
                     const bookedStartDate = new Date(date.start);
-                    if (moment(bookedStartDate).isAfter(new Date(start))) {
-                        const tomorrow = new Date(start+1);
-                        if(moment(bookedStartDate).isSame(tomorrow, 'day')){
-                            setNextDayBlocked(true);
-                        }
-                        setMaxDateDatepicker(new Date(date.start));
+                    const tomorrow = new Date(start+1);
+                    if(moment(bookedStartDate).isSame(tomorrow, 'day')){
+                        setNextDayBlocked(true);
                         break;
                     }
+                }
+                for (const date of excludedDates) {
+                    const bookedStartDate = new Date(date.start);
+                    if (moment(bookedStartDate).isAfter(new Date(start))) {
+                        setMaxDateDatepicker(bookedStartDate);
+                        break;
+                    } 
                 }
             }
         } else if (start.toString() !== end.toString()) {
@@ -125,15 +136,16 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
             return {...prevState, hour: !bookingFormData.hour ? false : true}
         })
 
-        if(validated.finalDate && validated.initialDate && validated.hour){
+        if(bookingFormData.initialDate && bookingFormData.finalDate && bookingFormData.hour){
+            onSubmitclicked();
             const payload = {...bookingFormData, initialDate: bookingFormData.initialDate.toISOString().split('T')[0], finalDate: bookingFormData.finalDate.toISOString().split('T')[0]}
             const bookingPromise = await bookingService.add(payload);
-
+            
             if(bookingPromise.data){
-                console.log(bookingPromise);
                 navigate('booking-confirm'); 
             }else{
                 setbookingFailed(true);
+                onSubmitclicked();
             }
         }
     }
@@ -147,34 +159,24 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
     }, [authUser]);
 
     useEffect(() => {
+        const abortController = new AbortController();
         citiesService
-        .getAll()
+        .getAll(abortController.signal)
         .then((response) => {
             setCities(response.data);
         })
         .catch(error => console.log(error))
 
+        return () => abortController.abort();
+    }, []);
+
+    useEffect(() => {
         if(product.id){
             setBookingFormData(prevState => {
                 return {...prevState, productId:product.id }
             })
-
-            bookingService
-            .getBookingsByProdId(product.id)
-            .then(response => {
-                const datesArray = response.data?.map(item => {
-                    const initialDate = new Date(`${item.initialDate} EDT`);
-                    return {
-                        start: initialDate.setDate(initialDate.getDate() - 1),
-                        end: new Date(`${item.finalDate} EDT`)
-                    }
-                })
-                setBookedDates(datesArray);
-            })
-            .catch(error => console.log(error))
         }
-
-    }, [bookingFormData.productId, product]);
+    }, [product]);
 
     useEffect(() => {
         if(submitClicked){
@@ -190,7 +192,14 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
                 return {...prevState, hour: !bookingFormData.hour ? false : true}
             })
         }
+        setTempBookedDates([])
     }, [bookingFormData.initialDate, bookingFormData.finalDate, bookingFormData.hour, submitClicked])
+
+    useEffect(() => {
+        if(bookedDates) {
+            setExcludedDates(bookedDates.concat(tempBookedDates));
+        }
+    }, [bookedDates, tempBookedDates]);
 
     return(
         <>
@@ -232,7 +241,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
                             startDate={bookingFormData.initialDate} 
                             endDate={bookingFormData.finalDate}
                             maxDateDatepicker={maxDateDatepicker}
-                            excludeDates={bookedDates}
+                            excludeDates={excludedDates}
                         ></CalendarSearch>
                         <div className={styles.clear} onClick={onClearDatesClicked}>Borrar selección</div>
                      </div>
@@ -262,7 +271,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
                 ?<div className={styles.bookingDetails}>
                     <div className={styles.titleCard}>
                         <h2>Detalle de reserva</h2>
-                        <img src={product?.category?.imgUrl} alt="" />
+                        <img src={imageUrl} alt="" />
                     </div>
                     <div className={styles.detailsCard}>
                         <div>
@@ -274,10 +283,10 @@ function ProductBooking({product, isLoaded, onSubmitclicked}){
                             {`${product.location?.state}, ${product.location?.name}, ${product.location?.country}`}
                         </div>
                         <hr />
-                        <div>Fecha de entrega: {bookingFormData.initialDate?.toLocaleDateString()}</div>
+                        <div>Fecha de entrega: {bookingFormData.initialDate?.toLocaleDateString("en-GB")}</div>
                         {nextDayBlocked && <span className={styles.missingDataWarning}>Fecha válida sólo para devolución</span>}
                         <hr />
-                        <div>Fecha de devolución: {bookingFormData.finalDate?.toLocaleDateString()}</div>
+                        <div>Fecha de devolución: {bookingFormData.finalDate?.toLocaleDateString("en-GB")}</div>
                         <hr />
                         <button type="submit" onClick={onSaveBookingClicked}>Confirmar reserva</button>
                         {bookingFailed && <span><IoAlertCircleOutline className={styles.alertIcon}/>Lamentablemente la reserva no ha podido realizarse. Por favor, intente más tarde</span>}

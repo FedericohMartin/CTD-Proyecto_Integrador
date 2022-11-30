@@ -39,12 +39,16 @@ function App() {
             <Route path='/login' element={<Login/>}></Route>
             <Route path='/signup' element={<Register/>}></Route>
             <Route path='/producto/:idProducto'element={<Product>
-                                                          {(product, isLoaded) => <ProductDetail product={product} isLoaded={isLoaded}/>}
+                                                          {(product, isLoaded, onSubmitclicked, bookedDates) => <ProductDetail product={product} isLoaded={isLoaded} bookedDates={bookedDates}/>}
                                                         </Product>}>          
             </Route>
             <Route path='/producto/:idProducto' element={<ProtectedRoutes></ProtectedRoutes>}>
               <Route path='reserva' element={<Product>
-                                                  {(product, isLoaded, onSubmitclicked) => <ProductBooking product={product} isLoaded={isLoaded} onSubmitclicked={onSubmitclicked}/>}
+                                                  {(product, isLoaded, onSubmitclicked, bookedDates) => <ProductBooking 
+                                                                                                        product={product} 
+                                                                                                        isLoaded={isLoaded} 
+                                                                                                        onSubmitclicked={onSubmitclicked}
+                                                                                                        bookedDates={bookedDates}/>}
                                               </Product>}>
               </Route>
             </Route>

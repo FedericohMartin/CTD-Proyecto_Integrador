@@ -293,6 +293,10 @@
         margin-bottom: 1rem;
     }
 
+    .bookingDetails .detailsCard .missingDataWarning{
+        margin-bottom: 0;
+    }
+
     .bookFormContainer .missingDataWarning{
         width: 92%;
     }
