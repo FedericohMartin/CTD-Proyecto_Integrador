@@ -1,0 +1,119 @@
+.chartContainer{
+    align-items: center;
+    background-color: rgb(96, 125, 139, 0.1);
+    display: flex;
+    min-height: 48vh;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.calendarContainer, .calendarLoader{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 58.66vw;
+}
+
+.calendarLoader{
+    background-color: rgb(84, 87, 118, .5);
+    border-radius: .7rem;
+    box-shadow:0rem 0.35rem 0.4rem rgba(0, 0, 0, 0.25);
+    height: 35vh;
+    margin-top: 0.625rem;
+    animation: ease 2s infinite running load;
+}
+
+.calendarContainer h2 {
+    color: #263238;
+    width: 100%;
+}
+
+.buttonContainer{
+    align-items: center;
+    border-radius: 0.5rem;
+    box-shadow:0rem 0.35rem 0.4rem rgba(0, 0, 0, 0.22);
+    background-color: #FFFF;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    min-height: 15vh;
+    width: 29.33vw;
+}
+
+.buttonContainer div, 
+.buttonContainer button{
+    width: 90%;
+}
+
+.buttonContainer button{
+    background-color: #FBC02D;
+    box-shadow: 0rem 0.125rem 0.25rem rgba(0, 0, 0, 0.12);
+    border: 1px solid #FBC02D;
+    border-radius: 0.3125rem;
+    color: #FFFF;
+    cursor: pointer;
+    font-family: 'Poppins';
+    font-size: 1rem;
+    font-weight: 700;
+    height: 2.5rem;
+}
+
+@keyframes load{
+    0%    { opacity: 0; }
+    50%   { opacity: .5; }
+    100%  { opacity: 0; }
+  }
+
+@media screen and (max-width: 1024px){
+    .calendarContainer{
+        width: 90%;
+    }
+
+    .calendarLoader{
+        align-self: center;
+        width: 98%;
+    }
+    .chartContainer{
+        flex-direction: column;
+        min-height: 55vh;
+    }
+
+    .buttonContainer{
+        box-shadow: none;
+        background-color: transparent;
+        flex-direction: row;
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .chartContainer{
+        min-height: 75vh;
+    }
+
+    .calendarContainer{
+        width: 92%;
+    }
+
+    .buttonContainer{
+        flex-direction: column;
+        width: 92%;
+    }
+
+    .buttonContainer div, 
+    .buttonContainer button{
+        width: 100%;
+    }
+}
+
+@media screen and (max-height: 800px) {
+    .chartContainer{
+        min-height: 75vh;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .chartContainer{
+        min-height: 120vh;
+    }
+}

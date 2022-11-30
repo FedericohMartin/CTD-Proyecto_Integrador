@@ -14,7 +14,7 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    margin: 0.50rem 0 0 0.75rem;
+    margin: 0.50rem 0 0 2.4rem;
     min-width: 25%;  
 }
 
@@ -45,7 +45,7 @@
     border-radius: 100%;
     color: #FFFFFF;
     font-size: 1.25rem;
-    padding: 0.5rem;
+    padding: 0.5rem .7rem;
 }
 
 .headerContainer .logoutIcon{
@@ -74,16 +74,41 @@
     width: 12.875rem;
 }
 
-.btn:not(:disabled):not(.disabled) {
+.btn:hover{
+    background-color: #FBC02D;
+    color: #FFFFFF;
     cursor: pointer;
 }
+
 
 .menuIcon{
     display: none;
 }
 
+.headerContainer .loader{
+    background-color: rgb(84, 87, 118, .5);
+    border-radius: 0.3125rem;
+    height: 3rem;
+    margin: 0 0.75rem;
+    width: 26vw;
+    animation: ease 2s infinite running sun-rise;
+}
 
-@media screen and (max-width: 720px) {
+@keyframes sun-rise{
+    0%    { opacity: 0; }
+    50%   { opacity: .5; }
+    100%  { opacity: 0; }
+  }
+
+@media screen and (max-width: 768px) {
+    .headerItem:nth-child(1){
+        margin: 0.5rem 0 0 -2rem;
+    }
+
+    .headerContainer .loader{
+        margin: 0 0.75rem;
+    }
+
     .hideT{
         display: none;
     }
@@ -92,7 +117,11 @@
     }
 }
 
-@media screen and (max-width: 453px) {
+@media screen and (max-width: 540px) {
+    .headerItem:nth-child(1){
+        margin: 0.5rem 0;
+    }
+
     .hide{
         display: none;
     }
@@ -104,5 +133,9 @@
     .headerContainer{
         box-shadow: 0rem 0.125rem 0.25rem rgba(0, 0, 0, 0.14), 0rem 0.25rem 0.3125rem rgba(0, 0, 0, 0.12), 0rem 0.0625rem 0.625rem rgba(0, 0, 0, 0.2);
         max-height: 5.8125rem;
+    }
+
+    .headerContainer .loader{
+        margin: 0 0.75rem;
     }
 }

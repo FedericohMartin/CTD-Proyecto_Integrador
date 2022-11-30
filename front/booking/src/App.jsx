@@ -5,26 +5,19 @@ import Footer from './components/tools/Footer';
 import homeStyles from './styles/home.module.css'
 import Login from './components/Login';
 import Register from './components/Register';
+import Product from './components/Product';
+import ProductDetail from './components/tools/ProductDetail';
+import ProductBooking from './components/tools/ProductBooking';
+import BookingConfirm from './components/BookingConfirm';
 import Menu from './components/tools/Menu';
-import { useState } from 'react';
+import {UserContextProvider} from './contexts/UserContext'
+import {  useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectedRoutes from './components/ProtectedRoutes';
 
-const user = {
-  name: "Pedro",
-  lastName: "Picapiedra",
-  email: "pedro.p@domain.com",
-  password: "pedrit0elMejor"
-}
 
 function App() {
-  const defaultUser = {
-    name: "",
-    lastName: "",
-    email: "",
-    password: ""
-  }
   const [hideMenu, setHideMenu] = useState(true);
-  const [authUser, setAuthUser] = useState(defaultUser)
 
   const onMenuClicked = () => {
     setHideMenu(false);
@@ -34,32 +27,39 @@ function App() {
     setHideMenu(true);
   }
 
-  const onLoginClicked = (e, values) => {
-    if(values.email === user.email && values.password === user.password){
-      setAuthUser(user);
-      return true
-    } else {return false}
-  }
-
-  const onLogoutClicked = () => {
-    setAuthUser(defaultUser);
-  }
-
   return (
     <div className="App">
-      
+      <UserContextProvider>
         <BrowserRouter>
-          <Header user={authUser} onMenuParentClicked={onMenuClicked} onParentLogoutClicked={onLogoutClicked}></Header>
+          <Header onMenuParentClicked={onMenuClicked}></Header>
           <div onClick={onCloseClicked} className={`${homeStyles.opacity} ${!hideMenu && homeStyles.darken} ${homeStyles.disableMenu}`}></div>  
-          <Menu onParentCloseClicked={onCloseClicked} show={hideMenu} user={authUser}></Menu>
+          <Menu onParentCloseClicked={onCloseClicked} show={hideMenu}></Menu>
           <Routes>
             <Route path="/" element={<Home onGParentCloseClicked= {onCloseClicked} show={hideMenu}/>}> </Route>
-            <Route path='/login' element={<Login onParentSubmitClicked={onLoginClicked} user={authUser}/>}></Route>
+            <Route path='/login' element={<Login/>}></Route>
             <Route path='/signup' element={<Register/>}></Route>
+            <Route path='/producto/:idProducto'element={<Product>
+                                                          {(product, isLoaded, onSubmitclicked, bookedDates) => <ProductDetail product={product} isLoaded={isLoaded} bookedDates={bookedDates}/>}
+                                                        </Product>}>          
+            </Route>
+            <Route path='/producto/:idProducto' element={<ProtectedRoutes></ProtectedRoutes>}>
+              <Route path='reserva' element={<Product>
+                                                  {(product, isLoaded, onSubmitclicked, bookedDates) => <ProductBooking 
+                                                                                                        product={product} 
+                                                                                                        isLoaded={isLoaded} 
+                                                                                                        onSubmitclicked={onSubmitclicked}
+                                                                                                        bookedDates={bookedDates}/>}
+                                              </Product>}>
+              </Route>
+            </Route>
+            <Route path='/producto/:idProducto/reserva' element={<ProtectedRoutes></ProtectedRoutes>}>
+              <Route path='booking-confirm' element={<BookingConfirm/>}>
+              </Route>
+            </Route>
           </Routes>
           <Footer></Footer>
         </BrowserRouter>
-      
+      </UserContextProvider>
     </div>
   );
 }
