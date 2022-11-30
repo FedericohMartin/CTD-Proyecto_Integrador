@@ -13,12 +13,13 @@ const add = (payload) => {
             .then(response => response.json())
 }
 
-const getBookingsByProdId = (id) => {
+const getBookingsByProdId = (id, signal) => {
     const config = {
         method: "GET",
         withCredentials: true,
         crossdomain: true,
         headers: { "Content-Type": "application/json; charset=UTF-8" },
+        signal: signal,
      };
 
      return fetch(`${endpoint}/listByProduct/${id}`, config)
