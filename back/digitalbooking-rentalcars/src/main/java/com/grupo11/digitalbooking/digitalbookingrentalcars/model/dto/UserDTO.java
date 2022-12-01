@@ -1,5 +1,7 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.UserModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +17,5 @@ public class UserDTO {
     private String userCity;
     private String username;
     private UserRoleDTO role;
+
 }

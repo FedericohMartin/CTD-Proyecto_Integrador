@@ -22,8 +22,10 @@ public class UserController {
     @ApiOperation(value="addUser", notes="Agregar un nuevo usuario")
     @PostMapping("/addUser")
     public ResponseEntity<Object> addUser(@RequestBody UserDTO userDTO){
+        UserModel model = userService.addUser(userDTO);
+        model.setPassword(null);
         return ResponseHandler.generateResponse("The User has been generated successfully",
-                HttpStatus.CREATED, userService.addUser(userDTO));//Ticket Nº 49 (Retornar un código 201 en caso de éxito. Esto lo hace el CREATED))
+                HttpStatus.CREATED, model);//Ticket Nº 49 (Retornar un código 201 en caso de éxito. Esto lo hace el CREATED))
     }
 
     @ApiOperation(value="listAll", notes="Listar todos los usuarios")
