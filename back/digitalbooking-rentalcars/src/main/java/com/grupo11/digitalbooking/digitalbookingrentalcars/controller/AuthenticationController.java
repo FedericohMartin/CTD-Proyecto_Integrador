@@ -4,6 +4,7 @@ import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.Authenticat
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.AuthenticationDTOResponse;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl.UserServiceImpl;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.JwtService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +29,7 @@ public class AuthenticationController {
     private UserServiceImpl user;
 
 
-    //Autenticación del rol utilizando JWT
+    @ApiOperation(value="Autenticación", notes="Autenticación del rol utilizando JWT")
     @PostMapping(value = "/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationDTORequest authenticationDTORequest)
             throws Exception{
