@@ -1,7 +1,6 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.model;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @ToString

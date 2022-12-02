@@ -44,7 +44,6 @@ public class AuthenticationController {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTORequest.getUsername());
         final String jwt = jwtService.generateToken(userDetails);
-        //final String username = String.valueOf(userDetails);
         final Integer id = user.userId(authenticationDTORequest.getUsername());
         final String name = user.userName(authenticationDTORequest.getUsername());
         final String surname = user.userSurname(authenticationDTORequest.getUsername());

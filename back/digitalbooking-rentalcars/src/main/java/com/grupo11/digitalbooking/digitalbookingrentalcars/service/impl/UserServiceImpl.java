@@ -78,7 +78,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserModel userModel = userRepository.findByUsername(username);
-        //System.out.println(userModel);
         String rol = userModel.getRole().getName();
         System.out.println(rol);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -91,15 +90,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } else {
             throw new UsernameNotFoundException(username);
         }
-
-/*        return new User(
-                username,
-                userModel.getPassword(),
-                true,
-                true,
-                true,
-                true,
-                authorities);*/
     }
 
     public Integer userId(String username){
@@ -117,7 +107,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public String userSurname(String username){
         UserModel userModel = userRepository.findByUsername(username);
         String surname = userModel.getSurname();
-        //String userCity = userModel.getUserCity();
         return (surname);
     }
 
