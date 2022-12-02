@@ -59,13 +59,15 @@ function Searchbox(props){
         <option key={`city-${cities.id}`} value= {cities.id}>{cities.name} - {cities.state} - {cities.country}   </option>)
          
     useEffect(() => {
+        const abortController = new AbortController();
         citiesService
-        .getAll()
+        .getAll(abortController.signal)
         .then((response) => {
             setCities(response.data);
         })
         .catch(error => console.log(error))
 
+        return () => abortController.abort();
     }, []);
 
     return(

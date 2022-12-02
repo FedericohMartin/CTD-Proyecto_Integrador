@@ -57,6 +57,7 @@ function Home() {
             setHasData(false);
             console.log("null data");
         } else if(data.city && !(data.dateRange.startDate || data.dateRange.endDate)){
+            setIsLoaded(false);
             setHasData(true);
             productService
             .getByCityId(data.city)
@@ -71,6 +72,7 @@ function Home() {
             })
             .catch(error => console.log(error));
         }else if(!data.city && (data.dateRange.startDate && data.dateRange.endDate)){
+            setIsLoaded(false);
             setHasData(true);
             productService
             .getByDates(data)
@@ -85,6 +87,7 @@ function Home() {
             })
             .catch(error => console.log(error));
         }else if(data.city && data.dateRange.startDate && data.dateRange.endDate){
+            setIsLoaded(false);
             setHasData(true);
             productService
             .getBycityAndDates(data)
@@ -119,16 +122,19 @@ function Home() {
     }
 
     useEffect(() => {
+        const abortController = new AbortController();
         categoryService
-        .getAll()
+        .getAll(abortController.signal)
         .then((response) => {
             setCategories(response.data);
             setCategoriesLoaded(true);
         })
-        .catch(error => console.log(error));
+        .catch(error =>{
+
+            console.log(error)});
 
         productService
-        .getAll()
+        .getAll(abortController.signal)
         .then((response) => {
             setProducts(response.data.items);
             setPage((prevState)=>{
@@ -138,8 +144,9 @@ function Home() {
             })
             setIsLoaded(true);
         })
-        .catch(error => {console.log(error)
-            setIsLoaded(true);})
+        .catch(error => {console.log(error)})
+
+        return () => abortController.abort();
     }, []);
 
     return (
