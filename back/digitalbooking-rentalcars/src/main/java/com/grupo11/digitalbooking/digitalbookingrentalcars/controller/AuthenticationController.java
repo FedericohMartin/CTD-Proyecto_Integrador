@@ -14,9 +14,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/authenticate")
 public class AuthenticationController {
 
     @Autowired
@@ -30,14 +32,16 @@ public class AuthenticationController {
 
 
     @ApiOperation(value="Autenticación", notes="Autenticación del rol utilizando JWT")
-    @PostMapping(value = "/authenticate")
+    @PostMapping(value = "")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationDTORequest authenticationDTORequest)
             throws Exception{
+        System.out.println(authenticationDTORequest);
                 try {
                  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTORequest.getUsername(), authenticationDTORequest.getPassword()));
                 }catch (BadCredentialsException e) {
             throw new Exception("Incorrect", e);
         }
+
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTORequest.getUsername());
         final String jwt = jwtService.generateToken(userDetails);
         //final String username = String.valueOf(userDetails);

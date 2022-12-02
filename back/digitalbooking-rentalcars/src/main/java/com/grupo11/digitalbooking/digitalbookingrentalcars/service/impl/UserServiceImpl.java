@@ -2,7 +2,6 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.UserModel;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.UserRole;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.UserDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.UserRoleRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.UserRepository;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,9 +35,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             UserRepository userRepository,
             UserRoleRepository userRoleRepository,
             PasswordEncoder passwordEncoder) {
-                this.userRepository = userRepository;
-                this.userRoleRepository = userRoleRepository;
-                this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
     //Ticket Nº 49
     public UserModel addUser(UserDTO userDTO){
@@ -76,21 +76,30 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserModel userModel = userRepository.findByUsername(username);
+        //System.out.println(userModel);
         String rol = userModel.getRole().getName();
         System.out.println(rol);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority(rol));
 
-        return new User(
+        if(userModel != null) {
+            User.UserBuilder userBuilder = User.withUsername(username);
+            userBuilder.password(userModel.getPassword()).roles(rol);
+            return userBuilder.build();
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
+
+/*        return new User(
                 username,
                 userModel.getPassword(),
                 true,
                 true,
                 true,
                 true,
-                authorities);
+                authorities);*/
     }
 
     public Integer userId(String username){

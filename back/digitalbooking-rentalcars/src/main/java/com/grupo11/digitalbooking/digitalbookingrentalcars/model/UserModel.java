@@ -31,6 +31,5 @@ public class UserModel {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "roles_id")
-    /* @Enumerated(EnumType.STRING)*/
     private UserRole role;
 }
