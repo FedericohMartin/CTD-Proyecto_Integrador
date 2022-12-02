@@ -103,7 +103,7 @@ public class ProductController {
         return ResponseHandler.generateResponse("List of Products with the city searched",HttpStatus.OK,productService.searchByCity(id));
     }
 
-    //Ticket Nº 55
+    //Ticket Nº 55 (Implementar filtro por ciudad e intervalo de fechas)
     @ApiOperation(value="searchByCityAndDates", notes="Listado de productos por ID de ciudad y fecha de inicio/fecha final")
     @GetMapping("/search")
     public ResponseEntity<Object> searchByCityAndDates(@RequestParam Integer cityId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finalDate) throws BadRequestException {

@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//Ticket Nº 49
 @RestController
 @Api(tags = "Users")
 @RequestMapping("/users")
@@ -19,6 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //Ticket Nº 49 (Crear endpoint que nos permita registrar nuevos usuarios, utilizando un encoder para encriptar la contraseña).
     @ApiOperation(value="addUser", notes="Agregar un nuevo usuario")
     @PostMapping("/addUser")
     public ResponseEntity<Object> addUser(@RequestBody UserDTO userDTO){

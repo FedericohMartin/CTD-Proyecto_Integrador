@@ -27,6 +27,7 @@ public class UserModel {
     private String userCity;
     private String username;
 
+    //Ticket Nº 58 (Mapeo de las tablas “rol“ y “usuarios” con clases de nuestro modelo).
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "roles_id")

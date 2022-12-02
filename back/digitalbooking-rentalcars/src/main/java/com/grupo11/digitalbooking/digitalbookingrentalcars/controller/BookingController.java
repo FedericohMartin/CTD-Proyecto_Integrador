@@ -25,7 +25,7 @@ public class BookingController {
         return ResponseHandler.generateResponse("Reservation list", HttpStatus.OK, bookingService.listBookings());
     }
 
-    //Ticket Nº 59
+    //Ticket Nº 59 (Crear una nueva reserva de un producto).
     @ApiOperation(value="saveBooking", notes="Agregar una nueva reserva")
     @PostMapping("/saveBooking")
     public ResponseEntity<Object> saveBooking(@RequestBody BookingDTO booking) throws Exception{
@@ -69,8 +69,7 @@ public class BookingController {
         return response;
     }
 
-    //Ticket Nº 59
-    //Consulta de reservas por Id de Producto
+    //Ticket Nº 59 (Consulta de reservas por Id de Producto).
     @ApiOperation(value = "listBookingsByProductId", notes = "Listar reservas por ID de producto")
     @GetMapping("/listByProduct/{id}")
     public ResponseEntity<Object> listBookingsByProductId(@PathVariable Integer id) throws Exception{
