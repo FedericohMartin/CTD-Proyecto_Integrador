@@ -1,41 +1,33 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import bookingService from "../../services/bookingService";
 import CalendarSearch from "./CalendarSearch";
 import styles from '../../styles/bookingChart.module.css'
 
-function BookingChart({product, isLoaded}){
-    const [bookedDates, setBookedDates] = useState([]);
+function BookingChart({product, isLoaded, bookedDates, isCalendarLoaded}){
+    const [tempBookedDates, setTempBookedDates] = useState([]);
+    const [excludedDates, setExcludedDates] = useState([]);
     const navigate = useNavigate();
     const onBookingClicked = () => {
         navigate('reserva');
     }
 
     useEffect(() => {
-        if(product.id){
-            bookingService
-            .getBookingsByProdId(product.id)
-            .then(response => {
-                const datesArray = response.data?.map(item => {
-                    const initialDate = new Date(`${item.initialDate} EDT`);
-                    return {
-                        start: initialDate.setDate(initialDate.getDate() - 1),
-                        end: new Date(`${item.finalDate} EDT`)
-                    }
-                })
-                setBookedDates(datesArray);
-            })
-            .catch(error => console.log(error))
-        }
+        setTempBookedDates([])
     }, [product]);
+
+    useEffect(() => {
+        if(bookedDates) {
+            setExcludedDates(bookedDates.concat(tempBookedDates));
+        }
+    }, [bookedDates, tempBookedDates]);
 
 
     return(
         <div className={styles.chartContainer}>
             <div className={styles.calendarContainer}>
                 <h2>Fechas disponibles</h2>
-                {isLoaded
-                ?<CalendarSearch inlineProp={'inline'} productCalendar='calendar' excludeDates={bookedDates}></CalendarSearch>
+                {isLoaded && isCalendarLoaded
+                ?<CalendarSearch inlineProp={'inline'} productCalendar='calendar' excludeDates={excludedDates}></CalendarSearch>
                 : <div className={styles.calendarLoader}></div>}
             </div>
             <div className={styles.buttonContainer}>

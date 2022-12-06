@@ -5,8 +5,8 @@
     width: 100%;
     color: #ffff;
     text-align: center;
-    padding-top: 6rem;
-    padding-bottom: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2.3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -106,12 +106,14 @@
 }
 
 .formCities .clearCityIcon{
-    position: relative;
+    position: absolute;
     color: #FBC02D;
     cursor: pointer;
     height: 1.2rem;
-    right: 1.8rem;
+    right: 0.6rem;
     width: 1.2rem;
+    top: 0.7rem;
+    bottom: 0.6rem;
 }
 
 .searchbox .searchInfo{
@@ -131,7 +133,7 @@
 /*--- Responsive: Mobile ---*/
 @media screen and (min-device-width: 280px) and (max-device-width: 550px){
     .searchbox {
-        padding-top: 7rem;
+        padding-top: 2.5rem;
         padding-bottom: 2rem;
         display: flex;
         flex-direction: column;
@@ -223,7 +225,7 @@
 /*--- Responsive: Tablet Landscape---*/
 @media screen and (min-width:769px) and (max-width: 1024px){
     .searchbox {
-        padding-top: 6rem;
+        padding-top: 2.5rem;
         padding-bottom: 1.5rem;
     }
     

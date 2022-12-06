@@ -14,6 +14,8 @@ import {UserContextProvider} from './contexts/UserContext'
 import {  useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoutes from './components/ProtectedRoutes';
+import ProtectedRoutesAdmin from './components/ProtectedRoutesAdmin';
+import ProductForm from './components/ProductForm';
 
 
 function App() {
@@ -39,17 +41,40 @@ function App() {
             <Route path='/login' element={<Login/>}></Route>
             <Route path='/signup' element={<Register/>}></Route>
             <Route path='/producto/:idProducto'element={<Product>
-                                                          {(product, isLoaded) => <ProductDetail product={product} isLoaded={isLoaded}/>}
+                                                          {(product, isLoaded, onSubmitclicked, bookedDates, isCalendarLoaded) => <ProductDetail 
+                                                                                                                                    product={product} 
+                                                                                                                                    isLoaded={isLoaded} 
+                                                                                                                                    bookedDates={bookedDates}
+                                                                                                                                    isCalendarLoaded={isCalendarLoaded}/>}
                                                         </Product>}>          
             </Route>
             <Route path='/producto/:idProducto' element={<ProtectedRoutes></ProtectedRoutes>}>
               <Route path='reserva' element={<Product>
-                                                  {(product, isLoaded, onSubmitclicked) => <ProductBooking product={product} isLoaded={isLoaded} onSubmitclicked={onSubmitclicked}/>}
+                                                  {(product, isLoaded, onSubmitclicked, bookedDates, isCalendarLoaded) => <ProductBooking 
+                                                                                                        product={product} 
+                                                                                                        isLoaded={isLoaded} 
+                                                                                                        onSubmitclicked={onSubmitclicked}
+                                                                                                        bookedDates={bookedDates}
+                                                                                                        isCalendarLoaded={isCalendarLoaded}/>}
                                               </Product>}>
               </Route>
             </Route>
             <Route path='/producto/:idProducto/reserva' element={<ProtectedRoutes></ProtectedRoutes>}>
-              <Route path='booking-confirm' element={<BookingConfirm/>}>
+              <Route path='booking-confirm' element={<BookingConfirm content={{
+                                                                        title: "¡Muchas gracias!", 
+                                                                        body: "Su reserva se ha realizado con éxito",
+                                                                        button: "ok",
+                                                                    }}/>}>
+              </Route>
+            </Route>
+            <Route path='/administracion' element={<ProtectedRoutesAdmin></ProtectedRoutesAdmin>}>
+              <Route path='' element={<ProductForm/>}>
+              </Route>
+              <Route path='producto-agregado-exitosamente' element={<BookingConfirm content={{
+                                                                                      title: "", 
+                                                                                      body: "Su producto se ha creado con éxito",
+                                                                                      button: "volver",
+                                                                                  }}/>}>
               </Route>
             </Route>
           </Routes>

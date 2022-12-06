@@ -19,6 +19,10 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     public Feature addFeature(Feature feature){
+        Optional<Feature> searchedFeature = featureRepository.findByFeatureIconAndName(feature.getIcon(), feature.getName());
+        if(searchedFeature.isPresent()){
+            return searchedFeature.get();
+        }
         return featureRepository.save(feature);
     }
 

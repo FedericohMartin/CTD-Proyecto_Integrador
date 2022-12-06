@@ -7,7 +7,8 @@ const user = {
   name: "Pedro",
   lastName: "Picapiedra",
   email: "pedro.p@domain.com",
-  password: "pedrit0elMejor"
+  password: "pedrit0elMejor",
+  role: "ADMIN",
 }
 
 const UserContextProvider = ({children}) => {

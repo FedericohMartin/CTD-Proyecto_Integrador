@@ -15,5 +15,5 @@ public class UserDTO {
     private String password;
     private String userCity;
     private String username;
-    private UserRole role;
+    private UserRoleDTO role;
 }

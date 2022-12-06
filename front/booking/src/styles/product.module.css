@@ -10,12 +10,11 @@
     display: flex;
     font-weight: 700;
     justify-content: space-between;
-    padding-top: 5.5rem;
     width: 100%
 }
 
 .productHeader>div, .productHeader .categoryLoader{
-    margin: 0 2.6rem .5rem 2.6rem;
+    margin: .4rem 2.6rem .5rem 2.6rem;
 }
 
 .productHeader .categoryLoader{

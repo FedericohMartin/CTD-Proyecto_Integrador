@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import homeStyles from '../styles/home.module.css'
 import styles from '../styles/product.module.css'
 import productService from "../services/productService";
+import bookingService from "../services/bookingService";
 import {IoChevronBack} from 'react-icons/io5'
 import {Link, useParams} from 'react-router-dom'
 
@@ -19,6 +20,8 @@ function Product({children}){
         }
     )
     const [isLoaded, setIsLoaded] =useState(false);
+    const [isCalendarLoaded, setIsCalendarLoaded] =useState(false);
+    const [bookedDates, setBookedDates] = useState([]);
     const loaders = Array.from({length: 3}, (_, i) => {return i})
     const { idProducto } = useParams();
 
@@ -33,24 +36,44 @@ function Product({children}){
     }
 
     useEffect(() => {
-        productService
-        .getById(idProducto)
-        .then(response => {
-            setProduct((prevState) => {
-                const newState = {...prevState};
-                newState.id = response.data.id
-                newState.category = response.data.category;
-                newState.title = response.data.name;
-                newState.location = response.data.city;
-                newState.description = response.data.description;
-                newState.features = response.data.features;
-                newState.images = response.data.images;
+        if(idProducto) {
+            const abortController = new AbortController();
+            productService
+            .getById(idProducto, abortController.signal)
+            .then(response => {
+                setProduct((prevState) => {
+                    const newState = {...prevState};
+                    newState.id = response.data.id
+                    newState.category = response.data.category;
+                    newState.title = response.data.name;
+                    newState.location = response.data.city;
+                    newState.description = response.data.description;
+                    newState.features = response.data.features;
+                    newState.images = response.data.images;
 
-                return newState;
+                    return newState;
+                })
+                setIsLoaded(true);
+            })       
+            .catch(error => console.log(error));
+
+            bookingService
+            .getBookingsByProdId(idProducto, abortController.signal)
+            .then(response => {
+                const datesArray = response.data?.map(item => {
+                    const initialDate = new Date(`${item.initialDate} EDT`);
+                    return {
+                        start: initialDate.setDate(initialDate.getDate() - 1),
+                        end: new Date(`${item.finalDate} EDT`)
+                    }
+                })
+                setBookedDates(datesArray);
+                setIsCalendarLoaded(true);
             })
-            setIsLoaded(true);
-        })       
-        .catch(error => console.log(error));
+            .catch(error => console.log(error))
+
+            return () => abortController.abort();
+        }
     }, [idProducto])
 
     return(
@@ -64,7 +87,7 @@ function Product({children}){
                 : <div className={styles.categoryLoader}></div>}
                 <Link to={-1}><IoChevronBack className={styles.backIcon}/></Link>
             </div>
-            {children(product, isLoaded, onSubmitclicked)}
+            {children(product, isLoaded, onSubmitclicked, bookedDates, isCalendarLoaded)}
             <div className={styles.policy}>
                 <h2 className={styles.title}>Qué tenés que saber</h2>
                 <hr className={styles.separator}/>
