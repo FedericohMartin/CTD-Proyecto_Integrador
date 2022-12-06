@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,
                         "/users/**",
                         "/roles/**").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.POST,"/bookings/**").hasAnyRole("USER","ADMIN")//Ticket Nº 60
+                .antMatchers(HttpMethod.POST,"/bookings/**").hasAnyRole("USER","ADMIN")//Ticket Nº 60 (Solo las peticiones con un token válido podrán crear nuevas reservas).
                 .antMatchers(HttpMethod.POST,"/products/**",
                         "/categories/**",
                         "/features/**",
