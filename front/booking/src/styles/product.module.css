@@ -1,29 +1,35 @@
-.container{
+.productContainer{
     color: #4F4F50;
     font-weight: 500;
     text-align: left;
 }
-.header{
+.productHeader{
     align-items: center;
     background-color: #607D8B;
     color: #FFFFFF;
     display: flex;
     font-weight: 700;
-    min-height: 7.7320vh;
     justify-content: space-between;
-    padding-top: 5.5rem;
     width: 100%
 }
 
-.header div{
-    margin-left: 2.6875rem;
+.productHeader>div, .productHeader .categoryLoader{
+    margin: .4rem 2.6rem .5rem 2.6rem;
 }
 
-.header div div:nth-child(1){
+.productHeader .categoryLoader{
+    border-radius: .7rem;
+    background-color: rgba(215, 224, 228, 0.5);
+    animation: ease 2s infinite running load;
+    height: 90%;
+    width: 45%;
+}
+
+.productHeader div div:nth-child(1){
     font-size: 0.875rem;
 }
 
-.header div div:nth-child(2){
+.productHeader div div:nth-child(2){
     font-size: 1.5rem;
 }
 
@@ -33,37 +39,54 @@
     margin-right: 3.0625rem;
 }
 
-.location{
+.productLocation{
     align-items: center;
     background-color: rgb(96, 125, 139, 0.1);
     display: flex; 
     box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
-    height: 3.4375rem;
+    min-height: 3.4375rem;
     justify-content: space-between;
     width: 100%;
 }
 
-.location .locationIcon{
+.productLocation .locationIcon{
     font-size: 1rem;
 }
 
-.location div{
+.productLocation div{
     display: flex;
     font-size: 0.875rem;
     
 }
 
-.location>div{
+.productLocation>div{
     margin: 0 2.6875rem;
 }
 
-.description{
+.productLocation .locationLoader{
+    background-color: rgb(84, 87, 118, .5);
+    border-radius: .7rem;
+    height: 80%;
+    width: 45%;
+    animation: ease 2s infinite running load;
+}
+
+.productDescription{
     width: 100%;
 }
 
-.description p{
+.productDescription p{
     font-size: 0.875rem;
     padding: 0 2.5rem;
+}
+
+.descriptionLoader{
+    background-color: rgb(84, 87, 118, .5);
+    border-radius: .7rem;
+    min-height: 10rem;
+    margin: 0 0 1rem 0;
+    width: 95%;
+    animation: ease 2s infinite running load;
 }
 
 .title{
@@ -73,14 +96,19 @@
 
 
 .separator{
+    align-self: center;
     border: 0.0625rem solid #FBC02D;
+    width: 98%;
 }
 
-ul{
+.features ul, .policy ul{
     padding-inline: 0;
 }
 
 .features{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     box-shadow: 0rem 0.05rem 0.25rem -0.25rem rgba(0, 0, 0, 0.1);
 }
 
@@ -102,13 +130,25 @@ ul{
 .features .featureIcon{
     color: #FBC02D;
     height: 1rem;
-    padding: 0 .5rem 0 2.5rem;
+    margin: 0 .5rem 0 2.6rem;
     width: 1.125rem;
 }
 
+.features .featuresLoader{
+    align-self: center;
+    background-color: rgb(84, 87, 118, .5);
+    border-radius: .7rem;
+    height: 6.625rem;
+    margin: 0 0 1rem 0;
+    width: 95%;
+    animation: ease 2s infinite running load;
+}
+
 .policy{
+    display: flex;
+    flex-direction: column;
     box-shadow: 0rem 0.05rem 0.25rem -0.05rem rgba(0, 0, 0, 0.1);
-    padding-bottom: 5rem;
+    padding: 1rem 0 5rem 0;
     width: 100%;
 }
 
@@ -130,9 +170,25 @@ ul{
     color: #607D8B;
 }
 
-@media screen and (max-width: 768px) {
-    .header div{
-        margin-left: 1.875rem;
+.policy .policiesLoader{
+    border-radius: 10px;
+    background-color: rgb(84, 87, 118, .5);
+    animation: ease 2s infinite running load;
+    height: 20rem;
+    margin: .1rem .5rem;
+    width: 22vw;
+    padding: 1rem 0;
+}
+
+@keyframes load{
+    0%    { opacity: 0; }
+    50%   { opacity: .5; }
+    100%  { opacity: 0; }
+  }
+
+@media screen and (max-width: 820px) {
+    .productHeader>div, .productHeader .categoryLoader{
+        margin: 0 1.875rem;
     }
 
     .backIcon{
@@ -140,15 +196,16 @@ ul{
         margin-right: 2.0625rem;
     }
 
-    .location>div{
-        margin: 0 1.875rem;
+    .productLocation>div{
+        margin: 0;
+        margin-left: 1.875rem;
     }
 
     .title{
         padding-left: 2.0625rem;
     }
 
-    .description p{
+    .productDescription p{
         padding: 0 1.875rem;
     }
 
@@ -157,24 +214,24 @@ ul{
     }
 
     .features .featureIcon{
-        padding: 0 .5rem 0 1.875rem;
+        margin: 0 .5rem 0 2rem;
     }
 
     .policy>div{
         padding: 0 1.875rem;
     }
-    .policy div>div, ul{
+    .policy div>div, ul, .policy .policiesLoader{
         width: 40vw;
+    }
+
+    .policy .policiesLoader{
+        margin: .5rem .5rem;
     }
 }
 
-@media screen and (max-width: 453px){
-    .header{
-        min-height: 13vh;
-    }
-
-    .header div{
-        margin-left: 0.5625rem;
+@media screen and (max-width: 551px){
+    .productHeader>div, .productHeader .categoryLoader{
+        margin: 0 0rem .5rem 0.562rem;
     }
 
     .backIcon{
@@ -182,28 +239,24 @@ ul{
         margin-right: 0.875rem;
     }
 
-    .location{
+    .productLocation{
         height: 4.9375rem;
     }
 
-    .location .locationIcon{
+    .productLocation .locationIcon{
         font-size: 2rem;
     }
 
-    .location>div:nth-child(1){
-        margin: 0 0.6875rem;
-        flex-grow: 2;
-    }
-
-    .location>div:nth-child(2){
-        flex-grow: 1;
+    .productLocation>div{
+        margin: 0;
+        margin-left: 0.562rem;
     }
 
     .title{
         padding-left: 0.625rem;
     }
 
-    .description p{
+    .productDescription p{
         padding: 0 0.9375rem 0 0.375rem;
     }
 
@@ -212,7 +265,7 @@ ul{
     }
 
     .features .featureIcon{
-        padding: 0 .5rem 0 0.9375rem;
+        margin: 0 .5rem 0 .375rem;
     }
 
     .policy>div{
@@ -220,13 +273,17 @@ ul{
         padding: 0 0.9375rem 0 0.9375rem;
     }
 
-    .policy div>div, ul, li{
+    .policy div>div, ul, li, .policy .policiesLoader{
         width: 100%;
+    }
+
+    .policy .policiesLoader{
+        margin: .2rem auto;
     }
 }
 
 @media screen and (max-height: 453px){
-    .header{
-        min-height: 20vh;
+    .productHeader>div, .productHeader .categoryLoader{
+        margin: 0 0rem .5rem 0.562rem;
     }
 }

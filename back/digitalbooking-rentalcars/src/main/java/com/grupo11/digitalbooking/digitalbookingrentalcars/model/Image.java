@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-    //Ticket Nº 29
+    //Tickets Nº 29 y 30
 @Entity
 @Table(name = "images")
 public class Image {
@@ -22,11 +22,5 @@ public class Image {
     private Integer id;
     private String name;
     private String imgUrl;
-
-
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JoinColumn(name = "id_products")
-    private Product product;
 
 }

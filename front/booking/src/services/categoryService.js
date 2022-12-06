@@ -1,11 +1,12 @@
 const endpoint = "http://localhost:8080/categories";
 
-const getAll = () => {
+const getAll = (signal) => {
     const config = {
         method: "GET",
         withCredentials: true,
         crossdomain: true,
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
+        signal: signal,
      };
 
      return fetch(endpoint, config)

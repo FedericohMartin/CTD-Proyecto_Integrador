@@ -3,25 +3,29 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Feature;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.FeatureService;
-//import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Api(tags = "Features")
 @RequestMapping("/features")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FeatureController {
-    //@Autowired
+    @Autowired
     private FeatureService featureService;
 
 
+    @ApiOperation(value="addFeature", notes="Agregar una nueva característica")
     @PostMapping("/addFeature")
     public ResponseEntity<Object> addFeature(@RequestBody Feature feature){
         return ResponseHandler.generateResponse("The feature has been added successfully", HttpStatus.OK,featureService.addFeature(feature));
     }
 
-    //BUSCAR
+    @ApiOperation(value="searchFeature", notes="Buscar una característica por su ID")
     @GetMapping("/searchFeature/{id}")
     public ResponseEntity<Object> searchFeature(@PathVariable Integer id){
         ResponseEntity<Object> response=null;
@@ -35,7 +39,7 @@ public class FeatureController {
 
     }
 
-    //ELIMINAR
+    @ApiOperation(value = "deleteFeature", notes = "Eliminar una característica por su ID")
     @DeleteMapping("/deleteFeature/{id}")
     public ResponseEntity<Object> deleteFeature(@PathVariable Integer id) throws Exception {
         ResponseEntity<Object> response = null;
@@ -51,8 +55,7 @@ public class FeatureController {
         return response;
     }
 
-
-    // ACTUALIZAR
+    @ApiOperation(value = "updateFeature", notes = "Actualizar una característica")
     @PutMapping("/updateFeature")
     public ResponseEntity<Object> updateFeature(@RequestBody Feature feature){
         ResponseEntity<Object> response=null;
@@ -62,12 +65,10 @@ public class FeatureController {
         else
             response = ResponseHandler.generateResponse("Feature not found",HttpStatus.NOT_FOUND,null);
 
-
         return response;
     }
 
-
-    //LISTAR TODAS
+    @ApiOperation(value="listFeatures", notes="Listar todas las características")
     @GetMapping("/listFeatures")
     public ResponseEntity<Object> listFeatures(){
         return ResponseHandler.generateResponse("List of all features", HttpStatus.OK, featureService.listFeatures());

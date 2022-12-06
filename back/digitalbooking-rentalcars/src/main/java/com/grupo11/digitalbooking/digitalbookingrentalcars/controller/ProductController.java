@@ -1,11 +1,15 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.BadRequestException;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.exceptions.ProductNotFoundException;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductDTO;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductList;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.ProductUpdateDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ProductService;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.util.FilteredProduct;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -13,9 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
+@Api(tags = "Products")
 @RequestMapping("/products")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductController {
@@ -25,28 +29,22 @@ public class ProductController {
 
 
     //Ticket Nº 21
+    @ApiOperation(value="searchAllProducts", notes="Listar todos los productos")
     @GetMapping("/bringAll")
     public ResponseEntity<Object> searchAllProducts(){
         return ResponseHandler.generateResponse("List of all products", HttpStatus.OK, productService.listProduct());
     }
 
 
+    @ApiOperation(value="addProduct", notes="Agregar un nuevo producto")
     @PostMapping("/addProduct")
     public ResponseEntity<Object> addProduct(@RequestBody ProductDTO productDTO){
-        Product product = new Product();
-        product.setId(productDTO.getId());
-        product.setName(productDTO.getName());
-        product.setDescription(productDTO.getDescription());
-        product.setCarry_on(productDTO.getCarry_on());
-        product.setSuitcase(productDTO.getSuitcase());
-        product.setCity(productDTO.getCity());
-        product.setCategory(productDTO.getCategory());
-        product.setFeatures(productDTO.getFeatures());
-        return ResponseHandler.generateResponse("The product has been added successfully", HttpStatus.OK, productService.addProduct(product));
+        return ResponseHandler.generateResponse("The product has been added successfully", HttpStatus.OK, productService.addProduct(productDTO));
     }
 
 
-    //Tickets Nº 15, 16 y 17
+    //Tickets Nº 15, 16, 17 y 73
+    @ApiOperation(value="searchProduct", notes="Buscar un producto por su ID")
     @GetMapping("/searchProductById/{id}")
     public ResponseEntity<Object> searchProduct(@PathVariable Integer id){
         ResponseEntity<Object> response=null;
@@ -59,31 +57,22 @@ public class ProductController {
         return response;
     }
 
-
+    //Ticket Nº 73
+    @ApiOperation(value = "updateProduct", notes = "Actualizar un producto")
     @PutMapping("/updateProduct")
-    public ResponseEntity<Object> updateProduct(@RequestBody ProductDTO productDTO){
-        ResponseEntity<Object> response=null;
-
-        if (productDTO.getId() != null && productService.searchProduct(productDTO.getId()).isPresent()) {
-            Product product = new Product();
-            product.setId(productDTO.getId());
-            product.setName(productDTO.getName());
-            product.setDescription(productDTO.getDescription());
-            product.setCarry_on(productDTO.getCarry_on());
-            product.setSuitcase(productDTO.getSuitcase());
-            product.setCity(productDTO.getCity());
-            product.setCategory(productDTO.getCategory());
-            product.setFeatures(productDTO.getFeatures());
-            response = ResponseHandler.generateResponse("The product has been successfully updated", HttpStatus.OK, productService.updateProduct(product));
+    public ResponseEntity<Object> updateProduct(@RequestBody ProductUpdateDTO productDTO){
+        try{
+            return ResponseHandler.generateResponse("The product has been successfully updated", HttpStatus.OK, productService.updateProduct(productDTO));
+        }catch(ProductNotFoundException ex){
+            return ResponseHandler.generateResponse("Product not found",HttpStatus.NOT_FOUND,ex.getMessage());
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return ResponseHandler.generateResponse("Error to update product",HttpStatus.INTERNAL_SERVER_ERROR,ex.getMessage());
         }
-        else
-            response = ResponseHandler.generateResponse("Product not found",HttpStatus.NOT_FOUND,null);
-
-        return response;
-
     }
 
 
+    @ApiOperation(value = "deleteProduct", notes = "Eliminar un producto por su ID")
     @DeleteMapping("/deleteProduct/{id}")
     public ResponseEntity<Object> deleteProduct(@PathVariable Integer id) throws Exception {
         ResponseEntity<Object> response = null;
@@ -100,26 +89,44 @@ public class ProductController {
     }
 
 
+    @ApiOperation(value="searchByCategory", notes="Listado de productos por ID de categoría")
     @GetMapping("/category/{id}")
     public ResponseEntity<Object> searchByCategory(@PathVariable Integer id){
         return ResponseHandler.generateResponse("List of Products with the searched category",HttpStatus.OK,productService.searchByCategory(id));
     }
 
 
+    //Ticket Nº 34
+    @ApiOperation(value="searchByCity", notes="Listado de productos por ID de ciudad")
     @GetMapping("/city/{id}")
     public ResponseEntity<Object> searchByCity(@PathVariable Integer id){
         return ResponseHandler.generateResponse("List of Products with the city searched",HttpStatus.OK,productService.searchByCity(id));
     }
 
-
-    // /products/?city=""&startDate=""&endDate=""
-    @GetMapping("/product/{cityId}/{initialDate}/{finalDate}")
-    public ResponseEntity<Object> searchByCityAndDates(@PathVariable Integer cityId, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finalDate) throws BadRequestException {
+    //Ticket Nº 55 (Implementar filtro por ciudad e intervalo de fechas)
+    @ApiOperation(value="searchByCityAndDates", notes="Listado de productos por ID de ciudad y fecha de inicio/fecha final")
+    @GetMapping("/search")
+    public ResponseEntity<Object> searchByCityAndDates(@RequestParam Integer cityId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finalDate) throws BadRequestException {
         FilteredProduct filter = new FilteredProduct();
         filter.setInitialDate(initialDate);
         filter.setFinalDate(finalDate);
         filter.setCityId(cityId);
-        List<Product> filteredProducts = productService.getProductsByCityAndDate(filter);
+        ProductList filteredProducts = productService.getProductsByCityAndDate(filter);
         return ResponseHandler.generateResponse("List of Products with the city and dates sought",HttpStatus.OK,filteredProducts);
     }
+
+    @ApiOperation(value="searchByDates", notes="Listado de productos por fecha de inicio y fecha final")
+    @GetMapping("/searchByDates")
+    public ResponseEntity<Object> searchByDates(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finalDate) throws BadRequestException {
+        ProductList filteredProducts = productService.searchByDates(initialDate, finalDate);
+        return ResponseHandler.generateResponse("List of Products with dates sought",HttpStatus.OK,filteredProducts);
+    }
+
+    //Ticket Nº 32
+    @ApiOperation(value="randomProducts", notes="Listado de productos random")
+    @GetMapping("/random")
+    public ResponseEntity<Object> randomProducts(){
+        return ResponseHandler.generateResponse("Random list of products", HttpStatus.OK, productService.randomProducts());
+    }
 }
+

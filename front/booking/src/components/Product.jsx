@@ -1,93 +1,100 @@
 import React, { useEffect, useState } from "react";
 import homeStyles from '../styles/home.module.css'
 import styles from '../styles/product.module.css'
-import BookingChart from "./tools/BookingChart";
 import productService from "../services/productService";
+import bookingService from "../services/bookingService";
 import {IoChevronBack} from 'react-icons/io5'
-import {MdLocationOn } from 'react-icons/md'
-import { FaWheelchair, FaBluetoothB, FaEnvira, FaSnowflake, FaSuitcaseRolling, FaSuitcase, FaTachometerAlt, FaTrailer, FaTruckMonster, FaAccessibleIcon} from 'react-icons/fa'
 import {Link, useParams} from 'react-router-dom'
 
-const icons = [FaWheelchair, FaBluetoothB, FaEnvira, FaSnowflake, FaSuitcaseRolling, FaSuitcase, FaTachometerAlt, FaTrailer, FaTruckMonster];
 
-function Product(){
+function Product({children}){
     const [product, setProduct] = useState(
         {
+            id: "",
             category: "",
             title: "",
             location: {},
             description: "",
-            features: [],   
+            features: [],
+            images: [],   
         }
     )
-
+    const [isLoaded, setIsLoaded] =useState(false);
+    const [isCalendarLoaded, setIsCalendarLoaded] =useState(false);
+    const [bookedDates, setBookedDates] = useState([]);
+    const loaders = Array.from({length: 3}, (_, i) => {return i})
     const { idProducto } = useParams();
 
-    const featuresMapper = (feature) => {
-        const findIcon = icons.findIndex((icon) => {
-            return icon.name === feature.feature.icon;
-        })
-        const iconTagName = findIcon !== -1 ? icons[findIcon] : FaAccessibleIcon
-
-        const icon = React.createElement(iconTagName, { className: styles.featureIcon});
-        const featureName = React.createElement('div', {}, feature.feature.name);
-        const container = React.createElement('li', { key: `feature-${feature.feature.id}`}, [icon, featureName]);
-
-        return container;
+    const loaderMapper = (loader) => {
+        return(
+            <div key={loader} className={styles.policiesLoader}></div>
+        )
     }
 
+    const onSubmitclicked = () =>{
+        setIsLoaded(!isLoaded);
+    }
 
     useEffect(() => {
-        productService
-        .getById(idProducto)
-        .then(response => {
-            setProduct((prevState) => {
-                const newState = {...prevState};
-                newState.category = response.data.category;
-                newState.title = response.data.name;
-                newState.location = response.data.city;
-                newState.description = response.data.description;
-                newState.features = response.data.features;
+        if(idProducto) {
+            const abortController = new AbortController();
+            productService
+            .getById(idProducto, abortController.signal)
+            .then(response => {
+                setProduct((prevState) => {
+                    const newState = {...prevState};
+                    newState.id = response.data.id
+                    newState.category = response.data.category;
+                    newState.title = response.data.name;
+                    newState.location = response.data.city;
+                    newState.description = response.data.description;
+                    newState.features = response.data.features;
+                    newState.images = response.data.images;
 
-                return newState;
-            })});
+                    return newState;
+                })
+                setIsLoaded(true);
+            })       
+            .catch(error => console.log(error));
+
+            bookingService
+            .getBookingsByProdId(idProducto, abortController.signal)
+            .then(response => {
+                const datesArray = response.data?.map(item => {
+                    const initialDate = new Date(`${item.initialDate} EDT`);
+                    return {
+                        start: initialDate.setDate(initialDate.getDate() - 1),
+                        end: new Date(`${item.finalDate} EDT`)
+                    }
+                })
+                setBookedDates(datesArray);
+                setIsCalendarLoaded(true);
+            })
+            .catch(error => console.log(error))
+
+            return () => abortController.abort();
+        }
     }, [idProducto])
 
     return(
-        <div className={`${homeStyles.container} ${styles.container}`}>
-            <div className={styles.header}>
-                <div>
-                    <div>{product.category?.title || `CATEGORY`}</div>
+        <div className={`${homeStyles.container} ${styles.productContainer}`}>
+            <div className={styles.productHeader}>
+                {isLoaded 
+                ? <div>
+                    <div>{product.category?.title}</div>
                     <div>{product.title}</div>
-                </div>
-                <Link to={"/"}><IoChevronBack className={styles.backIcon}/></Link>
+                  </div> 
+                : <div className={styles.categoryLoader}></div>}
+                <Link to={-1}><IoChevronBack className={styles.backIcon}/></Link>
             </div>
-            <div className={styles.location}>
-                <div>
-                    <MdLocationOn className={styles.locationIcon}/>
-                    <div>{`${product.location?.state}, ${product.location?.name}, ${product.location?.country}`}</div> 
-                </div>
-                <div></div>
-            </div>
-            <div className={styles.description}>
-                <h2 className={styles.title}>{`Pasea por ${product.location?.state}`}</h2>
-                <p>{product.description}
-                    </p>
-            </div>
-            <div className={styles.features}>
-                <h2 className={styles.title}>¿Qué ofrece este lugar?</h2>
-                <hr className={styles.separator}/>
-                <ul>
-                    {product.features?.map(featuresMapper)}
-                </ul>
-            </div>
-            <BookingChart ></BookingChart>
+            {children(product, isLoaded, onSubmitclicked, bookedDates, isCalendarLoaded)}
             <div className={styles.policy}>
                 <h2 className={styles.title}>Qué tenés que saber</h2>
                 <hr className={styles.separator}/>
-                <div>
+                {isLoaded
+                ?<div>
                     <div>
-                        <h3>Normas de la casa</h3>
+                        <h3>Normas</h3>
                         <ul>
                             <li key={`policy-10`}>Hola</li>
                             <li key={`policy-11`}>Hola</li>
@@ -95,7 +102,7 @@ function Product(){
                         </ul>
                     </div>
                     <div>
-                        <h3>Normas de la casa</h3>
+                        <h3>Normas</h3>
                         <ul>
                             <li key={`policy-13`}>Hola</li>
                             <li key={`policy-14`}>Hola</li>
@@ -103,7 +110,7 @@ function Product(){
                         </ul>
                     </div>
                     <div>
-                        <h3>Normas de la casa</h3>
+                        <h3>Normas</h3>
                         <ul>
                             <li key={`policy-15`}>Hola</li>
                             <li key={`policy-16`}>Hola</li>
@@ -111,7 +118,7 @@ function Product(){
                         </ul>
                     </div>
                 </div>
-                
+                : <div>{loaders.map(loaderMapper)}</div>}
             </div>
         </div>
     )

@@ -1,13 +1,13 @@
 
 .container {
     background-color: rgb(255,255,252);
+    color: #263238;
     position: fixed;
     right: 0;
     z-index: 1100;
     width: 73.19vw;
     height: 100vh;
-    transition: transform 1s ease 0s;
-    transform: translate3d(100%, 0px, 0px);
+    transition: ease .7s;
 }
 
 .menuHeader{
@@ -24,7 +24,7 @@
 }
 
 .menuHeader div {
-    margin-right: 0.625rem;
+    margin-right: 0.3rem;
 }
 
 .menuHeader .close{
@@ -42,9 +42,8 @@
 }
 
 .nameItem div{
-    color: #545776;
+    color: #263238;
     font-size: 1rem;
-    font-style: italic;
     font-weight: 700;
     text-align: left;
 }
@@ -59,7 +58,7 @@
     color: #263238;
     font-size: 1.25rem;
     margin-bottom: 0.625rem;
-    padding: 0.4rem;
+    padding: 0.4rem .55rem;
 }
 
 .menuBody{
@@ -70,30 +69,48 @@
 }
 
 .userMenuBody{
-    align-items: flex-end;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    font-size: 0.75rem;
+    font-family: 'Poppins';
+    font-weight: 700;
     height: 100%;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
 }
 
-.userMenuBody div {
+.userMenuBody>div {
+    color: #263238;
+    margin: 1.4375rem 0.9375rem 0 0;
     margin-right: 0.9375rem;
+    text-align: right;
+    width: 100%;
+}
+
+.userMenuBody .logout{
+    align-items: flex-end;
+    display: flex;
+    font-size: 0.75rem;
+    font-weight: 500;
+    flex-direction: column;
 }
 
 .userMenuBody hr {
-    margin-bottom: 15rem;
+    margin: .3rem 0 15rem 0;
 }
 
 .userMenuBody a{
+    color: #263238;
+    text-decoration: none;
+}
+
+.userMenuBody .logout a{
     color: #FBC02D;
     text-decoration: none;
 }
 
 .menuBody a{
-    color: #383B58;
+    color: #263238;
     margin: 1.4375rem 0.625rem 1rem 0;
     text-decoration: none;
 }
@@ -117,20 +134,19 @@
 }
 
 .separator{
-    border: 0.0625rem solid #545776;
+    border: 0.0625rem solid #263238;
     width: 93%;
 }
 
 .hide{
-    display: none;
-
+    transform: translate3d(100%, 0px, 0px);
 }
 
 .show{
-    transform: none;
+    transform: translate3d(0%, 0px, 0px);
 }
 
-@media screen and (min-width: 453px) {
+@media screen and (min-width: 550px) {
     .disableMenu{
         display: none;
     }

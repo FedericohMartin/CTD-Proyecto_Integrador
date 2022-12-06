@@ -13,13 +13,14 @@ import java.util.List;
 @Setter
 public class ProductDTO {
 
-    private Integer id;
     private String name;
     private String description;
-    private Boolean carry_on;
-    private Boolean suitcase;
-    private City city;
-    private Category category;
-    private List<ProductFeature> features = new ArrayList<>();
+    private Integer stock;
+    private Integer carryOn;
+    private Integer suitcase;
+    private Integer cityId;
+    private Integer categoryId;
+    private List<String> images;
+    private List<Integer> feature_ids;
 
 }
