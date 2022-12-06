@@ -1,9 +1,7 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Image;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Product;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ImageRepository;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.ProductRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
