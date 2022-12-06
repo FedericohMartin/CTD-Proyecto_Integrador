@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import homeStyles from '../styles/home.module.css'
 import styles from '../styles/bookingConfirm.module.css'
 
-function BookingConfirm(){
+function BookingConfirm(props){
     const navigate = useNavigate()
 
     const goToPage = () => {
@@ -16,10 +16,10 @@ function BookingConfirm(){
             <div>
                 <BsPatchCheckFill className={styles.bookingConfirmIcon}/>
                 <div>
-                    <h4>¡Muchas gracias!</h4>
-                    <h5>Su reserva se ha realizado con éxito</h5>
+                    <h4>{props.content.title}</h4>
+                    <h5>{props.content.body}</h5>
                 </div>
-                <button onClick={goToPage}>ok</button>
+                <button onClick={goToPage}>{props.content.button}</button>
             </div>
         </div>
     )

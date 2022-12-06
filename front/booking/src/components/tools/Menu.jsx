@@ -30,7 +30,7 @@ function Menu(props){
     }
 
     return(
-        <div className={`${styles.container} ${props.show && styles.hide} ${!props.show && styles.show} ${styles.disableMenu}`}>
+        <div className={`${styles.container} ${props.show ? styles.hide : styles.show} ${styles.disableMenu}`}>
             <header className={styles.menuHeader}>
                 <img onClick={onLocalCloseClicked} className={styles.close} src={closeIcon} alt="Close Icon" />
                 {authUser?.name ? 
@@ -43,8 +43,14 @@ function Menu(props){
             </header>
             {authUser?.name ?
               <div className={styles.userMenuBody}>
-                <div>¿Deseas <Link onClick={onLocalLogoutClicked}>cerrar sesión</Link>?</div>
-                <hr className={styles.separator}/>
+                {authUser?.role === "ADMIN" && 
+                    <div>
+                      <Link to={"/administracion"}>Administración</Link>
+                    </div> }
+                <div className={styles.logout}>
+                  <div>¿Deseas <Link onClick={onLocalLogoutClicked}>cerrar sesión</Link>?</div>
+                  <hr className={styles.separator}/>
+                </div>
               </div>
             : <div className={styles.menuBody}>
                 <Link to={"/signup"} type="Link">Crear cuenta</Link>
