@@ -43,7 +43,7 @@ public class ProductController {
     }
 
 
-    //Tickets Nº 15, 16, 17 y 73
+    //Tickets Nº 15, 16, 17 y 73 (Endpoint que permite buscar un producto por ID).
     @ApiOperation(value="searchProduct", notes="Buscar un producto por su ID")
     @GetMapping("/searchProductById/{id}")
     public ResponseEntity<Object> searchProduct(@PathVariable Integer id){
@@ -57,7 +57,7 @@ public class ProductController {
         return response;
     }
 
-    //Ticket Nº 73
+    //Ticket Nº 73 (Endpoint que permite actualizar un producto).
     @ApiOperation(value = "updateProduct", notes = "Actualizar un producto")
     @PutMapping("/updateProduct")
     public ResponseEntity<Object> updateProduct(@RequestBody ProductUpdateDTO productDTO){

@@ -55,8 +55,7 @@ public class BookingController {
 
     }
 
-    //Ticket Nº 75
-    //Endpoint para buscar reservas por usuario
+    //Ticket Nº 75 (Endpoint para buscar reservas por ID de usuario).
     @ApiOperation(value = "listBookingsByUser", notes = "Buscar una reserva por ID de usuario")
     @GetMapping("/listByUser/{id}")
     public ResponseEntity<Object> listBookingsByUser(@PathVariable Integer id) throws Exception{
