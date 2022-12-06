@@ -1,6 +1,8 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+
 import javax.persistence.*;
 
 @ToString

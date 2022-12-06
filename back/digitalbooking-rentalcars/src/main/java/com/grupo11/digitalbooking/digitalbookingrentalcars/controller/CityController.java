@@ -3,28 +3,23 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.controller;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.handler.ResponseHandler;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.City;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces.CityService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Api(tags = "Cities")
 @RequestMapping("/cities")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CityController {
     @Autowired
     private CityService cityService;
 
-    @ApiOperation(value="addCity", notes="Agregar una nueva ciudad")
     @PostMapping
     public ResponseEntity<Object> addCity(@RequestBody City city) {
         return ResponseHandler.generateResponse("The city has been added successfully", HttpStatus.OK,cityService.addCity(city));
     }
 
-    @ApiOperation(value="searchCityById", notes="Buscar una ciudad por su ID")
     @GetMapping("/{id}")
     public ResponseEntity<Object> searchCityById(@PathVariable Integer id) {
         ResponseEntity<Object> response=null;
@@ -37,7 +32,6 @@ public class CityController {
         return response;
     }
 
-    @ApiOperation(value = "updateCity", notes = "Actualizar una ciudad")
     @PutMapping()
     public ResponseEntity<Object> updateCity(@RequestBody City city) {
         ResponseEntity<Object> response=null;
@@ -50,7 +44,6 @@ public class CityController {
         return response;
     }
 
-    @ApiOperation(value = "deleteCity", notes = "Eliminar una ciudad por su ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCity(@PathVariable Integer id) throws Exception {
         ResponseEntity<Object> response = null;
@@ -66,7 +59,6 @@ public class CityController {
         return response;
     }
 
-    @ApiOperation(value="listCities", notes="Listar todas las ciudades")
     @GetMapping()
     public ResponseEntity<Object> listCities() {
         return ResponseHandler.generateResponse("List of all Cities", HttpStatus.OK, cityService.listCities());

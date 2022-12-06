@@ -3,7 +3,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.service.interfaces;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
-//Ticket Nº 52 (Implementación mediante interface).
+
 public interface JwtService {
 
     String extractUserName(String token);

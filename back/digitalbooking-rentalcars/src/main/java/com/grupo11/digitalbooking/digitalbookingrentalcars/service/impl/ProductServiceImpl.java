@@ -216,7 +216,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-    //Ticket Nº 55 (Agregar un método que nos permita filtrar productos por ciudad y dos fechas).
+    //Ticket Nº 55
     public ProductList getProductsByCityAndDate(FilteredProduct filter) throws BadRequestException {
         //errores
         boolean noNullData = filter.getInitialDate() != null && filter.getFinalDate() != null && filter.getCityId() != null;
