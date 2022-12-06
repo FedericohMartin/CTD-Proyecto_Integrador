@@ -1,0 +1,434 @@
+.prodFormLoader{
+    align-items: center;
+    position: absolute;
+    background-color: rgb(96, 125, 139,.2);
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    z-index: 999;
+}
+
+.prodFormLoader .loadSpinner{
+    color: rgb(96, 125, 139);
+    height: 6rem;
+    width: 6rem;
+    animation: spin 2s linear infinite;
+}
+
+.productFormContainer{
+    color: #607D8B;
+    text-align: left;
+    overflow: scroll;
+}
+
+.productFormContainer h4{
+    margin: 2.5625rem 0 1.4375rem 0;
+    width: 94%;
+}
+
+.productFormContainer h5{
+    margin: 2.3125rem 0 0.8125rem;
+}
+
+.productFormContainer .productHeader{
+    align-items: center;
+    background-color: #607D8B;
+    color: #FFFFFF;
+    display: flex;
+    font-weight: 700;
+    justify-content: space-between;
+    width: 100%
+}
+
+.productFormContainer .productHeader>div{
+    width: 50%;
+}
+
+.productFormContainer .productHeader>div h4{
+    margin: 1.0625rem 2.6rem 0.9375rem 2.6875rem;
+}
+
+.productFormContainer .backIcon{
+    color: #FFFFFF;
+    font-size: 3rem;
+    margin-right: 3.0625rem;
+}
+
+.productForm{
+    align-items: center;
+    background-color: #FFFF;
+    border: 0.0625rem solid #DFE4EA;
+    box-shadow: 0rem 0.25rem 0.25rem  rgba(0, 0, 0, 0.25);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 5.75rem;
+    padding: 0 1.75rem 3.5rem 1.5625rem;
+    width: 94%;
+}
+
+.productForm .warning{
+    color: crimson;
+    display: inline-block;
+    margin: .3rem 0  0;
+    text-align: left;
+    width: 32.7965vw;
+}
+
+.productForm .features .warning, .productForm .images .warning{
+    width: 100%;
+}
+
+.productForm .mainData input.borderWarning, 
+.productForm .mainData select.borderWarning, 
+.productForm .features .borderWarning, 
+.productForm .images .borderWarning,
+.productForm .mainData>div.description textarea.borderWarning,
+ .productForm .policies>div textarea.borderWarning{
+    box-shadow: 0rem 0.0625rem 0.6rem rgba(209, 18, 18, 0.925);
+}
+
+.productForm button{
+    align-self: center;
+    background-color: #FBC02D;
+    border-radius: 0.3125rem;
+    border-style: none;
+    box-shadow: 0rem 0.0625rem 0.3125rem rgba(0, 0, 0, 0.15);
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: 'Poppins';
+    font-size: 1rem;
+    font-weight: 700;
+    height: 3.125rem;
+    margin-top: 2.75rem;
+    width: 28%;
+}
+
+.productForm>div{
+    width: 100%;
+}
+
+.productForm .mainData>div, 
+.productForm .features>div, 
+.productForm .policies>div, 
+.productForm .images>div, 
+.productForm .features>div>div{
+    display: flex;
+    font-size: .75rem;
+    font-weight: 500;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.productForm .mainData>div.description{
+    justify-content: center;
+}
+
+.productForm .mainData>div div{
+    position: relative;
+    width: 48%;
+}
+
+.productForm .mainData>div input, 
+.productForm .mainData>div select, 
+.productForm .features>div input, 
+.productForm .images>div input{
+    box-shadow: 0rem 0.0625rem 0.3125rem rgba(0, 0, 0, 0.25);
+    border-radius: 0.3125rem;
+    border: none;
+    color: rgb(96, 125, 139);
+    height: 2.5rem;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.productForm .mainData>div select:invalid option:not(:disabled){
+    color: rgb(96, 125, 139);
+}
+
+.productForm .mainData>div input::placeholder, 
+.productForm .mainData>div select:invalid, 
+.productForm .features>div input::placeholder, 
+.productForm .images>div input::placeholder, 
+.productForm .mainData>div.description textarea::placeholder, 
+.productForm .policies>div textarea::placeholder{
+    color: rgb(96, 125, 139, .5);
+}
+
+.productForm .mainData>div.description div{
+    width: 100%;
+}
+
+.productForm .mainData>div.description textarea, .productForm .policies>div textarea{
+    box-shadow: 0rem 0.0625rem 0.3125rem rgba(0, 0, 0, 0.25);
+    border-radius: 0.3125rem;
+    border: none;
+    padding: .5rem 1rem;
+    width: 100%;
+}
+
+.productForm .mainData>div label{
+    margin: 3rem 0 .3rem;
+}
+
+.productForm .images>div, .productForm .features>div{
+    align-items: center;
+    border-radius: .3125rem;
+    background-color: rgb(96, 125, 139, .1);
+    flex-wrap: wrap;
+    margin: .6rem 0;
+    padding: 1.25rem 1.75rem 2.375rem;
+}
+
+.productForm .features>div>div{
+    width: 96%;
+    margin: .3rem 0;
+}
+
+.productForm .features{
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFF;
+}
+
+.productForm .features>div div.featureName{
+    width: 75%;
+}
+
+.productForm .features>div div.featureIcon{
+    width: 24%;
+}
+
+.productForm .features .addIcon, .productForm .images .addIcon, .productForm .features .removeIcon, .productForm .images .removeIcon{
+    color: #FBC02D;
+    cursor: pointer;
+    height: 2.8rem;
+    margin-top: 1.2rem;
+    width: 2.6rem;
+}
+
+.productForm .features .removeIcon, .productForm .images .removeIcon{
+    width: 2.5rem;
+}
+
+.productForm .features .removeIcon, .productForm .images .removeIcon{
+    color: #263238;
+}
+
+.productForm .policies{
+    border: 0.0625rem solid #DFE4EA;
+    box-shadow: 0rem 0.25rem 0.25rem  rgba(0, 0, 0, 0.25);
+    border-radius: .5rem;
+    padding: 1.25rem 1.75rem 2.375rem;
+}
+
+.productForm .policies>div label{
+    margin: 0 0 .3rem;
+}
+
+.productForm .policies>div div{
+    width: 22%;
+}
+
+.productForm .policies>div h6{
+    height: 2.3984rem;
+    margin: .5rem 0;
+}
+
+.productForm .images>div{
+    padding: 2.7rem 1.75rem;
+}
+
+.productForm .images>div div{
+    width: 96%;
+}
+.productForm .images>div input{
+    width: 100%;
+}
+
+.productForm .images .addIcon, .productForm .images .removeIcon{
+    margin-top: 0;
+}
+
+.productForm>span.warning{
+    width: 100%;
+    margin: 1.5rem 0  0;
+    text-align: center;
+}
+
+.productForm>span.warning .alertIcon{
+    height: 2rem;
+    width: 2rem;
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width:920px) {
+    .productFormContainer .productHeader>div h4{
+        margin: 1.0625rem 2.6rem 0.9375rem 1.3rem;
+    }
+
+    .productFormContainer .backIcon{
+        margin-right: 1.3rem;
+    }
+
+    .productForm button{
+        width: 50%;
+    }
+
+    .productForm .warning{
+        width: 45.05vw;
+    }
+
+    .productForm .policies>div{
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .productForm .policies>div div{
+        width: 100%;
+    }
+
+    .productForm .policies>div h6{
+        height:  2rem;
+        margin: 1.5rem 0 .5rem;
+    }
+
+    .productForm .features>div>div{
+        flex-direction: column;
+        width: 91%;
+    }
+
+    .productForm .features>div div.featureName, .productForm .features>div div.featureIcon{
+        width: 100%;
+    }
+
+    .productForm .features>div div.featureIcon label{
+        margin: 1rem 0 0;
+    }
+
+    .productForm .features>div{
+        padding: 1rem 1.5rem 2rem;
+    }
+
+    .productForm .images>div div{
+        width: 92%;
+    }
+    
+}
+
+@media screen and (max-width: 550px) {
+    .prodFormLoader .loadSpinner{
+        height: 4rem;
+        width: 4rem;
+    }
+
+    .productFormContainer .productHeader>div{
+        width: 70%;
+    }
+
+    .productFormContainer .productHeader>div h4{
+        margin: 1.0625rem 2.6rem 0.9375rem 0.5625rem;
+    }
+
+    .productFormContainer .backIcon{
+        margin-right: 0.5625rem;
+    }
+
+    .productForm{
+        padding: 0 1.1rem 3rem 1rem;
+        width: 100%;
+    }
+
+    .productForm .warning{
+        width: 72.4638vw;
+    }
+
+    .productForm button{
+        width: 90%;
+    }
+
+    .productForm .policies{
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .productForm .policies>div h6{
+        height:  2rem;
+        margin: 1rem 0 .5rem;
+    }
+
+    .productForm .policies>div div{
+        width: 96%;
+    }
+
+    .productForm .mainData{
+        width: 96%;
+    }
+
+    .productForm .mainData>div{
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .productForm .mainData>div div{
+        width: 100%;
+    }
+
+    .productForm .features>div>div{
+        width: 85%;
+    }
+
+    .productForm .features>div{
+        padding: .5rem 1rem 1.5rem;
+    }
+
+    .productForm .images>div{
+        padding: 2rem 1rem;
+    }
+
+    .productForm .images>div div{
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 1180px) and (max-height:600px){
+    .productForm .features>div>div{
+        width: 94%;
+    }
+
+    .productForm .images>div div{
+        width: 94%;
+    }
+}
+
+@media screen and (max-width: 884px) and (max-height:600px){
+    .productForm .features>div>div{
+        width: 90%;
+    }
+
+    .productForm .images>div div{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:280px) {
+    .productForm .features>div>div{
+        width: 79%;
+    }
+
+    .productForm .images>div div{
+        width: 79%;
+    }
+}

@@ -20,6 +20,7 @@ function Product({children}){
         }
     )
     const [isLoaded, setIsLoaded] =useState(false);
+    const [isCalendarLoaded, setIsCalendarLoaded] =useState(false);
     const [bookedDates, setBookedDates] = useState([]);
     const loaders = Array.from({length: 3}, (_, i) => {return i})
     const { idProducto } = useParams();
@@ -52,6 +53,7 @@ function Product({children}){
 
                     return newState;
                 })
+                setIsLoaded(true);
             })       
             .catch(error => console.log(error));
 
@@ -66,7 +68,7 @@ function Product({children}){
                     }
                 })
                 setBookedDates(datesArray);
-                setIsLoaded(true);
+                setIsCalendarLoaded(true);
             })
             .catch(error => console.log(error))
 
@@ -85,7 +87,7 @@ function Product({children}){
                 : <div className={styles.categoryLoader}></div>}
                 <Link to={-1}><IoChevronBack className={styles.backIcon}/></Link>
             </div>
-            {children(product, isLoaded, onSubmitclicked, bookedDates)}
+            {children(product, isLoaded, onSubmitclicked, bookedDates, isCalendarLoaded)}
             <div className={styles.policy}>
                 <h2 className={styles.title}>Qué tenés que saber</h2>
                 <hr className={styles.separator}/>

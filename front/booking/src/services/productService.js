@@ -1,5 +1,18 @@
 const endpoint = "http://localhost:8080/products";
 
+const add = (payload) => {
+    const config = {
+        method: "POST",
+        withCredentials: true,
+        crossdomain: true,
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
+        body: JSON.stringify(payload),
+     };
+
+     return fetch(`${endpoint}/addProduct`, config)
+            .then(response => response.json())
+}
+
 const getAll = (signal) => {
     const config = {
         method: "GET",
@@ -82,6 +95,7 @@ const productService = {
     getByCategoryId,
     getBycityAndDates,
     getByDates,
+    add,
 }
 
 export default productService;
