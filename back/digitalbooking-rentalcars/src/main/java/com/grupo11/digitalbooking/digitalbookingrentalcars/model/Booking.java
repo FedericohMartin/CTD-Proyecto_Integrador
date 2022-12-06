@@ -31,7 +31,7 @@ public class Booking {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    //Ticket Nº 58
+    //Ticket Nº 58 (Mapeo de las tablas “usuarios” y "reservas" con clases de nuestro modelo).
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @JoinColumn(name = "users_id")

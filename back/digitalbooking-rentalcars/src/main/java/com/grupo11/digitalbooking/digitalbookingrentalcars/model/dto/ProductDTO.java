@@ -2,6 +2,7 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto;
 
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Category;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.City;
+import com.grupo11.digitalbooking.digitalbookingrentalcars.model.Image;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.ProductFeature;
 import lombok.Getter;
 import lombok.Setter;

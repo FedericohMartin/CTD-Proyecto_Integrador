@@ -16,8 +16,6 @@ public interface UserService {
 
     UserModel updateUser(UserDTO userDTO);
 
-    User loadUserByUsername(String username) throws UsernameNotFoundException;
-
     void deleteUser(Integer id) throws Exception;
 
     List<UserModel> listUsers();

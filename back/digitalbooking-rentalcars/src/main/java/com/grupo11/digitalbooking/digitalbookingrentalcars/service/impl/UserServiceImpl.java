@@ -2,7 +2,6 @@ package com.grupo11.digitalbooking.digitalbookingrentalcars.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.UserModel;
-import com.grupo11.digitalbooking.digitalbookingrentalcars.model.UserRole;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.model.dto.UserDTO;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.UserRoleRepository;
 import com.grupo11.digitalbooking.digitalbookingrentalcars.repository.UserRepository;
@@ -11,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private final UserRepository userRepository;
     @Autowired
@@ -34,15 +35,13 @@ public class UserServiceImpl implements UserService {
             UserRepository userRepository,
             UserRoleRepository userRoleRepository,
             PasswordEncoder passwordEncoder) {
-                this.userRepository = userRepository;
-                this.userRoleRepository = userRoleRepository;
-                this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
     //Ticket Nº 49
     public UserModel addUser(UserDTO userDTO){
-        UserRole userRole = userRoleRepository.findById(userDTO.getRole().getId()).get();
-        userDTO.setRole(userRole);
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));//Ticket Nº 49
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));//Ticket Nº 49 (Utilizamos un "encoder" para encriptar la contraseña)
         UserModel userModel = mapper.convertValue(userDTO, UserModel.class);
         return userRepository.save(userModel);
     }
@@ -58,8 +57,6 @@ public class UserServiceImpl implements UserService {
 
     //actualizar usuario
     public UserModel updateUser(UserDTO userDTO){
-        UserRole userRole = userRoleRepository.findById(userDTO.getRole().getId()).get();
-        userDTO.setRole(userRole);
         UserModel userModel = mapper.convertValue(userDTO, UserModel.class);
         return userRepository.save(userModel);
     }
@@ -78,22 +75,21 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    //@Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserModel userModel = userRepository.findByUsername(username);
         String rol = userModel.getRole().getName();
         System.out.println(rol);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority(rol));
 
-        return new User(
-                username,
-                userModel.getPassword(),
-                true,
-                true,
-                true,
-                true,
-                authorities);
+        if(userModel != null) {
+            User.UserBuilder userBuilder = User.withUsername(username);
+            userBuilder.password(userModel.getPassword()).roles(rol);
+            return userBuilder.build();
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
     }
 
     public Integer userId(String username){
@@ -111,7 +107,6 @@ public class UserServiceImpl implements UserService {
     public String userSurname(String username){
         UserModel userModel = userRepository.findByUsername(username);
         String surname = userModel.getSurname();
-        //String userCity = userModel.getUserCity();
         return (surname);
     }
 

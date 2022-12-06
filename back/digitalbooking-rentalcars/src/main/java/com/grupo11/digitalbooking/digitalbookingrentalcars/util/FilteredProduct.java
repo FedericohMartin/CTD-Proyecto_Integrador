@@ -1,9 +1,9 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.util;
 
 import java.time.LocalDate;
-
+//Ticket Nº 55 (Implementar filtro por ciudad e intervalo de fechas).
 public class FilteredProduct {
-    //Ticket Nº 55
+
     //Attributes
     private LocalDate initialDate;
     private LocalDate finalDate;
