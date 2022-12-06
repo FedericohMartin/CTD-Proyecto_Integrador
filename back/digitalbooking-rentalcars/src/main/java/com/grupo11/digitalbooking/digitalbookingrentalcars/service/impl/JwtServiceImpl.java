@@ -49,7 +49,8 @@ public class JwtServiceImpl implements JwtService {
 
     private String createToken(Map<String, Object> claims, String subject) {
         Date now = new Date();
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+        return Jwts.builder().setClaims(claims).setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(now.getTime() + 100 * 60 * 1000))// 100 minutos
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
