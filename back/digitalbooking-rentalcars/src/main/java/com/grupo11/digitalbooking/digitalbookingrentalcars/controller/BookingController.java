@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "Bookings")
 @RequestMapping("/bookings")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class BookingController {
     @Autowired
     private BookingService bookingService;

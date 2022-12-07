@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "Roles")
 @RequestMapping("/roles")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class UserRoleController {
     @Autowired
     private UserRoleService userRoleService;
