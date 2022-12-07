@@ -1,4 +1,4 @@
-const endpoint = "http://localhost:8080/products";
+const endpoint = "http://ec2-3-20-74-75.us-east-2.compute.amazonaws.com/products";
 
 const add = (payload) => {
     const config = {
