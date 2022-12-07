@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @RestController
 @Api(tags = "Products")
 @RequestMapping("/products")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class ProductController {
 
     @Autowired

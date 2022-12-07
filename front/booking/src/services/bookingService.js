@@ -1,4 +1,4 @@
-const endpoint = 'http://localhost:8080/booking';
+const endpoint = 'http://ec2-3-20-74-75.us-east-2.compute.amazonaws.com/booking';
 
 const add = (payload) => {
     const config = {

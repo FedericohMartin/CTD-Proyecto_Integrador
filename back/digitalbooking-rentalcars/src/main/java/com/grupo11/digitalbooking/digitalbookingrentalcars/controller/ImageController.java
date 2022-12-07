@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "Images")
 @RequestMapping("/images")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class ImageController {
     @Autowired
     private ImageService imageService;

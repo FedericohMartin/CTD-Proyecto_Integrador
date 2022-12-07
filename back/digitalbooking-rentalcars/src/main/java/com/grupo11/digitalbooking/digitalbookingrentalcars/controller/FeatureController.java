@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "Features")
 @RequestMapping("/features")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class FeatureController {
     @Autowired
     private FeatureService featureService;
