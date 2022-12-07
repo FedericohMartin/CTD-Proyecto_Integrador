@@ -1,4 +1,4 @@
-const endpoint = "http://localhost:8080/categories";
+const endpoint = "http://ec2-3-20-74-75.us-east-2.compute.amazonaws.com/categories";
 
 const getAll = (signal) => {
     const config = {
