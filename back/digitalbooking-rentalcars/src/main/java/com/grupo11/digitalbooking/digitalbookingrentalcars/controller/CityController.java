@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "Cities")
 @RequestMapping("/cities")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class CityController {
     @Autowired
     private CityService cityService;
