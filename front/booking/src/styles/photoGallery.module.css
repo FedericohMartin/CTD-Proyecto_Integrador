@@ -72,6 +72,10 @@ div.modalWindow img{
 .modalWindow .modalHeader{
     position: absolute;
     border-bottom: none;
+    color: #FFFF;
+    justify-content: flex-end;
+    width: 100%;
+    z-index: 1100;
 }
 
 .modalWindow .modalFooter{

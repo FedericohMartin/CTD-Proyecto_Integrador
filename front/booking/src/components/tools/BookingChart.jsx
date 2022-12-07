@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CalendarSearch from "./CalendarSearch";
 import styles from '../../styles/bookingChart.module.css'
 
-function BookingChart({product, isLoaded, bookedDates}){
+function BookingChart({product, isLoaded, bookedDates, isCalendarLoaded}){
     const [tempBookedDates, setTempBookedDates] = useState([]);
     const [excludedDates, setExcludedDates] = useState([]);
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ function BookingChart({product, isLoaded, bookedDates}){
         <div className={styles.chartContainer}>
             <div className={styles.calendarContainer}>
                 <h2>Fechas disponibles</h2>
-                {isLoaded
+                {isLoaded && isCalendarLoaded
                 ?<CalendarSearch inlineProp={'inline'} productCalendar='calendar' excludeDates={excludedDates}></CalendarSearch>
                 : <div className={styles.calendarLoader}></div>}
             </div>

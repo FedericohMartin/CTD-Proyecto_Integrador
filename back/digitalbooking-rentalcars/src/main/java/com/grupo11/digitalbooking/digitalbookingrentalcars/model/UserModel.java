@@ -1,6 +1,7 @@
 package com.grupo11.digitalbooking.digitalbookingrentalcars.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +24,7 @@ public class UserModel {
     private String surname;
     private String email;
     private String password;
+    @Column(name = "user_city")
     private String userCity;
     private String username;
 

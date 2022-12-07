@@ -1,4 +1,17 @@
-const endpoint = "http://localhost:8080/products";
+const endpoint = "http://ec2-3-20-74-75.us-east-2.compute.amazonaws.com/products";
+
+const add = (payload) => {
+    const config = {
+        method: "POST",
+        withCredentials: true,
+        crossdomain: true,
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
+        body: JSON.stringify(payload),
+     };
+
+     return fetch(`${endpoint}/addProduct`, config)
+            .then(response => response.json())
+}
 
 const getAll = (signal) => {
     const config = {
@@ -82,6 +95,7 @@ const productService = {
     getByCategoryId,
     getBycityAndDates,
     getByDates,
+    add,
 }
 
 export default productService;

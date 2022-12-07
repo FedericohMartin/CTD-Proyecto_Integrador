@@ -13,6 +13,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findByCityId(Integer cities_id);
 
+    @Query("SELECT p FROM Product p WHERE p.city.name = :cityName")//JPQL
+    List<Product>findByCityName(@Param("cityName") String cityName);
+
     @Query( value = "select P.* from products P where P.categories_id in :ids", nativeQuery = true )
     List<Product> findByCategoryIds(@Param("ids") List<Integer> categoryIdList);
 

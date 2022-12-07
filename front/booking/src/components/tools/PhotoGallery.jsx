@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from '../../styles/photoGallery.module.css'
 import Modal from 'react-bootstrap/Modal';
+import CloseButton from 'react-bootstrap/CloseButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
 
@@ -67,22 +68,23 @@ function ModalGallery(props) {
       className={styles.modalWindow}
       centered
     >
-      <Modal.Header className={props.modalHeader} closeButton>
+      <Modal.Header className={props.modalHeader}>
+      <CloseButton variant="white" onClick={props.onHide} />
         <Modal.Title id="contained-modal-title-vcenter">
         </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className={props.modalBody}>
-            <CarouselGallery
-            interval={null}
-            product={props.product}/>
-        </Modal.Body>
-        <Modal.Footer className={props.modalFooter}>
-        </Modal.Footer>
+      </Modal.Header>
+      <Modal.Body className={props.modalBody}>
+          <CarouselGallery
+          interval={null}
+          product={props.product}/>
+      </Modal.Body>
+      <Modal.Footer className={props.modalFooter}>
+      </Modal.Footer>
     </Modal>
   );
 }
 
-function PhotoGallery({product, isLoaded}){
+function PhotoGallery({product, isLoaded, isCalendarLoaded}){
     const [modalShow, setModalShow] = useState(false);
     const loaders = Array.from({length: 4}, (_, i) => {return i})
 
@@ -119,12 +121,12 @@ function PhotoGallery({product, isLoaded}){
     return(
         <>
             <div className={`${styles.galleryContainer} ${styles.desktop}`}>
-                {isLoaded
+                {isLoaded && isCalendarLoaded
                 ?<div className={styles.mainPhoto}>
                     <img src={imageUrl} alt="Main" />
                 </div>
                 : <div className={`${styles.mainPhoto} ${styles.mainPhotoLoader}`}></div>}
-                {isLoaded
+                {isLoaded && isCalendarLoaded
                 ?<div className={styles.secondaryPictures}>
                     {product.images?.length !== 0 ? product.images?.map(imagesMapper) : loaders.map(defaultImagesMapper)}
                 </div>
@@ -143,7 +145,7 @@ function PhotoGallery({product, isLoaded}){
                     product={product}
                 />
             </div>
-            {isLoaded
+            {isLoaded && isCalendarLoaded
             ?<CarouselGallery 
                 mobile={styles.mobile}
                 interval={3000}

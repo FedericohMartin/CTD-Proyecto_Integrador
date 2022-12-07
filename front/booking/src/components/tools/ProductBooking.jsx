@@ -13,7 +13,7 @@ import {MdLocationOn } from 'react-icons/md';
 const hours = Array.from({length: 24}, (_, i) => {let a = i-1 
                                                 return a<9 ? `0${a + 1}:00` : `${a + 1}:00`})
                                                 
-function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates}){
+function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCalendarLoaded}){
     const [bookingFormData, setBookingFormData] = useState({
         userId: "",
         name: "",
@@ -206,7 +206,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates}){
             <form className={styles.bookingContainer}>
                 <div className={styles.bookFormContainer}>
                     <h2>Completá tus datos</h2>
-                    {isLoaded
+                    {isLoaded && isCalendarLoaded
                     ?<div className={styles.dataContainer}>
                         <div>
                             <label htmlFor="name">Nombre</label>
@@ -232,7 +232,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates}){
                      </div>
                     : <div className={styles.dataLoader}></div>}  
                     <h2>Seleccioná tu fecha de reserva</h2>
-                    {isLoaded
+                    {isLoaded && isCalendarLoaded
                     ?<div className={`${styles.dateContainer} ${!(validated.initialDate && validated.finalDate) && styles.missingDataContainer}`}>
                         <CalendarSearch 
                             inlineProp={'inline'} 
@@ -248,7 +248,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates}){
                     : <div className={styles.dateLoader}></div>}
                     {!(validated.initialDate && validated.finalDate) && <span className={styles.missingDataWarning}>Debes seleccionar un rango de fechas</span>}
                     <h2>Tu horario de llegada</h2>
-                    {isLoaded
+                    {isLoaded && isCalendarLoaded
                     ?<div className={styles.timeContainer}>
                         <div>
                             <FaRegCheckCircle className={styles.hourIcon}/>
@@ -267,7 +267,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates}){
                     </div>
                     : <div className={styles.hourLoader}></div>}
                 </div>
-                {isLoaded
+                {isLoaded && isCalendarLoaded
                 ?<div className={styles.bookingDetails}>
                     <div className={styles.titleCard}>
                         <h2>Detalle de reserva</h2>
