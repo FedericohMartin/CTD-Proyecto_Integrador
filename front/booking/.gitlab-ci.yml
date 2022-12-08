@@ -1,85 +1,53 @@
+# front end pipeline
+
+cache:
+  paths:
+    - node_modules
+
 stages:
   - build
   - run
+  - deploy
 
 variables:
-  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-  AWS_REGION: $AWS_REGION
-  DEFAULT_OUTPUT_FORMAT: $DEFAULT_OUTPUT_FORMAT
-  DEV_S3_BUCKET: $DEV_S3_BUCKET
-  PROD_S3_BUCKET: $PROD_S3_BUCKET
+  S3_BUCKET_PROD: ${DEV_S3_BUCKET}
 
-build_dev-front:
-  stage: build
-  image: node:18.12.1
-  script:
-    - cd front/booking
-    - npm install
-    #- npm audit fix --force
-    - npm install react-icons --save
-    - npm install --save moment-timezone
-    - npm run build
+.yarn_build:
+  image: node:16.16.0-alpine
+  script: |
+    cd front/booking
+    npm i # Install all dependencies
+    npm run build # Build command
   artifacts:
     paths:
-      - front/booking/build
-  only:
-    refs:
-      - pipeline_para_CI-CD  # dev
+      - ./front/booking/build
 
-build_prod-front:
+yarn_prod:
+  extends: .yarn_build
   stage: build
-  image: node:18.12.1
-  when: manual
-  script: 
-    - cd front/booking
-    - npm install
-    #- npm audit fix --force
-    - npm install react-icons --save
-    - npm install --save moment-timezone
-    - npm run build
-  artifacts:
-    paths:
-      - front/booking/build
-  only:
-    refs:
-      - pipeline_para_CI-CD # main
+  before_script:
+    - export APP_ENV="prod"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "pipeline_para_CI-CD"'
+      when: on_success
+      changes:
+        - front/**/* 
 
 .deploy_aws:
   image: python:latest
-  when: manual
   script: |
-    pip install --upgrade pip==22.1.0
-    pip install --root-user-action=ignore requests
     pip install awscli #Install awscli tools
-    aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-    aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-    aws s3 sync front/booking/build/ s3://${PROD_S3_BUCKET}
-    
-deploy_dev:
-  stage: run
-  image: python:latest
-  dependencies:
-    - build_dev-front
-  #when: manual
-  script:
-    - pwd && ls -la
-    - pip3 install awscli
-    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-    - aws s3 sync ./front/booking/build/ s3://DEV_S3_BUCKET --acl public-read
-    
-  only:
-    refs:
-      - pipeline_para_CI-CD   # dev
+    aws s3 sync ./front/booking/build/ s3://${S3_BUCKET}
 
 deploy_prod:
   extends: .deploy_aws
   stage: run
   dependencies:
-    - build_prod-front
+    - yarn_prod
   before_script:
-    - export S3_BUCKET=${PROD_S3_BUCKET}
-  only:
-    refs:
-      - pipeline_para_CI-CD  # main
+    - export S3_BUCKET=${S3_BUCKET_PROD}
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "pipeline_para_CI-CD"'
+      when: on_success
+      changes:
+        - front/**/* 

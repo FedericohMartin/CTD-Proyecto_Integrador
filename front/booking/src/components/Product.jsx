@@ -4,7 +4,7 @@ import styles from '../styles/product.module.css'
 import productService from "../services/productService";
 import bookingService from "../services/bookingService";
 import {IoChevronBack} from 'react-icons/io5'
-import {Link, useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom' 
 
 
 function Product({children}){
