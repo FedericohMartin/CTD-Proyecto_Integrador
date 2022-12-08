@@ -53,3 +53,5 @@ deploy-back:
         - echo "Finished deploying the app."
     only:
         - pipeline_para_CI-CD  # main
+
+        # linea para subir cambia y probar pipeline back
