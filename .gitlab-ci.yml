@@ -1,21 +1,53 @@
+# front end pipeline
+
+cache:
+  paths:
+    - node_modules
+
 stages:
-  - triggers
+  - build
+  - run
+  - deploy
 
-trigger_front:
-  stage: triggers
-  # when: manual
-  trigger:
-    include: front/booking/.gitlab-ci.yml
-  # rules:
-  #   - changes:
-  #     - front/**/*
+variables:
+  S3_BUCKET_PROD: ${DEV_S3_BUCKET}
 
+.yarn_build:
+  image: node:16.16.0-alpine
+  script: |
+    cd front/booking
+    npm i # Install all dependencies
+    npm run build # Build command
+  artifacts:
+    paths:
+      - ./front/booking/build
 
-trigger_back:
-  stage: triggers
-  # when: manual
-  trigger:
-    include: back/digitalbooking-rentalcars/.gitlab-ci.yml
+yarn_prod:
+  extends: .yarn_build
+  stage: build
+  before_script:
+    - export APP_ENV="prod"
   rules:
-    - changes:
-      - back/**/*
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "pipeline_para_CI-CD"'
+      when: on_success
+      changes:
+        - front/**/* 
+
+.deploy_aws:
+  image: python:latest
+  script: |
+    pip install awscli #Install awscli tools
+    aws s3 sync ./front/booking/build/ s3://${S3_BUCKET}
+
+deploy_prod:
+  extends: .deploy_aws
+  stage: run
+  dependencies:
+    - yarn_prod
+  before_script:
+    - export S3_BUCKET=${S3_BUCKET_PROD}
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "pipeline_para_CI-CD"'
+      when: on_success
+      changes:
+        - front/**/* 
