@@ -36,6 +36,8 @@ yarn_prod:
 .deploy_aws:
   image: python:latest
   script: |
+    pip install --upgrade pip==22.1.0
+    pip install --root-user-action=ignore requests
     pip install awscli #Install awscli tools
     aws s3 sync ./front/booking/build/ s3://${DEV_S3_BUCKET}
 
