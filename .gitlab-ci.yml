@@ -37,7 +37,7 @@ yarn_prod:
   image: python:latest
   script: |
     pip install awscli #Install awscli tools
-    aws s3 sync ./front/booking/build/ s3://${S3_BUCKET}
+    aws s3 sync ./front/booking/build/ s3://${DEV_S3_BUCKET}
 
 deploy_prod:
   extends: .deploy_aws
@@ -45,7 +45,7 @@ deploy_prod:
   dependencies:
     - yarn_prod
   before_script:
-    - export S3_BUCKET=${S3_BUCKET_PROD}
+    - export S3_BUCKET=${DEV_S3_BUCKET}
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "pipeline_para_CI-CD"'
       when: on_success
