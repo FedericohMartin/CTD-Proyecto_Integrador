@@ -5,7 +5,8 @@ const add = (payload) => {
         method: "POST",
         withCredentials: true,
         crossdomain: true,
-        headers: { "Content-Type": "application/json; charset=UTF-8" },
+        headers: { "Content-Type": "application/json; charset=UTF-8",
+                    authorization: `Bearer ${payload.jwt}` },
         body: JSON.stringify(payload),
      };
 
