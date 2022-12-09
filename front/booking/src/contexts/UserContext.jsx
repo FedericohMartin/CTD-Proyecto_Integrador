@@ -3,9 +3,10 @@ import { createContext, useState, useEffect } from "react";
 const Context = createContext()
 
 const user = {
+  jwt: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTY2Fsb25ldGE3NyIsImV4cCI6MTY3MDYxMzQ3MSwiaWF0IjoxNjcwNjA3NDcxfQ.45uMJ1niEagavT8DkjNtcpCiYjxevA8rIDLhrVOgVrY",
   userId: 2,
   name: "Pedro",
-  lastName: "Picapiedra",
+  surname: "Picapiedra",
   email: "pedro.p@domain.com",
   password: "pedrit0elMejor",
   role: "ADMIN",

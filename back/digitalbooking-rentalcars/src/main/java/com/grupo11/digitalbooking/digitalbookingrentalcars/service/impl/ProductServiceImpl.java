@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -73,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
                     productImage.setProduct(product);
                     productImage.setImage(image);
                     return productImage;
-                }).toList();
+                }).collect(Collectors.toList());
 
         List<ProductFeature> productFeatures = featureRepository
                 .findByFeatureIds(dto.getFeature_ids())
@@ -83,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
                     productFeature.setProduct(product);
                     productFeature.setFeature(feature);
                     return productFeature;
-                }).toList();
+                }).collect(Collectors.toList());
 
         product.getImages().addAll(productImages);
         product.getFeatures().addAll(productFeatures);
@@ -110,7 +111,7 @@ public class ProductServiceImpl implements ProductService {
                         product.getImages()
                                 .stream()
                                 .filter(x -> x.getImage().getId().equals(img.getId()))
-                                .toList()
+                                .collect(Collectors.toList())
                                 .stream()
                                 .findFirst()
                                 .map(x -> {
@@ -119,7 +120,7 @@ public class ProductServiceImpl implements ProductService {
                                     return x;
                                 })
                                 .orElse(new ProductImage(null, product, new Image(img.getId(), img.getName(), img.getImgUrl()))))
-                .toList();
+                .collect(Collectors.toList());
 
         List<ProductFeature> productFeatures = featureRepository
                 .findByFeatureIds(dto.getFeature_ids())
@@ -129,8 +130,8 @@ public class ProductServiceImpl implements ProductService {
                         .filter(featureProduct ->
                                 Objects.equals(
                                         featureProduct.getFeature().getId(), feature.getId())
-                        ).toList().stream().findFirst()
-                        .orElse(new ProductFeature(null, product, feature))).toList();
+                        ).collect(Collectors.toList()).stream().findFirst()
+                        .orElse(new ProductFeature(null, product, feature))).collect(Collectors.toList());
 
         product.setName(dto.getName());
         product.setDescription(dto.getDescription());
@@ -261,7 +262,7 @@ public class ProductServiceImpl implements ProductService {
                         categoriesSubList
                                 .stream()
                                 .map(Category::getId)
-                                .toList()
+                                .collect(Collectors.toList())
                 );
         Collections.shuffle(products);
         return products.subList(0, getRandomNumber(0, products.size() -1));//Map: toma un objeto, lo convierte y devuelve siempre la misma cantidad. Transforma la lista de categorías en una lista de enteros (misma cantidad).

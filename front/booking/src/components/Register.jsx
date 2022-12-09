@@ -20,8 +20,8 @@ function Register(){
                         <input className={styles.registerMobile} type="text" id="name" name="name"/>
                     </div>
                     <div className={styles.registerMobile}>
-                        <label className={styles.registerMobile} htmlFor="lastName">Apellido</label>
-                        <input className={styles.registerMobile} type="text" id="lastName" name="lastName"/>
+                        <label className={styles.registerMobile} htmlFor="surname">Apellido</label>
+                        <input className={styles.registerMobile} type="text" id="surname" name="surname"/>
                     </div>
                 </div>
                 <label className={styles.registerMobile} htmlFor="email">Correo electrónico</label>

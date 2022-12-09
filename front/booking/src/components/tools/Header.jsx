@@ -66,8 +66,8 @@ function Header(props){
                         <div><Link to={"/administracion"} style={{ textDecoration: 'none' }}>Administración</Link></div>
                         <span className={styles.admSeparator}></span>
                     </div>}
-                    <div className={styles.hide} id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.lastName}`)}</div>
-                    <div className={styles.hide}>Hola, <br/> <span>{` ${authUser?.name} ${authUser?.lastName}`}</span></div>
+                    <div className={styles.hide} id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.surname}`)}</div>
+                    <div className={styles.hide}>Hola, <br/> <span>{` ${authUser?.name} ${authUser?.surname}`}</span></div>
                     <FaRegWindowClose className={`${styles.logoutIcon} ${styles.hide}`} onClick={onLocalLogoutClicked} />
                     <img onClick={onLocalMenuClicked} src={menuIcon} className={`${styles.btn} ${styles.menuIcon}`} alt="Menu-icon" />
                   </div> 
