@@ -139,5 +139,5 @@ http://localhost:8080/swagger-ui/index.html#/
 - [Sabrina Incinga](https://www.linkedin.com/in/sabrina-incinga-software-developer/)
 - [Adriana Fernández](www.linkedin.com/in/adriana-denise-fernandez)
 - [Federico Martin](https://www.linkedin.com/in/federicohmartin)
-- [Jacobo Gaitán](https://gitlab.ctd.academy/ctd/proyecto-integrador-1022/0521-pt-c12/grupo-11)
-- [Fernando Escobar](https://gitlab.ctd.academy/ctd/proyecto-integrador-1022/0521-pt-c12/grupo-11)
+- [Jacobo Gaitán](https://www.linkedin.com/in/juan-jacobo-gaitan-sanchez-709188a5)
+- [Fernando Escobar](https://www.linkedin.com/in/fereco)
