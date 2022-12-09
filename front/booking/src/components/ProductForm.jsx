@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import {Context} from '../contexts/UserContext'
 import homeStyles from '../styles/home.module.css';
 import styles from '../styles/productForm.module.css';
 import { FaPlusSquare, FaWindowClose, FaSpinner } from "react-icons/fa";
@@ -7,7 +8,7 @@ import citiesService from "../services/citiesService";
 import featureService from "../services/featureService";
 import productService from "../services/productService";
 import {IoChevronBack, IoAlertCircleOutline} from 'react-icons/io5';
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom';
 
 function ProductForm(){
     const [newProductForm, setNewProductForm] = useState({
@@ -56,6 +57,7 @@ function ProductForm(){
     const [isLoading, setisLoading] = useState(false);
     const [productAddFailed, setProductAddFailed] = useState(false);
     const navigate = useNavigate();
+    const {authUser} = useContext(Context);
 
     const onFormFieldChange = (e) => {
         const target = e.target;
@@ -168,7 +170,7 @@ function ProductForm(){
             const newItem = { name: "",
             icon: ""}
 
-            const newFeature = await featureService.add(featureForms[index]);
+            const newFeature = await featureService.add(featureForms[index], authUser.jwt);
 
             if(newFeature.data)
             {
@@ -299,7 +301,7 @@ function ProductForm(){
 
        if(validation) {
             setisLoading(true)
-            const addProductPromise = await productService.add(newProductForm)
+            const addProductPromise = await productService.add(newProductForm, authUser.jwt)
 
             if(addProductPromise.data){
                 navigate('producto-agregado-exitosamente'); 
