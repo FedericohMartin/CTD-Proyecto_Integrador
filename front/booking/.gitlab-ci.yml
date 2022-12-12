@@ -25,7 +25,7 @@ build_dev-front:
       - front/booking/build
   only:
     refs:
-      - pipeline_para_CI-CD  # dev
+      - dev
 
 build_prod-front:
   stage: build
@@ -43,7 +43,7 @@ build_prod-front:
       - front/booking/build
   only:
     refs:
-      - pipeline_para_CI-CD # main
+      - dev # main
 
 .deploy_aws:
   image: python:latest
@@ -71,7 +71,7 @@ deploy_dev:
     
   only:
     refs:
-      - pipeline_para_CI-CD   # dev
+      - dev
 
 deploy_prod:
   extends: .deploy_aws
@@ -82,4 +82,4 @@ deploy_prod:
     - export S3_BUCKET=${PROD_S3_BUCKET}
   only:
     refs:
-      - pipeline_para_CI-CD  # main
+      - dev  # main
