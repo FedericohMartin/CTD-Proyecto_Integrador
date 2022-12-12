@@ -141,3 +141,4 @@ http://localhost:8080/swagger-ui/index.html#/
 - [Federico Martin](https://www.linkedin.com/in/federicohmartin)
 - [Jacobo Gaitán](https://www.linkedin.com/in/juan-jacobo-gaitan-sanchez-709188a5)
 - [Fernando Escobar](https://www.linkedin.com/in/fereco)
+- 
