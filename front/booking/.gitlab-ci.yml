@@ -13,13 +13,13 @@ variables:
 build_dev-front:
   stage: build
   image: node:18.12.1
-  script:
+  script: |
     - cd front/booking
-    - npm install
+    - npm i # Install all dependencies
     #- npm audit fix --force
     - npm install react-icons --save
     - npm install --save moment-timezone
-    - npm run build
+    - npm run build # Build command
   artifacts:
     paths:
       - front/booking/build
@@ -58,16 +58,20 @@ build_prod-front:
     
 deploy_dev:
   stage: run
-  image: python:latest
+  image: python:3.7
   dependencies:
     - build_dev-front
   #when: manual
   script:
     - pwd && ls -la
+    - python3.7 -m pip install --upgrade pip==22.1.0
+    - pip --version
+    # - python -m pip install --root-user-action=ignore
+    - pip install --root-user-action=ignore requests
     - pip3 install awscli
     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-    - aws s3 sync ./front/booking/build/ s3://DEV_S3_BUCKET --acl public-read
+    - aws s3 cp --recursive ./front/booking/build/ s3://DEV_S3_BUCKET --acl public-read
     
   only:
     refs:
