@@ -13,13 +13,13 @@ variables:
 build_dev-front:
   stage: build
   image: node:18.12.1
-  script: |
+  script:
     - cd front/booking
-    - npm i # Install all dependencies
+    - npm install
     #- npm audit fix --force
     - npm install react-icons --save
     - npm install --save moment-timezone
-    - npm run build # Build command
+    - npm run build
   artifacts:
     paths:
       - front/booking/build
