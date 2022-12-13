@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     //@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel userModel = userRepository.findByUsername(username);
+        UserModel userModel = userRepository.findByEmail(username);
         String rol = userModel.getRole().getName();
         System.out.println(rol);
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -92,38 +92,38 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    public Integer userId(String username){
-        UserModel userModel = userRepository.findByUsername(username);
+    public Integer userId(String email){
+        UserModel userModel = userRepository.findByEmail(email);
         Integer id = userModel.getId();
 
         return (id);
     }
-    public String userName(String username){
-        UserModel userModel = userRepository.findByUsername(username);
+    public String userName(String email){
+        UserModel userModel = userRepository.findByEmail(email);
         String name = userModel.getName();
 
         return (name);
     }
-    public String userSurname(String username){
-        UserModel userModel = userRepository.findByUsername(username);
+    public String userSurname(String email){
+        UserModel userModel = userRepository.findByEmail(email);
         String surname = userModel.getSurname();
         return (surname);
     }
 
-    public String userCity(String username){
-        UserModel userModel = userRepository.findByUsername(username);
+    public String userCity(String email){
+        UserModel userModel = userRepository.findByEmail(email);
         String userCity = userModel.getUserCity();
         return (userCity);
     }
 
-    public String userEmail(String username){
-        UserModel userModel = userRepository.findByUsername(username);
-        String email = userModel.getEmail();
-        return (email);
+    public String userEmail(String email){
+        UserModel userModel = userRepository.findByEmail(email);
+        String userEmail = userModel.getEmail();
+        return (userEmail);
     }
 
-    public String userRole(String username){
-        UserModel userModel = userRepository.findByUsername(username);
+    public String userRole(String email){
+        UserModel userModel = userRepository.findByEmail(email);
         String role = userModel.getRole().getName();
         return (role);
     }
