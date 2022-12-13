@@ -9,6 +9,6 @@ import lombok.experimental.FieldDefaults;
 @Setter
 public class AuthenticationDTORequest {
 
-    String username;
+    String email;
     String password;
 }
