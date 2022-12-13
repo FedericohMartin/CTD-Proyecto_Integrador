@@ -35,18 +35,21 @@ function Menu(props){
                 <img onClick={onLocalCloseClicked} className={styles.close} src={closeIcon} alt="Close Icon" />
                 {authUser?.name ? 
                   <div className={styles.nameItem}>
-                    <div id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.lastName}`)}</div>
+                    <div id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.surname}`)}</div>
                     <div>Hola, </div>
-                    <div>{` ${authUser?.name} ${authUser?.lastName}`}</div>
+                    <div>{` ${authUser?.name} ${authUser?.surname}`}</div>
                   </div> 
                   :<div>MENÚ</div>}
             </header>
             {authUser?.name ?
               <div className={styles.userMenuBody}>
-                {authUser?.role === "ADMIN" && 
+                {authUser?.role === "ADMIN" ? 
                     <div>
                       <Link to={"/administracion"}>Administración</Link>
-                    </div> }
+                    </div> :
+                    <div>
+                      <Link to={"/mis-reservas"}>Mis reservas</Link>
+                    </div>}
                 <div className={styles.logout}>
                   <div>¿Deseas <Link onClick={onLocalLogoutClicked}>cerrar sesión</Link>?</div>
                   <hr className={styles.separator}/>

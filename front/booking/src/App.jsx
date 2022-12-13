@@ -16,6 +16,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoutes from './components/ProtectedRoutes';
 import ProtectedRoutesAdmin from './components/ProtectedRoutesAdmin';
 import ProductForm from './components/ProductForm';
+import MyBookings from './components/MyBookings';
 
 
 function App() {
@@ -60,7 +61,7 @@ function App() {
               </Route>
             </Route>
             <Route path='/producto/:idProducto/reserva' element={<ProtectedRoutes></ProtectedRoutes>}>
-              <Route path='booking-confirm' element={<BookingConfirm content={{
+              <Route path='reserva-exitosa' element={<BookingConfirm content={{
                                                                         title: "¡Muchas gracias!", 
                                                                         body: "Su reserva se ha realizado con éxito",
                                                                         button: "ok",
@@ -75,6 +76,10 @@ function App() {
                                                                                       body: "Su producto se ha creado con éxito",
                                                                                       button: "volver",
                                                                                   }}/>}>
+              </Route>
+            </Route>
+            <Route path='/mis-reservas' element={<ProtectedRoutes></ProtectedRoutes>}>
+              <Route path='' element={<MyBookings/>}>
               </Route>
             </Route>
           </Routes>

@@ -27,8 +27,36 @@ const getBookingsByProdId = (id, signal) => {
             .then(response => response.json())
 }
 
+const getBookingsByUserId = (id, signal) => {
+    const config = {
+        method: "GET",
+        withCredentials: true,
+        crossdomain: true,
+        headers: { "Content-Type": "application/json; charset=UTF-8" },
+        signal: signal,
+     };
+
+     return fetch(`${endpoint}/listByUser/${id}`, config)
+            .then(response => response.json())
+}
+
+const deleteById = (id, token) => {
+    const config = {
+        method: "DELETE",
+        withCredentials: true,
+        crossdomain: true,
+        headers: { "Content-Type": "application/json; charset=UTF-8",
+                    authorization:`Bearer ${token}` },
+     };
+
+     return fetch(`${endpoint}/deleteBooking/${id}`, config)
+            .then(response => response.json())
+}
+
 const bookingService = {
     getBookingsByProdId,
+    getBookingsByUserId,
+    deleteById,
     add,
 }
 

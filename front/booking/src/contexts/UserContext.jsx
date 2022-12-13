@@ -3,20 +3,20 @@ import { createContext, useState, useEffect } from "react";
 const Context = createContext()
 
 const user = {
-  jwt: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTY2Fsb25ldGE3NyIsImV4cCI6MTY3MDYxMzQ3MSwiaWF0IjoxNjcwNjA3NDcxfQ.45uMJ1niEagavT8DkjNtcpCiYjxevA8rIDLhrVOgVrY",
-  userId: 2,
+  jwt: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTY2Fsb25ldGE3NyIsImV4cCI6MTY3MDg5MzczNywiaWF0IjoxNjcwODg3NzM3fQ.8P2arZesyKZBtcGmPmkwYixOjUNtlD2kKEly77eqEQM",
+  id: 2,
   name: "Pedro",
   surname: "Picapiedra",
-  email: "pedro.p@domain.com",
+  userEmail: "pedro.p@domain.com",
   password: "pedrit0elMejor",
-  role: "ADMIN",
+  role: "USER",
 }
 
 const UserContextProvider = ({children}) => {
   const [authUser, setAuthUser] = useState();
 
   const onLoginClicked = (e, values) => {
-    if(values.email === user.email && values.password === user.password){
+    if(values.email === user.userEmail && values.password === user.password){
       window.localStorage.setItem("user", JSON.stringify(user))
       setAuthUser(user);
       return true
