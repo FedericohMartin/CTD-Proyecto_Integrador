@@ -38,10 +38,11 @@ function Header(props){
      }
 
      useEffect(() => {
-        if(authUser){
+        const timer = setTimeout(() => {
             setIsLoaded(true);
-        }
-     }, [authUser]);
+          }, 1500);
+          return () => clearTimeout(timer);
+     }, []);
 
      if(!isLoaded){
         return(

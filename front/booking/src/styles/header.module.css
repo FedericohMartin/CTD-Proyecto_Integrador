@@ -18,6 +18,10 @@
     min-width: 25%;  
 }
 
+.headerContainer>div:nth-child(1){
+    justify-content: flex-start;
+}
+
 .nameItem{
     align-items: center;
     display: flex;
@@ -116,10 +120,6 @@
   }
 
 @media screen and (max-width: 768px) {
-    .headerItem:nth-child(1){
-        margin: 0.5rem 0 0 -2rem;
-    }
-
     .headerContainer .loader{
         margin: 0 0.75rem;
     }
@@ -134,7 +134,7 @@
 
 @media screen and (max-width: 540px) {
     .headerItem:nth-child(1){
-        margin: 0.5rem 0;
+        margin: 0.5rem 1.1rem;
     }
 
     .hide, .nameItem .admContainer{
