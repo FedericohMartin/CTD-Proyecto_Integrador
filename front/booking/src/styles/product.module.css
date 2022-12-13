@@ -282,6 +282,10 @@
     .policy .policiesLoader{
         margin: .2rem auto;
     }
+
+    .policy h3{
+        min-height: 4rem;
+    }
 }
 
 @media screen and (max-height: 453px){
