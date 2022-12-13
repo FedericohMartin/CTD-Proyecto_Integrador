@@ -12,6 +12,7 @@ import {Link} from 'react-router-dom';
 function MyBookings(){
     const [bookings, setBookings] =useState([]);
     const [isLoading, setisLoading] = useState(true);
+    const [contentLoaded, setContentLoaded] = useState(false);
     const {authUser} = useContext(Context);
 
     const filterImages = (image) => {
@@ -60,8 +61,14 @@ function MyBookings(){
             bookingService
             .getBookingsByUserId(authUser.id, abortController.signal)
             .then(response => {
-                response.data !== null && setBookings(response.data.filter(booking => moment(booking.finalDate).isAfter(today)));
+                let contentArray = [];
+                if(response.data !== null){
+                    contentArray = response.data.filter(booking => moment(booking.finalDate).isAfter(today));
+                    contentArray = contentArray.sort((a, b) => moment(a.initialDate).diff(moment(b.initialDate)));
+                    setBookings(contentArray);
+                }
                 setisLoading(false);
+                setContentLoaded(true);
             })
             .catch(error => {console.log(error)
                             setisLoading(false);})
@@ -81,7 +88,7 @@ function MyBookings(){
                 <div><h4>Mis reservas</h4></div>
                 <Link to={-1}><IoChevronBack className={styles.backIcon}/></Link>
             </div>
-            {!isLoading && (bookings.length !== 0 ? bookings.map(bookingsMapper) 
+            {contentLoaded && (bookings.length !== 0 ? bookings.map(bookingsMapper) 
             : <div className={styles.noBookings}>
                 <FaRegSadCry className={styles.noBookingsIcon}/> 
                 <div>Aún no has efectuado ninguna reserva</div> 

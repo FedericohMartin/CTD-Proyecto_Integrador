@@ -3,8 +3,8 @@ import { createContext, useState, useEffect } from "react";
 const Context = createContext()
 
 const user = {
-  jwt: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTY2Fsb25ldGE3NyIsImV4cCI6MTY3MDg5MzczNywiaWF0IjoxNjcwODg3NzM3fQ.8P2arZesyKZBtcGmPmkwYixOjUNtlD2kKEly77eqEQM",
-  id: 3,
+  jwt: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTY2Fsb25ldGE3NyIsImV4cCI6MTY3MDkwMjQ0MywiaWF0IjoxNjcwODk2NDQzfQ.DuvZ07EgahcZ1JZEQBrb0ogLNcdg38iJQq67UajrsN4",
+  id: 2,
   name: "Pedro",
   surname: "Picapiedra",
   userEmail: "pedro.p@domain.com",
