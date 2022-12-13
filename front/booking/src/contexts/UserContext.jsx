@@ -1,18 +1,18 @@
 import { createContext, useState, useEffect } from "react";
 import userService from "../services/userService";
+
+
 const Context = createContext()
 
- /* const user = {
-  jwt: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTY2Fsb25ldGE3NyIsImV4cCI6MTY3MDYxMzQ3MSwiaWF0IjoxNjcwNjA3NDcxfQ.45uMJ1niEagavT8DkjNtcpCiYjxevA8rIDLhrVOgVrY",
-  userId: 2,
-  name: "Pedro",
-  surname: "Picapiedra",
-  email: "pedro.p@domain.com",
-  password: "pedrit0elMejor",
-  role: "ADMIN",
-} */
+  const user = {
+  userId: '',
+  name: '',
+  surname: '',
+  email: '',
+  password: '',
+  role: '',
+} 
 
-const user = "http://ec2-3-20-74-75.us-east-2.compute.amazonaws.com:8080/users"
 
 const UserContextProvider = ({children}) => {
   const [authUser, setAuthUser] = useState();
