@@ -61,9 +61,13 @@ function Header(props){
             </div>
             {authUser?.name 
                 ? <div className={styles.nameItem}>
-                    {authUser?.role === "ADMIN" && 
-                    <div className={styles.admContainer}>
+                    {authUser?.role === "ADMIN" 
+                    ? <div className={styles.admContainer}>
                         <div><Link to={"/administracion"} style={{ textDecoration: 'none' }}>Administración</Link></div>
+                        <span className={styles.admSeparator}></span>
+                    </div>
+                    : <div className={styles.admContainer}>
+                        <div><Link to={"/mis-reservas"} style={{ textDecoration: 'none' }}>Mis reservas</Link></div>
                         <span className={styles.admSeparator}></span>
                     </div>}
                     <div className={styles.hide} id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.surname}`)}</div>
