@@ -4,28 +4,21 @@ import userService from "../services/userService";
 
 const Context = createContext()
 
-const user = {
-  jwt: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTY2Fsb25ldGE3NyIsImV4cCI6MTY3MDkwMjQ0MywiaWF0IjoxNjcwODk2NDQzfQ.DuvZ07EgahcZ1JZEQBrb0ogLNcdg38iJQq67UajrsN4",
-  id: 2,
-  name: "Pedro",
-  surname: "Picapiedra",
-  userEmail: "pedro.p@domain.com",
-  password: "pedrit0elMejor",
-  role: "USER",
-}
-
-
 const UserContextProvider = ({children}) => {
   const [authUser, setAuthUser] = useState();
 
-  const onLoginClicked = (e, values) => {
-    if(values.email === user.userEmail && values.password === user.password){
-      window.localStorage.setItem("user", JSON.stringify(user))
-      setAuthUser(user);
-      return true
-    } else {return false}
-  }
 
+  const onLoginClicked = async (e, values) => {
+      const user = await userService.authorization (values) 
+      if ( user.status === 401) {
+        return false
+      } else {
+        window.localStorage.setItem ("user", JSON.stringify(user))
+        setAuthUser (user);
+        return true
+      } }
+           
+      
   const onLogoutClicked = () => {
     localStorage.removeItem("user");
     setAuthUser(null);
