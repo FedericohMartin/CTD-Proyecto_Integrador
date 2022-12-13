@@ -6,12 +6,12 @@ import styles from '../styles/myBookings.module.css';
 import bookingService from '../services/bookingService';
 import {Context} from '../contexts/UserContext';
 import {IoChevronBack} from 'react-icons/io5';
-import { FaSpinner } from "react-icons/fa";
+import { FaSpinner, FaRegSadCry } from "react-icons/fa";
 import {Link} from 'react-router-dom';
 
 function MyBookings(){
     const [bookings, setBookings] =useState([]);
-    const [isLoading, setisLoading] = useState(false);
+    const [isLoading, setisLoading] = useState(true);
     const {authUser} = useContext(Context);
 
     const filterImages = (image) => {
@@ -54,17 +54,17 @@ function MyBookings(){
 
 
     useEffect(() => {
-        setisLoading(true);
         if(authUser?.id){
             const today = new Date();
             const abortController = new AbortController();
             bookingService
             .getBookingsByUserId(authUser.id, abortController.signal)
             .then(response => {
-                setBookings(response.data.filter(booking => moment(booking.finalDate).isAfter(today)));
+                response.data !== null && setBookings(response.data.filter(booking => moment(booking.finalDate).isAfter(today)));
                 setisLoading(false);
             })
-            .catch(error => console.log(error))
+            .catch(error => {console.log(error)
+                            setisLoading(false);})
 
             return () => abortController.abort()
         }
@@ -81,7 +81,12 @@ function MyBookings(){
                 <div><h4>Mis reservas</h4></div>
                 <Link to={-1}><IoChevronBack className={styles.backIcon}/></Link>
             </div>
-            {bookings.map(bookingsMapper)}
+            {!isLoading && (bookings.length !== 0 ? bookings.map(bookingsMapper) 
+            : <div className={styles.noBookings}>
+                <FaRegSadCry className={styles.noBookingsIcon}/> 
+                <div>Aún no has efectuado ninguna reserva</div> 
+                <Link to={'/'} className={styles.homeButton}>Volver a Home</Link>
+              </div>)}
         </div>
         </>
         
