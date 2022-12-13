@@ -159,6 +159,7 @@
 }
 .policy div>div{
     width: 22vw;
+    margin: 0 .5rem 0 0;
 }
 
 .policy li{
@@ -168,6 +169,7 @@
 
 .policy h3{
     color: #607D8B;
+    min-height: 6.2988rem;
 }
 
 .policy .policiesLoader{
@@ -279,6 +281,10 @@
 
     .policy .policiesLoader{
         margin: .2rem auto;
+    }
+
+    .policy h3{
+        min-height: 4rem;
     }
 }
 

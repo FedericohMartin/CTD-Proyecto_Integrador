@@ -81,6 +81,7 @@ function Categories(props) {
             onParentShowMoreClicked={() => {
                 goToPage(product.id);
             }}
+            firstButtonLabel={"Ver más"}
         />)}, [goToPage])
 
     const onNextClicked = () => {

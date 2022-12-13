@@ -19,7 +19,6 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCale
         userId: "",
         name: "",
         surname: "",
-        email: "",
         city: "",
         initialDate: null,
         finalDate: null,
@@ -143,7 +142,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCale
             const bookingPromise = await bookingService.add(payload);
             
             if(bookingPromise.data){
-                navigate('booking-confirm'); 
+                navigate('reserva-exitosa'); 
             }else{
                 setbookingFailed(true);
                 onSubmitclicked();
@@ -154,7 +153,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCale
     useEffect(() => {
         if(authUser){
             setBookingFormData((prevState) => {
-                return {...prevState, ...authUser};
+                return {...prevState, ...authUser, userId: authUser.id};
             })
         }
     }, [authUser]);

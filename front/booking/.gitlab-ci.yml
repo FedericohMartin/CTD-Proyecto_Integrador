@@ -8,6 +8,7 @@ variables:
   AWS_REGION: $AWS_REGION
   DEFAULT_OUTPUT_FORMAT: $DEFAULT_OUTPUT_FORMAT
   DEV_S3_BUCKET: $DEV_S3_BUCKET
+  PROD_S3_POINT_ACCESS: $PROD_S3_POINT_ACCESS
   PROD_S3_BUCKET: $PROD_S3_BUCKET
 
 build_dev-front:
@@ -71,7 +72,7 @@ deploy_dev:
     - pip3 install awscli
     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-    - aws s3 cp --recursive ./front/booking/build/ s3://DEV_S3_BUCKET --acl public-read
+    - aws s3 cp --recursive ./front/booking/build/ s3://{PROD_S3_BUCKET} --acl public-read
     
   only:
     refs:
