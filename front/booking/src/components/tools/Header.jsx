@@ -58,7 +58,7 @@ function Header(props){
         <header className={styles.headerContainer}>
             <div className={styles.headerItem}>
                 <Link to={"/"}><img src={logo} alt="Logo" /></Link>
-                <Link to={"/"} style={{ textDecoration: 'none' }}><div className={`${styles.hide} ${styles.hideT}`}>Some awesome slogan</div></Link>
+                <Link to={"/"} style={{ textDecoration: 'none' }}><div className={`${styles.hide} ${styles.hideT}`}>Pistea a tu estilo</div></Link>
             </div>
             {authUser?.name 
                 ? <div className={styles.nameItem}>

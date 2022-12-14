@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import homeStyles from '../styles/home.module.css'
-import styles from '../styles/product.module.css'
+import moment from 'moment';
+import homeStyles from '../styles/home.module.css';
+import styles from '../styles/product.module.css';
 import productService from "../services/productService";
 import bookingService from "../services/bookingService";
 import {IoChevronBack} from 'react-icons/io5'
@@ -60,17 +61,20 @@ function Product({children}){
             bookingService
             .getBookingsByProdId(idProducto, abortController.signal)
             .then(response => {
-                const datesArray = response.data?.map(item => {
+                let datesArray = response.data?.map(item => {
                     const initialDate = new Date(`${item.initialDate} EDT`);
                     return {
                         start: initialDate.setDate(initialDate.getDate() - 1),
                         end: new Date(`${item.finalDate} EDT`)
                     }
                 })
+                datesArray = datesArray.sort((a, b) => moment(a.start).diff(moment(b.start)));
                 setBookedDates(datesArray);
                 setIsCalendarLoaded(true);
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                setIsCalendarLoaded(true);
+                console.log(error)})
 
             return () => abortController.abort();
         }

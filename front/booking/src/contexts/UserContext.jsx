@@ -17,6 +17,18 @@ const UserContextProvider = ({children}) => {
         setAuthUser (user);
         return true
       } }
+
+  const onRegisterClicked = async (e, values) => {
+    const user = await userService.add(values);
+    if(user.status === 401){
+      return false
+    }else{
+        const loginUser = await userService.authorization ({email: values.email, password: values.password})
+        window.localStorage.setItem ("user", JSON.stringify(loginUser))
+        setAuthUser (loginUser);
+        return true
+    }
+  }
            
       
   const onLogoutClicked = () => {
@@ -33,7 +45,7 @@ const UserContextProvider = ({children}) => {
   }, [])
 
   return (
-      <Context.Provider value={{authUser, onLoginClicked, onLogoutClicked}}>
+      <Context.Provider value={{authUser, onLoginClicked, onLogoutClicked, onRegisterClicked}}>
           {children}
       </Context.Provider>
   )
