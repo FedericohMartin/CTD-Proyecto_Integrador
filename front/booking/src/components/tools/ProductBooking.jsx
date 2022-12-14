@@ -19,6 +19,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCale
         userId: "",
         name: "",
         surname: "",
+        userEmail: "",
         city: "",
         initialDate: null,
         finalDate: null,
@@ -217,8 +218,8 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCale
                             <input type="text" value={bookingFormData?.surname} onChange={onFormFieldChange} name="surname" disabled/>
                         </div>
                         <div>
-                            <label htmlFor="email">Correo electronico</label>
-                            <input type="text" value={bookingFormData?.email} onChange={onFormFieldChange} name="email" disabled/>
+                            <label htmlFor="userEmail">Correo electronico</label>
+                            <input type="text" value={bookingFormData?.userEmail} onChange={onFormFieldChange} name="userEmail" disabled/>
                         </div>
                         <div>
                             <label htmlFor="city">Ciudad</label>

@@ -24,9 +24,13 @@ const UserContextProvider = ({children}) => {
       return false
     }else{
         const loginUser = await userService.authorization ({email: values.email, password: values.password})
-        window.localStorage.setItem ("user", JSON.stringify(loginUser))
-        setAuthUser (loginUser);
-        return true
+        if(loginUser.status === 401){
+          window.localStorage.setItem ("user", JSON.stringify(loginUser))
+          setAuthUser (loginUser);
+          return true
+        }else {
+          return false;
+        }
     }
   }
            

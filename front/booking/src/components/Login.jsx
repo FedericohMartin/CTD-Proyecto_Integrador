@@ -55,7 +55,7 @@ function Login(props){
         } else if(valid.email === true && valid.password === true){
             const result = await onLoginClicked(e, formData);
             setLogin(result)
-            result && setisLoading(false);
+            setisLoading(false);
             result  && (state === null ? navigate("/") : navigate(`${state.pathname}`));
         }
      }
