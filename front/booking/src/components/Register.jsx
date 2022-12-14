@@ -4,7 +4,7 @@ import {Link, useNavigate, useLocation} from 'react-router-dom'
 import styles from '../styles/register.module.css'
 import { FaEyeSlash, FaEye, FaSpinner } from "react-icons/fa";
 
-function Register(){
+function Register(props){
     const [showPass, setShowPass] = useState(false);
     const [isLoading, setisLoading] = useState(false);
     const [valid, setvalid] =useState({
@@ -29,6 +29,7 @@ function Register(){
      });
      const { onRegisterClicked } = useContext(Context);
      const { state } = useLocation();
+     console.log(state);
 
      const navigate = useNavigate();
 
@@ -68,7 +69,7 @@ function Register(){
             setisLoading(false);
         } else if(valid.email === true && valid.password === true && valid.name === true && valid.surname === true){
             const result = await onRegisterClicked(e, formData);
-            result && setisLoading(false);
+            setisLoading(false);
             result  && (state === null ? navigate("/") : navigate(`${state.pathname}`));
         }
      }

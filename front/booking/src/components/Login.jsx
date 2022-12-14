@@ -109,7 +109,7 @@ function Login(props){
                     {!valid.password && formData.password.length !== 0 && <span className={styles.warning}>Contraseña inválida, debe tener más de 5 caracteres</span>}
                     {!valid.password && formData.password.length === 0 && <span className={styles.warning}>Este dato es requerido</span>}
                     <button type="submit" className={styles.loginMobile} onClick={onSubmitClicked}>Ingresar</button>
-                    <span className={styles.loginMobile}>¿Aún no tenes cuenta? <Link to={"/signup"}>Registrate</Link> </span>
+                    <span className={styles.loginMobile}>¿Aún no tenes cuenta? <Link to={"/signup"} state={state}>Registrate</Link> </span>
                     {!login && login !== "" && <span className={`${styles.warning} ${styles.loginFail}`}>Credenciales inválidas, por favor vuelva a intentarlo</span>}
                 </form>
             </div>
