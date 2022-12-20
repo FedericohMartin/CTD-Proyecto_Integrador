@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import homeStyles from '../styles/home.module.css'
-import styles from '../styles/product.module.css'
+import moment from 'moment';
+import homeStyles from '../styles/home.module.css';
+import styles from '../styles/product.module.css';
 import productService from "../services/productService";
 import bookingService from "../services/bookingService";
 import {IoChevronBack} from 'react-icons/io5'
@@ -60,17 +61,20 @@ function Product({children}){
             bookingService
             .getBookingsByProdId(idProducto, abortController.signal)
             .then(response => {
-                const datesArray = response.data?.map(item => {
+                let datesArray = response.data?.map(item => {
                     const initialDate = new Date(`${item.initialDate} EDT`);
                     return {
                         start: initialDate.setDate(initialDate.getDate() - 1),
                         end: new Date(`${item.finalDate} EDT`)
                     }
                 })
+                datesArray = datesArray.sort((a, b) => moment(a.start).diff(moment(b.start)));
                 setBookedDates(datesArray);
                 setIsCalendarLoaded(true);
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                setIsCalendarLoaded(true);
+                console.log(error)})
 
             return () => abortController.abort();
         }
@@ -94,27 +98,35 @@ function Product({children}){
                 {isLoaded
                 ?<div>
                     <div>
-                        <h3>Normas</h3>
+                        <h3>Cobertura Parcial de Daños por Colisión</h3>
                         <ul>
-                            <li key={`policy-10`}>Hola</li>
-                            <li key={`policy-11`}>Hola</li>
-                            <li key={`policy-12`}>Hola</li>
+                            <li key={`policy-10`}>La exención de daños por colisión es un servicio opcional que, si se acepta, reduce su responsabilidad financiera por daños o robo del vehículo, sus piezas y accesorios, siempre que el vehículo se utilice de acuerdo con los términos y condiciones del contrato de alquiler. El seguro incluye la Protección contra Robo.</li>
+                            <li key={`policy-11`}>Si el seguro es rechazado, usted será responsable hasta el valor total de reposición del vehículo, incluyendo cualquier gasto de remolque, tasas de incautación de almacenamiento, una tasa administrativa, honorarios legales y un cargo razonable por la pérdida de uso.</li>
+                            <li key={`policy-12`}></li>
                         </ul>
                     </div>
                     <div>
-                        <h3>Normas</h3>
+                        <h3>Combustible</h3>
                         <ul>
-                            <li key={`policy-13`}>Hola</li>
-                            <li key={`policy-14`}>Hola</li>
-                            <li key={`policy-15`}>Hola</li>
+                            <li key={`policy-13`}>Las tarifas de no incluyen el combustible.</li>
+                            <li key={`policy-14`}>Todos nuestros vehículos se entregan con el depósito de combustible lleno. En caso de no devolver el vehículo en las mismas condiciones se aplicará unn cargo por servicio de repostaje además del cargo por el combustible repostado</li>
+                            <li key={`policy-15`}></li>
                         </ul>
                     </div>
                     <div>
-                        <h3>Normas</h3>
+                        <h3>Politica de llegada con Retraso</h3>
                         <ul>
-                            <li key={`policy-15`}>Hola</li>
-                            <li key={`policy-16`}>Hola</li>
-                            <li key={`policy-17`}>Hola</li>
+                            <li key={`policy-15`}>Si realiza una reserva en la que se especifica un lugar de recogida y no llega al lugar de recogida especificado para el alquiler en las dos horas siguientes a la hora de recogida especificada (o si el lugar cierra antes, a la hora de cierre del lugar), la reserva caducará.</li>
+                            <li key={`policy-16`}></li>
+                            <li key={`policy-17`}></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Conductores autorizados y adicionales</h3>
+                        <ul>
+                            <li key={`policy-15`}>La persona nombrada en la reserva debe ser el conductor principal, presente en el momento del alquiler y pagador de los gastos de alquiler.</li>
+                            <li key={`policy-16`}>Es posible contar con operadores adicionales con una tarifa de 3,00 USD por día con un máximo de 30,00 USD por alquiler y por conductor adicional.</li>
+                            <li key={`policy-17`}></li>
                         </ul>
                     </div>
                 </div>

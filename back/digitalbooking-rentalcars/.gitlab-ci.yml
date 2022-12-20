@@ -24,7 +24,7 @@ build-back:
         paths:
             - back/digitalbooking-rentalcars/target/consoleapp.jar
     only:
-        - pipeline_para_CI-CD  # main
+        - dev
 
 deploy-back:
     stage: deploy
@@ -44,7 +44,7 @@ deploy-back:
     script:
         - echo "Deploying started..."
         - ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
-        - scp -o StrictHostKeyChecking=no back/digitalbooking-rentalcars/target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:~/console-app/
+        - scp -o StrictHostKeyChecking=no back/digitalbooking-rentalcars/target/consoleapp.jar ubuntu@$DEPLOY_SERVER_IP:/home/ubuntu/
         - ssh -o StrictHostKeyChecking=no ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
         # - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl stop consoleapp.service"
         # - ssh ubuntu@$DEPLOY_SERVER_IP "pwd && ls -la"
@@ -52,4 +52,4 @@ deploy-back:
         # - ssh ubuntu@$DEPLOY_SERVER_IP "sudo systemctl start consoleapp.service"
         - echo "Finished deploying the app."
     only:
-        - pipeline_para_CI-CD  # main
+        - dev

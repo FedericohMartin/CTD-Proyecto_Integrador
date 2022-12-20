@@ -49,17 +49,19 @@ function Categories(props) {
     }
 
     const categoryMapper = (category) => (
-        <div
-            key={`category-${category.id}`}
-            className={style.card}
-            onClick={() => {
-                props.onParentClicked(category.id);
-            }}
-        >
-            <img src={category.imgUrl} alt="imagen categoria" />
-            <h3>{category.title}</h3>
-            <p>{category.description}</p>
-        </div>
+        <a href="#recomendations" className={style.card}>
+            <div
+                key={`category-${category.id}`}
+                className={style.card}
+                onClick={() => {
+                    props.onParentClicked(category.id);
+                }}
+            >
+                <img src={category.imgUrl} alt="imagen categoria" />
+                <h3>{category.title}</h3>
+                <p>{category.description}</p>
+            </div>
+        </a>
     )
 
     const filterImages = (image) => {
@@ -81,6 +83,7 @@ function Categories(props) {
             onParentShowMoreClicked={() => {
                 goToPage(product.id);
             }}
+            firstButtonLabel={"Ver más"}
         />)}, [goToPage])
 
     const onNextClicked = () => {
@@ -117,7 +120,7 @@ function Categories(props) {
                     {props.categoriesLoaded ? props.categories.map(categoryMapper) : loaders.map(loaderMapper)}
                 </div>
             </div>
-            <div className={style.recomendations}>
+            <div className={style.recomendations} id="recomendations">
                 <div className={style.subtitle}>
                     <h2>Recomendaciones</h2>
                 </div>

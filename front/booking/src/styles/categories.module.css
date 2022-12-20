@@ -21,6 +21,7 @@
     min-width: 285px;/*324px SACAR*/
     margin-top: 0.625rem;
     height: 35vh;
+    text-decoration: none;
 }
 
 .categoriesContainer .card img {

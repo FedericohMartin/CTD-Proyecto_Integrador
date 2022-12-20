@@ -6,9 +6,15 @@ function Card(props) {
   const onLocalShowMoreClicked = () => {
     props.onParentShowMoreClicked();
   }
+  
+  const onLocalActionClicked = () => {
+    props.onParentActionclicked(props.id);
+  }
+
+
   return (
     <>
-      <div className={style.card}>
+      <div className={`${style.card} ${props.customCard}`}>
         <div className={style.card_left}>
           <img
             src={props.img}
@@ -23,12 +29,21 @@ function Card(props) {
           <p className={style.location}>{props.location}</p>
           <p className={style.title}>{props.title}</p>
           <p className={style.description}>{props.description}</p>
-          <button
-            className={style.buttonCard}
-            onClick={onLocalShowMoreClicked}
-          >
-            Ver más
-          </button>
+          <div className={props.buttonContainer}>
+            <button
+              className={`${style.buttonCard} ${props.customButtonStyle}`}
+              onClick={onLocalShowMoreClicked}
+            >
+              {props.firstButtonLabel}
+            </button>
+            {props.actionButtonLabel && 
+            <button
+              className={`${style.buttonCard} ${props.actionButton}`}
+              onClick={onLocalActionClicked}
+            >
+              {props.actionButtonLabel}
+            </button>}
+          </div>
         </div>
       </div>
     </>

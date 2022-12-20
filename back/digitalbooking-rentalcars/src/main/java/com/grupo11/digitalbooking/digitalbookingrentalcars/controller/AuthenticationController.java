@@ -37,19 +37,19 @@ public class AuthenticationController {
             throws Exception{
         System.out.println(authenticationDTORequest);
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTORequest.getUsername(), authenticationDTORequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTORequest.getEmail(), authenticationDTORequest.getPassword()));
         }catch (BadCredentialsException e) {
             throw new Exception("Incorrect", e);
         }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTORequest.getUsername());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTORequest.getEmail());
         final String jwt = jwtService.generateToken(userDetails);
-        final Integer id = user.userId(authenticationDTORequest.getUsername());
-        final String name = user.userName(authenticationDTORequest.getUsername());
-        final String surname = user.userSurname(authenticationDTORequest.getUsername());
-        final String userCity = user.userCity(authenticationDTORequest.getUsername());
-        final String email = user.userEmail(authenticationDTORequest.getUsername());
-        final String role = user.userRole(authenticationDTORequest.getUsername());
+        final Integer id = user.userId(authenticationDTORequest.getEmail());
+        final String name = user.userName(authenticationDTORequest.getEmail());
+        final String surname = user.userSurname(authenticationDTORequest.getEmail());
+        final String userCity = user.userCity(authenticationDTORequest.getEmail());
+        final String email = user.userEmail(authenticationDTORequest.getEmail());
+        final String role = user.userRole(authenticationDTORequest.getEmail());
         return ResponseEntity.ok(new AuthenticationDTOResponse((jwt), id, name, surname, userCity, email, role));
     }
 }

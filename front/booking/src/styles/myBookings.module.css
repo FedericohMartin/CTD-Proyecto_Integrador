@@ -1,0 +1,175 @@
+.myBookingsLoader{
+    align-items: center;
+    position: absolute;
+    background-color: rgb(96, 125, 139,.1);
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    z-index: 999;
+}
+
+.myBookingsLoader .loadSpinner{
+    color: rgb(96, 125, 139);
+    height: 6rem;
+    width: 6rem;
+    animation: spin 2s linear infinite;
+}
+
+.myBookingsContainer{
+    color: #607D8B;
+    text-align: left;
+    overflow: scroll;
+}
+
+.myBookingsContainer h4{
+    margin: 2.5625rem 0 1.4375rem 0;
+    width: 94%;
+}
+
+.myBookingsContainer .myBookingsHeader{
+    align-items: center;
+    background-color: #607D8B;
+    color: #FFFFFF;
+    display: flex;
+    font-weight: 700;
+    justify-content: space-between;
+    margin: 0 0 2rem 0;
+    width: 100%
+}
+
+.myBookingsContainer .myBookingsHeader>div{
+    width: 50%;
+}
+
+.myBookingsContainer .myBookingsHeader>div h4{
+    margin: 1.0625rem 2.6rem 0.9375rem 2.6875rem;
+}
+
+.myBookingsContainer .backIcon{
+    color: #FFFFFF;
+    font-size: 3rem;
+    margin-right: 3.0625rem;
+}
+
+.myBookingsContainer .card{
+    box-shadow: .1rem .4rem .4rem rgba(0, 0, 0, 0.25);
+    overflow: visible;
+    width: 90%;
+}
+
+.myBookingsContainer .card .buttonContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.myBookingsContainer .card button{
+    width: 49%;
+}
+
+.myBookingsContainer .card .showMore{
+    background-color: transparent;
+    border: .1rem solid #FBC02D;
+    color: #FBC02D;
+}
+
+.myBookingsContainer .card .showMore:hover{
+    background-color: #FBC02D;
+    color: #FFFF;
+}
+
+.myBookingsContainer .card .actionButton{
+    background-color: transparent;
+    border: .1rem solid #dc3545;
+    color: #dc3545;
+}
+
+.myBookingsContainer .card .actionButton:hover{
+    background-color: rgb(220, 53, 69);
+    color: #FFFF;
+}
+
+.myBookingsContainer .noBookings{
+    align-items: center;
+    color: #263238;
+    display: flex;
+    font-weight: 500;
+    flex-direction: column;
+    margin-bottom: 10rem;
+}
+
+.myBookingsContainer .noBookingsIcon{
+    color: #FBC02D;
+    height: 4rem;
+    width: 4rem;
+}
+
+.myBookingsContainer .noBookings .homeButton{
+    background-color: transparent;
+    border: .1rem solid #FBC02D;
+    border-radius: 0.3125rem;
+    color: #FBC02D;
+    margin: 1rem 0 0 0;
+    width: 50%;
+    text-decoration: none;
+    text-align: center;
+}
+
+.myBookingsContainer .noBookings .homeButton:hover{
+    background-color: #FBC02D;
+    color: #FFFF;
+}
+
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+
+@media screen and (max-width:920px) {
+    .myBookingsContainer .myBookingsHeader>div h4{
+        margin: 1.0625rem 2.6rem 0.9375rem 1.3rem;
+    }
+
+    .myBookingsContainer .backIcon{
+        margin-right: 1.3rem;
+    }
+
+}
+
+@media screen and (max-width: 550px) {
+    .myBookingsLoader .loadSpinner{
+        height: 4rem;
+        width: 4rem;
+    }
+
+    .myBookingsContainer .myBookingsHeader>div{
+        width: 70%;
+    }
+
+    .myBookingsContainer .myBookingsHeader>div h4{
+        margin: 1.0625rem 2.6rem 0.9375rem 0.5625rem;
+    }
+
+    .myBookingsContainer .backIcon{
+        margin-right: 0.5625rem;
+    }
+
+    .myBookingsContainer .card>div:nth-child(1){
+        min-width: 0;
+    }
+    
+
+}
+
+@media screen and (max-width:280px) {
+    .myBookingsContainer .card{
+        min-height: 80vh;
+    }
+}

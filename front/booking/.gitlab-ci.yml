@@ -8,6 +8,7 @@ variables:
   AWS_REGION: $AWS_REGION
   DEFAULT_OUTPUT_FORMAT: $DEFAULT_OUTPUT_FORMAT
   DEV_S3_BUCKET: $DEV_S3_BUCKET
+  PROD_S3_POINT_ACCESS: $PROD_S3_POINT_ACCESS
   PROD_S3_BUCKET: $PROD_S3_BUCKET
 
 build_dev-front:
@@ -25,7 +26,7 @@ build_dev-front:
       - front/booking/build
   only:
     refs:
-      - pipeline_para_CI-CD  # dev
+      - dev
 
 build_prod-front:
   stage: build
@@ -43,7 +44,7 @@ build_prod-front:
       - front/booking/build
   only:
     refs:
-      - pipeline_para_CI-CD # main
+      - dev # main
 
 .deploy_aws:
   image: python:latest
@@ -58,20 +59,24 @@ build_prod-front:
     
 deploy_dev:
   stage: run
-  image: python:latest
+  image: python:3.7
   dependencies:
     - build_dev-front
   #when: manual
   script:
     - pwd && ls -la
+    - python3.7 -m pip install --upgrade pip==22.1.0
+    - pip --version
+    # - python -m pip install --root-user-action=ignore
+    - pip install --root-user-action=ignore requests
     - pip3 install awscli
     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-    - aws s3 sync ./front/booking/build/ s3://DEV_S3_BUCKET --acl public-read
+    - aws s3 cp --recursive ./front/booking/build/ s3://{PROD_S3_BUCKET} --acl public-read
     
   only:
     refs:
-      - pipeline_para_CI-CD   # dev
+      - dev
 
 deploy_prod:
   extends: .deploy_aws
@@ -82,4 +87,4 @@ deploy_prod:
     - export S3_BUCKET=${PROD_S3_BUCKET}
   only:
     refs:
-      - pipeline_para_CI-CD  # main
+      - dev  # main

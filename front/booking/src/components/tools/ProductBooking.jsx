@@ -15,10 +15,11 @@ const hours = Array.from({length: 24}, (_, i) => {let a = i-1
                                                 
 function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCalendarLoaded}){
     const [bookingFormData, setBookingFormData] = useState({
+        jwt: "",
         userId: "",
         name: "",
-        lastName: "",
-        email: "",
+        surname: "",
+        userEmail: "",
         city: "",
         initialDate: null,
         finalDate: null,
@@ -142,7 +143,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCale
             const bookingPromise = await bookingService.add(payload);
             
             if(bookingPromise.data){
-                navigate('booking-confirm'); 
+                navigate('reserva-exitosa'); 
             }else{
                 setbookingFailed(true);
                 onSubmitclicked();
@@ -153,7 +154,7 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCale
     useEffect(() => {
         if(authUser){
             setBookingFormData((prevState) => {
-                return {...prevState, ...authUser, password: null};
+                return {...prevState, ...authUser, userId: authUser.id};
             })
         }
     }, [authUser]);
@@ -213,12 +214,12 @@ function ProductBooking({product, isLoaded, onSubmitclicked, bookedDates, isCale
                             <input type="text" value={bookingFormData?.name} onChange={onFormFieldChange} name="name" disabled/>
                         </div>
                         <div>
-                            <label htmlFor="lastName">Apellido</label>
-                            <input type="text" value={bookingFormData?.lastName} onChange={onFormFieldChange} name="lastName" disabled/>
+                            <label htmlFor="surname">Apellido</label>
+                            <input type="text" value={bookingFormData?.surname} onChange={onFormFieldChange} name="surname" disabled/>
                         </div>
                         <div>
-                            <label htmlFor="email">Correo electronico</label>
-                            <input type="text" value={bookingFormData?.email} onChange={onFormFieldChange} name="email" disabled/>
+                            <label htmlFor="userEmail">Correo electronico</label>
+                            <input type="text" value={bookingFormData?.userEmail} onChange={onFormFieldChange} name="userEmail" disabled/>
                         </div>
                         <div>
                             <label htmlFor="city">Ciudad</label>

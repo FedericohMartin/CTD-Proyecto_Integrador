@@ -1,27 +1,40 @@
 import { createContext, useState, useEffect } from "react";
+import userService from "../services/userService";
+
 
 const Context = createContext()
-
-const user = {
-  userId: 2,
-  name: "Pedro",
-  lastName: "Picapiedra",
-  email: "pedro.p@domain.com",
-  password: "pedrit0elMejor",
-  role: "ADMIN",
-}
 
 const UserContextProvider = ({children}) => {
   const [authUser, setAuthUser] = useState();
 
-  const onLoginClicked = (e, values) => {
-    if(values.email === user.email && values.password === user.password){
-      window.localStorage.setItem("user", JSON.stringify(user))
-      setAuthUser(user);
-      return true
-    } else {return false}
-  }
 
+  const onLoginClicked = async (e, values) => {
+      const user = await userService.authorization (values) 
+      if ( user.status === 401) {
+        return false
+      } else {
+        window.localStorage.setItem ("user", JSON.stringify(user))
+        setAuthUser (user);
+        return true
+      } }
+
+  const onRegisterClicked = async (e, values) => {
+    const user = await userService.add(values);
+    if(user.status === 401){
+      return false
+    }else{
+        const loginUser = await userService.authorization ({email: values.email, password: values.password})
+        if(loginUser.status === 401){
+          return false;
+        }else {
+          window.localStorage.setItem ("user", JSON.stringify(loginUser))
+          setAuthUser (loginUser);
+          return true;
+        }
+    }
+  }
+           
+      
   const onLogoutClicked = () => {
     localStorage.removeItem("user");
     setAuthUser(null);
@@ -36,10 +49,13 @@ const UserContextProvider = ({children}) => {
   }, [])
 
   return (
-      <Context.Provider value={{authUser, onLoginClicked, onLogoutClicked}}>
+      <Context.Provider value={{authUser, onLoginClicked, onLogoutClicked, onRegisterClicked}}>
           {children}
       </Context.Provider>
   )
 }
 
 export {Context, UserContextProvider};
+
+
+

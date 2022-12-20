@@ -38,10 +38,11 @@ function Header(props){
      }
 
      useEffect(() => {
-        if(authUser){
+        const timer = setTimeout(() => {
             setIsLoaded(true);
-        }
-     }, [authUser]);
+          }, 1500);
+          return () => clearTimeout(timer);
+     }, []);
 
      if(!isLoaded){
         return(
@@ -57,17 +58,21 @@ function Header(props){
         <header className={styles.headerContainer}>
             <div className={styles.headerItem}>
                 <Link to={"/"}><img src={logo} alt="Logo" /></Link>
-                <Link to={"/"} style={{ textDecoration: 'none' }}><div className={`${styles.hide} ${styles.hideT}`}>Some awesome slogan</div></Link>
+                <Link to={"/"} style={{ textDecoration: 'none' }}><div className={`${styles.hide} ${styles.hideT}`}>Pistea a tu estilo</div></Link>
             </div>
             {authUser?.name 
                 ? <div className={styles.nameItem}>
-                    {authUser?.role === "ADMIN" && 
-                    <div className={styles.admContainer}>
+                    {authUser?.role === "ADMIN" 
+                    ? <div className={styles.admContainer}>
                         <div><Link to={"/administracion"} style={{ textDecoration: 'none' }}>Administración</Link></div>
                         <span className={styles.admSeparator}></span>
+                    </div>
+                    : <div className={styles.admContainer}>
+                        <div><Link to={"/mis-reservas"} style={{ textDecoration: 'none' }}>Mis reservas</Link></div>
+                        <span className={styles.admSeparator}></span>
                     </div>}
-                    <div className={styles.hide} id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.lastName}`)}</div>
-                    <div className={styles.hide}>Hola, <br/> <span>{` ${authUser?.name} ${authUser?.lastName}`}</span></div>
+                    <div className={styles.hide} id={styles.avatar}>{getInitials(`${authUser?.name} ${authUser?.surname}`)}</div>
+                    <div className={styles.hide}>Hola, <br/> <span>{` ${authUser?.name} ${authUser?.surname}`}</span></div>
                     <FaRegWindowClose className={`${styles.logoutIcon} ${styles.hide}`} onClick={onLocalLogoutClicked} />
                     <img onClick={onLocalMenuClicked} src={menuIcon} className={`${styles.btn} ${styles.menuIcon}`} alt="Menu-icon" />
                   </div> 

@@ -1,4 +1,4 @@
-const endpoint = "http://ec2-3-20-74-75.us-east-2.compute.amazonaws.com/cities";
+const endpoint = "http://ec2-3-20-74-75.us-east-2.compute.amazonaws.com:8080/cities";
 
 const getAll = (signal) => {
     const config = {
